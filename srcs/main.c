@@ -50,18 +50,22 @@ void add_new(t_array **ptr, char **av)
     ft_lst_add_back(ptr, new);
 }
 
-void compare_1(t_array *ptr)
+void compare_1(t_array **ptr)
 {
     t_array *tmp;
     int i = 0;
     int j = 0;
-    tmp = ptr;
+    tmp = *ptr;
     while (tmp->arg[i])
     {
-        j = tmp->size - i -1;
-        if(ft_atoi(tmp->arg[j]) < ft_atoi(tmp->arg[tmp->size - 1]))
+        j = tmp->size - i - 1;
+        if (ft_atoi(tmp->arg[j]) < ft_atoi(tmp->arg[tmp->size - 1]))
         {
-            ft_putstr_fd(tmp->arg[j],1);
+            puts(tmp->arg[j]);
+        }
+        else
+        {
+            
         }
         i++;
     }
@@ -72,14 +76,17 @@ int main(int ac, char **ag)
     t_array *ptr = NULL;
     add_new(&ptr, &ag[1]);
     int i = 0;
-    add_new(&ptr,&ag[1]);
-    compare_1(ptr);
+    add_new(&ptr, &ag[1]);
+    compare_1(&ptr);
     // ft_putstr_fd("HELLO",1);
-    // while (i < ptr->size)
+    // while (ptr)
     // {
-    //     printf("%s", ptr->arg[i++]);
-    // }
-    // ptr = ptr->next;
+    //     while (i < ptr->size)
+    //     {
+    //         printf("%s", ptr->arg[i++]);
+    //     }
+    //     puts("");
+    //     ptr = ptr->next;
     // }
     //
 }
