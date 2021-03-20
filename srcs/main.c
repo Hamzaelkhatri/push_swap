@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
+#include "push_swap.h"
 
 typedef struct s_array
 {
@@ -36,14 +33,14 @@ void ft_lst_add_back(t_array **ptr, t_array *new)
     }
 }
 
-void init(t_array **ptr, char **av)
+void add_new(t_array **ptr, char **av)
 {
     t_array *new;
     int size = size_arg(av);
     if (!(new = malloc(sizeof(t_array))))
-        puts("FUCK");
+        puts("malloc error");
     if (!(new->arg = malloc(sizeof(char *) * (size + 1))))
-        puts("fuck2");
+        puts("malloc error");
     new->next = NULL;
     new->prev = NULL;
     new->size = size;
@@ -53,27 +50,36 @@ void init(t_array **ptr, char **av)
     ft_lst_add_back(ptr, new);
 }
 
+void compare_1(t_array *ptr)
+{
+    t_array *tmp;
+    int i = 0;
+    int j = 0;
+    tmp = ptr;
+    while (tmp->arg[i])
+    {
+        j = tmp->size - i -1;
+        if(ft_atoi(tmp->arg[j]) < ft_atoi(tmp->arg[tmp->size - 1]))
+        {
+            ft_putstr_fd(tmp->arg[j],1);
+        }
+        i++;
+    }
+}
+
 int main(int ac, char **ag)
 {
     t_array *ptr = NULL;
-    int i = 1;
-    if (ac >= 2)
-    {
-        while (ag[i])
-        {
-            init(&ptr,&ag[i]);
-            i++;
-        }
-    }
-    i = 0;
-    // while (ptr)
+    add_new(&ptr, &ag[1]);
+    int i = 0;
+    add_new(&ptr,&ag[1]);
+    compare_1(ptr);
+    // ft_putstr_fd("HELLO",1);
+    // while (i < ptr->size)
     // {
-        // i = 0;
-        // while (i < ptr->size)
-        // {
-            // printf("%s",ptr->arg[i++]);
-        // }
-        // ptr = ptr->next;
+    //     printf("%s", ptr->arg[i++]);
     // }
-    // 
+    // ptr = ptr->next;
+    // }
+    //
 }
