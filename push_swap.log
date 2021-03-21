@@ -1,0 +1,47 @@
+number : -3 -10 10 2 0 90 180 -20
+#try 1
+
+stack a : -3 -10 10 2 0 90 180 -20
+stack a : -20 -3 -10 10 2 0 90 180 ----> rra
+stack b : -20 ---> pb
+stack a : -3 -10 10 2 0 90 180 ----> sa
+stack a : -10 -3 10 2 0 90 180 ----> sa
+stack b : -10 -20 ---> pb
+stack a : -3 10 2 0 90 180 ----> sa
+stack b : -3 -10 -20 ---> pb
+stack a : 10 2 0 90 180 ----> rra
+stack a : 180 10 2 0 90 ----> rra
+stack a : 90 180 10 2 0 ----> rra
+stack a : 0 90 180 10 2 ----> rra
+stack b : 0 -3 -10 -20 ---> pb
+stack a : 90 180 10 2 ----> rra
+stack a : 2 90 180 10 ----> rra
+stack b : 2 0 -3 -10 -20 ---> pb
+stack a : 90 180 10 ----> rra
+stack a : 10 90 180 ----> rra
+stack b : 10 2 0 -3 -10 -20 ---> pb
+stack b : 90 10 2 0 -3 -10 -20 ---> pb
+stack b : 180 10 2 0 -3 -10 -20 ---> pb
+
+#try 2
+
+stack a : -3 -10 10 2 0 90 180 -20 --> rra
+stack a : -20 -10 10 2 0 90 180 --> pb
+stack b : -20 ---> 
+stack a : -3 -10 10 2 0 90 180 --> sa
+stack a : -10 -3 10 2 0 90 180 --> pb
+stack b : -10 -20 ---> 
+stack a : -3 10 2 0 90 180 --> pb
+stack b : -3 -10 -20 ---> 
+stack a : 10 2 0 90 180 --> ra
+stack a : 2 0 90 180 10 --> ra
+stack a : 0 90 180 10 2 --> pb
+stack b : 0 -3 -10 -20 ---> 
+stack a : 90 180 10 2 --> rra
+stack a : 2 90 180 10 --> pb
+stack b : 2 0 -3 -10 -20 ---> 
+stack a : 10 90 180 --> rra
+stack a : 10 90 180 --> pb
+stack b : 10 2 0 -3 -10 -20 ---> 
+stack a : 90 180 -->
+stack b : 10 2 0 -3 -10 -20 ---> pb pb pb pb pb pb 
