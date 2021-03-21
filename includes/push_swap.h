@@ -13,7 +13,6 @@ typedef struct s_right
     int size;
     struct s_right *next;
     struct s_right *prev;
-    struct s_left *left;
 } t_right;
 
 typedef struct s_left
@@ -22,9 +21,10 @@ typedef struct s_left
     int size;
     struct s_left *next;
     struct s_left *prev;
-    struct s_right *right;
+
 } t_left;
 
+//stack a
 typedef struct s_array
 {
     char **arg;
@@ -34,5 +34,25 @@ typedef struct s_array
     struct s_array *prev;
     int size;
 } t_array;
+
+typedef struct s_stacka
+{
+    char **arg;
+    int indice;
+    int size;
+    int minvalue;
+    int firstnumber;
+    struct s_stacka *next;
+} t_stacka;
+
+typedef struct s_stackb
+{
+    char **arg;
+    int indice;
+    int size;
+    int minvalue;
+    int firstnumber;
+    struct s_stackb *next;
+} t_stackb;
 
 #endif
