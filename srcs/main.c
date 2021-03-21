@@ -307,8 +307,31 @@ t_stackb *push_b(t_stacka *ptr)
     return (new);
 }
 
-void add_first(t_stacka *ptr)
+void add_first(t_stackb *ptr, char *number)
 {
+    // t_stackb *tmp = NULL;
+    char **av = NULL;
+    int size = size_arg(ptr->arg) + 1;
+    ft_putnbr_fd(size, 1);
+    if (!(av = malloc(sizeof(char *) + (size + 1))))
+        puts("malloc");
+    // ft_bzero(av, sizeof(char *) + size + 1);
+    ptr->size = size + 1;
+    av[size] = NULL;
+    av[0] = ft_strdup(number);
+    // size = size - 1;
+    // puts(av[0]);
+    int i = 1;
+    int j = 0;
+    while (ptr->arg[j])
+    {
+        // ft_putnbr_fd(size, 1);
+        av[i] = ft_strdup(ptr->arg[j]);
+        j++;
+        i++;
+    }
+    // free_2d(ptr->arg);
+    ptr->arg = av;
 }
 
 void swap_a(t_stacka *ptr)
@@ -332,18 +355,24 @@ int main(int ac, char **ag)
         add_new(&a, &ag[i]);
         get_min(&a);
         rra(a);
-        ra(a);
+        // ra(a);
         b = push_b(a);
         // while (ag[i])
-        {
-            print_2(a->arg);
-            delete_min(a);
-            print_2(b->arg);
-            print_2(a->arg);
+        // {
+        //     print_2(a->arg);
+        //     delete_min(a);
+        // print_2(b->arg);
+        //     print_2(a->arg);
 
-            i++;
-        }
-
+        //     i++;
+        // }
+        add_first(b, "10");
+        add_first(b, "20");
+        // add_first(b, "30");
+        // add_first(b, "40");
+        // add_first(b, "50");
+        // add_first(b, "60");
+        print_2(b->arg);
         // swap_a(ptr);
         // print_2(ptr->arg);
         // print(&ptr);
