@@ -234,9 +234,10 @@ void rra(t_stacka *ptr)
         }
         i++;
     }
-    if (ft_atoi(ptr->arg[0]) != ptr->minvalue)
+    if (ft_atoi(ptr->arg[0]) != ptr->lastnumber)
         rra(ptr);
     ptr->firstnumber = ft_atoi(ptr->arg[0]);
+    ptr->lastnumber = ft_atoi(ptr->arg[i - 1]);
 }
 
 void ra(t_stacka *ptr)
@@ -274,8 +275,8 @@ void delete_min(t_stacka *ptr)
         ptr->arg[i] = (ptr->arg[i + 1]);
         i++;
     }
-    free(ptr->arg[i + 1]);
-    ptr->arg[i] = NULL;
+    // free(ptr->arg[i + 1]);
+    // ptr->arg[i + 1] = NULL;
 }
 
 void clear_b(t_stackb *ptr)
@@ -315,32 +316,35 @@ void get_min(t_stacka **ptr)
     }
 
     tmp->minvalue = min;
+    tmp->size = i;
     tmp->indice = index;
+    // ft_putstr_fd(tmp->arg[i - 1], 1);
+    tmp->lastnumber = ft_atoi(tmp->arg[i - 1]);
     tmp->firstnumber = ft_atoi(tmp->arg[0]);
 }
 
 void add_first(t_stackb *ptr, char *number);
-t_stackb *push_b(t_stacka *ptr, t_stackb *new)
+t_stackb *push_b(t_stacka *ptr, t_stackb **new)
 {
     int size;
     char **av;
     ft_putendl_fd("pb", 1);
-    if (!new)
+    if (!*new)
     {
-        if (!(new = malloc(sizeof(t_stackb))))
+        if (!(*new = malloc(sizeof(t_stackb))))
             puts("malloc");
-        if (!(new->arg = malloc(sizeof(char *) * 2)))
+        if (!((*new)->arg = malloc(sizeof(char *) * 2)))
             puts("malloc");
-        ft_bzero(new->arg, sizeof(char *));
-        new->arg[0] = ft_strdup(ptr->arg[0]);
-        new->arg[1] = NULL;
-        new->next = NULL;
-        new->size = 1;
-        new->indice = 0;
-        return (new);
+        ft_bzero((*new)->arg, sizeof(char *));
+        (*new)->arg[0] = ft_strdup(ptr->arg[0]);
+        (*new)->arg[1] = NULL;
+        (*new)->next = NULL;
+        (*new)->size = 1;
+        (*new)->indice = 0;
+        return ((*new));
     }
     else
-        add_first(new, ptr->arg[0]);
+        add_first(*new, ptr->arg[0]);
     return (NULL);
 }
 
@@ -422,62 +426,75 @@ int main(int ac, char **ag)
     int c = 0;
 
     t_stackb *b = NULL;
+    // print_2(ag);
+    // ft_putnbr_fd(size_arg(ag))
     if (ac >= 2)
     {
         add_new(&a, &ag[i]);
         get_min(&a);
-        rra_extra(a);
-        b = push_b(a, b);
-        delete_min(a);
-        if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[1]))
-            swap_a(&a);
-        push_b(a, b);
-        delete_min(a);
-        push_b(a, b);
+        while (a->arg[0])
+        {
+            while (ft_atoi(a->arg[0]) != a->minvalue)
+                rra_extra(a);
+            push_b(a, &b);
+            delete_min(a);
+            if (!a->arg[0])
+                break;
+            get_min(&a);
+            // ft_putstr_fd("STACK A : ", 1);
+            // print_2(a->arg);
+            // ft_putstr_fd("STACK B : ", 1);
+            // print_2(b->arg);
 
-        delete_min(a);
-        get_min(&a);
-        // ft_putnbr_fd(a->minvalue, 1);
-        rra_extra(a);
-
-        push_b(a, b);
-
-        delete_min(a);
-        get_min(&a);
-        rra_extra(a);
-        // push_b(a, b);
-
-        if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[1]))
-            swap_a(&a);
-        push_b(a, b);
-        delete_min(a);
-        get_min(&a);
-        rra_extra(a);
-        if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[1]))
-            swap_a(&a);
-        push_b(a, b);
-        delete_min(a);
-        get_min(&a);
-        if (a->arg[1] && ft_atoi(a->arg[0]) > ft_atoi(a->arg[1]))
-            swap_a(&a);
-        add_first(b, a->arg[0]);
-        delete_min(a);
+            // i++;
+        }
         while (b->arg[c])
+        {
             push_a(a, b->arg[c++]);
+            // ft_putstr_fd("STACK A : ", 1);
+            // print_2(a->arg);
+            // ft_putstr_fd("STACK B : ", 1);
+            // print_2(b->arg);
+        }
         // free_2d(b->arg);
         // ft_putstr_fd("STACK A : ", 1);
         // print_2(a->arg);
         // ft_putstr_fd("STACK B : ", 1);
         // print_2(b->arg);
-        // while (ag[i])
-        // {
-        //     print_2(a->arg);
-        //     delete_min(a);
-        // print_2(b->arg);
-        //     print_2(a->arg);
+        // if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[1]))
+        // swap_a(&a);
+        // push_b(a, b);
+        // delete_min(a);
+        // push_b(a, b);
 
-        //     i++;
-        // }
+        // delete_min(a);
+        // get_min(&a);
+        // ft_putnbr_fd(a->minvalue, 1);
+        // rra_extra(a);
+
+        // push_b(a, b);
+
+        // delete_min(a);
+        // get_min(&a);
+        // rra_extra(a);
+        // push_b(a, b);
+
+        // if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[1]))
+        // swap_a(&a);
+        // push_b(a, b);
+        // delete_min(a);
+        // get_min(&a);
+        // rra_extra(a);
+        // if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[1]))
+        // swap_a(&a);
+        // push_b(a, b);
+        // delete_min(a);
+        // get_min(&a);
+        // if (a->arg[1] && ft_atoi(a->arg[0]) > ft_atoi(a->arg[1]))
+        // swap_a(&a);
+        // add_first(b, a->arg[0]);
+        // delete_min(a);
+
         // add_first(b, "10");
         // add_first(b, "20");
         // add_first(b, "30");

@@ -42,6 +42,7 @@ typedef struct s_stacka
     int size;
     int minvalue;
     int firstnumber;
+    int lastnumber;
     struct s_stacka *next;
 } t_stacka;
 
@@ -52,6 +53,7 @@ typedef struct s_stackb
     int size;
     int minvalue;
     int firstnumber;
+    int lastnumber;
     struct s_stackb *next;
 } t_stackb;
 
