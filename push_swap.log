@@ -45,3 +45,7 @@ stack b : 10 2 0 -3 -10 -20 --->
 stack a : 90 180 -->
 stack b : 10 2 0 -3 -10 -20 ---> pb pb pb pb pb pb
 stack a = -20 -10 -3 0 2 10 90 180 -----> result
+
+
+#test prog
+python3 pyviz.py `ruby -e "puts (-50..50).to_a.shuffle.join(' ')"`
