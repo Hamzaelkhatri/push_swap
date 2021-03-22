@@ -43,4 +43,5 @@ stack a : 10 90 180 --> rra
 stack a : 10 90 180 --> pb
 stack b : 10 2 0 -3 -10 -20 ---> 
 stack a : 90 180 -->
-stack b : 10 2 0 -3 -10 -20 ---> pb pb pb pb pb pb 
+stack b : 10 2 0 -3 -10 -20 ---> pb pb pb pb pb pb
+stack a = -20 -10 -3 0 2 10 90 180 -----> result
