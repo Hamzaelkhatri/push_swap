@@ -164,8 +164,8 @@ void print_2(char **av)
     int i = 0;
     while (av[i])
     {
-        ft_putstr_fd(av[i], 1);
         ft_putstr_fd("|", 1);
+        ft_putstr_fd(av[i], 1);
         i++;
     }
     ft_putstr_fd("\n", 1);
@@ -312,8 +312,8 @@ void add_first(t_stackb *ptr, char *number)
     // t_stackb *tmp = NULL;
     char **av = NULL;
     int size = size_arg(ptr->arg) + 1;
-    ft_putnbr_fd(size, 1);
-    if (!(av = malloc(sizeof(char *) + (size + 1))))
+    // ft_putnbr_fd(size, 1);
+    if (!(av = malloc(sizeof(char *) * (size + 1))))
         puts("malloc");
     // ft_bzero(av, sizeof(char *) + size + 1);
     ptr->size = size + 1;
@@ -330,7 +330,8 @@ void add_first(t_stackb *ptr, char *number)
         j++;
         i++;
     }
-    // free_2d(ptr->arg);
+    if (ptr->arg)
+        free_2d(ptr->arg);
     ptr->arg = av;
 }
 
@@ -367,7 +368,7 @@ int main(int ac, char **ag)
         //     i++;
         // }
         add_first(b, "10");
-        add_first(b, "20");
+        // add_first(b, "20");
         // add_first(b, "30");
         // add_first(b, "40");
         // add_first(b, "50");
