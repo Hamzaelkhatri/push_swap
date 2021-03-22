@@ -395,7 +395,6 @@ void push_a(t_stacka *ptr, char *number)
     int j = 0;
     while (ptr->arg[j])
     {
-        // ft_putnbr_fd(size, 1);
         av[i] = ft_strdup(ptr->arg[j]);
         j++;
         i++;
@@ -434,13 +433,19 @@ int main(int ac, char **ag)
         get_min(&a);
         while (a->arg[0])
         {
-            while (ft_atoi(a->arg[0]) != a->minvalue)
-                rra_extra(a);
+            if (a->arg[1] && a->minvalue == ft_atoi(a->arg[1]))
+                swap_a(&a);
+            else
+            {
+                while (ft_atoi(a->arg[0]) != a->minvalue)
+                    rra_extra(a);
+            }
             push_b(a, &b);
             delete_min(a);
-            if (!a->arg[0])
+            if (!a->arg[0] || a->size <= 2)
                 break;
             get_min(&a);
+            // ft_putnbr_fd(a->size, 1);
             // ft_putstr_fd("STACK A : ", 1);
             // print_2(a->arg);
             // ft_putstr_fd("STACK B : ", 1);
@@ -449,14 +454,8 @@ int main(int ac, char **ag)
             // i++;
         }
         while (b->arg[c])
-        {
             push_a(a, b->arg[c++]);
-            // ft_putstr_fd("STACK A : ", 1);
-            // print_2(a->arg);
-            // ft_putstr_fd("STACK B : ", 1);
-            // print_2(b->arg);
-        }
-        // free_2d(b->arg);
+        free_2d(b->arg);
         // ft_putstr_fd("STACK A : ", 1);
         // print_2(a->arg);
         // ft_putstr_fd("STACK B : ", 1);
