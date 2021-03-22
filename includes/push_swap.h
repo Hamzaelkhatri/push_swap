@@ -56,5 +56,17 @@ typedef struct s_stackb
     int lastnumber;
     struct s_stackb *next;
 } t_stackb;
-
+void add_first(t_stackb *ptr, char *number);
+void get_min(t_stacka **ptr);
+void ra(t_stacka *ptr);
+void rra(t_stacka *ptr);
+void rra_extra(t_stacka *ptr);
+void free_2d(char **av);
+void print_2(char **av);
+char **join_all(char **ptr, char *new);
+int size_arg(char **av);
+void add_new(t_stacka **ptr, char **av);
+void push_a(t_stacka *ptr, char *number);
+void swap_a(t_stacka **ptr);
+void swap_b(t_stackb **ptr);
 #endif

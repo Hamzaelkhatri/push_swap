@@ -44,8 +44,27 @@ stack a : 10 90 180 --> pb
 stack b : 10 2 0 -3 -10 -20 ---> 
 stack a : 90 180 -->
 stack b : 10 2 0 -3 -10 -20 ---> pb pb pb pb pb pb
-stack a = -20 -10 -3 0 2 10 90 180 -----> result
+stack a = -20 -10 -3 0 2 10 90 180 -----> result 18 instruction
 
+stack a : -3 -10 10 2 0 90 180 -20 --> 125(90) pb pb pb pb pb pb
+stack b : 90 -3 -10 10 2 0
+stack a : 180 -20 --> sa
+stack a : -20 180 ---> pb
+stack b : 90 -20 -3 -10 10 2 0 ---> 55(90) pa
+stack a : 90 180
+stack b : -20 -3 -10 10 2 0 ---> 1 + 4 + 11 + 31 + 23 +21 ---> 45(31) + avg
+stack b : -20 -3 -10 10 2 0 ---> 1 + 4 + 11 + 31 + 23 +21 rra rra rra 
+stack b : 10 2 0 -20 -3 -10 pa
+stack a : 10 90 180
+stack b : 2 0 -20 -3 -10 ---> 33+31+11+28+21 ---> 62(33) pa + avg
+stack a : 2 10 90 180
+stack b : 0 -20 -3 -10 --->  16 -4 13 6  ----> 16(16)  pa + avg
+stack a : 0 2 10 90 180
+stack b : -20 -3 -10 --->  -4 13 6  ----> 16(13)  pa + avg sa
+stack b : -3 -20 -10 --->  sb
+stack a : -3 2 10 90 180
+stack b : -20 -10 --->  sb pb pb
+stack a : -20 -10 -3 2 10 90 180 -----> result 20 instruction
 
 #test prog
 python3 pyviz.py `ruby -e "puts (-50..50).to_a.shuffle.join(' ')"`
