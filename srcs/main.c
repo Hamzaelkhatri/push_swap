@@ -36,6 +36,7 @@ void add_new(t_stacka **ptr, char **av)
     // new->left = NULL;
     // new->right = NULL;
     new->arg[size] = NULL;
+    new->lastnumber = ft_atoi(av[size - 1]);
     while (--size >= 0)
         new->arg[size] = ft_strdup(av[size]);
     ft_lst_add_back(ptr, new);
@@ -103,7 +104,78 @@ void rra_extra(t_stacka *ptr)
     rra(ptr);
 }
 
+void rrb_extra(t_stackb *ptr)
+{
+    ft_putendl_fd("rra", 1);
+    rrb(ptr);
+}
+
 void rra(t_stacka *ptr)
+{
+    int i;
+    char *tmp;
+    i = 0;
+    while (ptr->arg[i])
+    {
+        if (ptr->arg[i + 1])
+        {
+            tmp = (ptr->arg[i + 1]);
+            ptr->arg[i + 1] = ft_strdup(ptr->arg[i]);
+            ptr->arg[i] = tmp;
+        }
+        i++;
+    }
+    // puts(ft_itoa(ptr->lastnumber));
+    if (ft_atoi(ptr->arg[0]) != ptr->lastnumber)
+        rra(ptr);
+
+    ptr->firstnumber = ptr->lastnumber;
+    ptr->lastnumber = ft_atoi(ptr->arg[i - 1]);
+}
+
+void extra_ra(t_stacka *ptr)
+{
+    ft_putendl_fd("ra", 1);
+    ra(ptr);
+}
+
+void ra(t_stacka *ptr)
+{
+    int i = 0;
+    char *tmp;
+
+    if (!ptr->arg)
+        return;
+    while (ptr->arg[i])
+    {
+        if (ptr->arg[i + 1])
+        {
+            tmp = (ptr->arg[i]);
+            ptr->arg[i] = (ptr->arg[i + 1]);
+            ptr->arg[i + 1] = tmp;
+        }
+        i++;
+    }
+    if (ft_atoi(ptr->arg[i - 1]) != ptr->firstnumber)
+        ra(ptr);
+    ptr->firstnumber = ft_atoi(ptr->arg[0]);
+}
+
+void rrr(t_stacka *a, t_stackb *b)
+{
+    ft_putendl_fd("rrr", 1);
+    rrb(b);
+    rra(a);
+}
+
+void rr(t_stacka *a, t_stackb *b)
+{
+    ft_putendl_fd("rrr", 1);
+    rb(b);
+    ra(a);
+}
+
+void rrb(t_stackb *ptr)
 {
     int i;
     char *tmp;
@@ -119,19 +191,24 @@ void rra(t_stacka *ptr)
         i++;
     }
     if (ft_atoi(ptr->arg[0]) != ptr->lastnumber)
-        rra(ptr);
+        rrb(ptr);
     ptr->firstnumber = ft_atoi(ptr->arg[0]);
     ptr->lastnumber = ft_atoi(ptr->arg[i - 1]);
 }
 
-void ra(t_stacka *ptr)
+void rb_extra(t_stackb *ptr)
+{
+    ft_putendl_fd("ra", 1);
+    rb(ptr);
+}
+
+void rb(t_stackb *ptr)
 {
     int i = 0;
     char *tmp;
 
     if (!ptr->arg)
         return;
-    ft_putendl_fd("ra", 1);
     while (ptr->arg[i])
     {
         if (ptr->arg[i + 1])
@@ -143,9 +220,10 @@ void ra(t_stacka *ptr)
         i++;
     }
     if (ft_atoi(ptr->arg[i - 1]) != ptr->firstnumber)
-        ra(ptr);
+        rb(ptr);
     ptr->firstnumber = ft_atoi(ptr->arg[i - 1]);
 }
+
 void delete_min(t_stacka *ptr)
 {
     int i = 0;
@@ -172,6 +250,33 @@ int count_to_number(t_stacka *a, char *number)
     return (i);
 }
 
+char **delete_number_stackb(t_stackb *ptr, char *number)
+{
+    int i = 0;
+    int j = 0;
+    char *tmp;
+    char **av;
+    int size = size_arg(ptr->arg);
+
+    if (!ptr->arg)
+        return (NULL);
+    if (!(av = malloc(sizeof(char *) * size)))
+        puts("malloc");
+    while (ptr->arg[i])
+    {
+        if (ft_atoi(ptr->arg[i]) != ft_atoi(number))
+        {
+            av[j] = ft_strdup(ptr->arg[i]);
+            j++;
+        }
+        i++;
+    }
+    av[j] = NULL;
+    ptr->size -= 1;
+    ptr->arg = av;
+    return (av);
+}
+
 char **delete_number(t_stacka *ptr, char *number)
 {
     int i = 0;
@@ -186,7 +291,6 @@ char **delete_number(t_stacka *ptr, char *number)
         puts("malloc");
     while (ptr->arg[i])
     {
-        puts(ptr->arg[i]);
         if (ft_atoi(ptr->arg[i]) != ft_atoi(number))
         {
             av[j] = ft_strdup(ptr->arg[i]);
@@ -195,6 +299,8 @@ char **delete_number(t_stacka *ptr, char *number)
         i++;
     }
     av[j] = NULL;
+    ptr->size = size - 1;
+    ptr->lastnumber = ft_atoi(av[j - 1]);
     ptr->arg = av;
     return (av);
 }
@@ -260,6 +366,7 @@ t_stackb *push_b(t_stacka *ptr, t_stackb **new, char *number)
         (*new)->next = NULL;
         (*new)->size = 1;
         (*new)->indice = 0;
+        (*new)->firstnumber = ft_atoi(ptr->arg[0]);
         return ((*new));
     }
     else
@@ -275,17 +382,14 @@ void add_first(t_stackb *ptr, char *number)
     // ft_putnbr_fd(size, 1);
     if (!(av = malloc(sizeof(char *) * (size + 1))))
         puts("malloc");
-    // ft_bzero(av, sizeof(char *) + size + 1);
     ptr->size = size + 1;
     av[size] = NULL;
     av[0] = ft_strdup(number);
-    // size = size - 1;
-    // puts(av[0]);
+    ptr->firstnumber = ft_atoi(ptr->arg[0]);
     int i = 1;
     int j = 0;
     while (ptr->arg[j])
     {
-        // ft_putnbr_fd(size, 1);
         av[i] = ft_strdup(ptr->arg[j]);
         j++;
         i++;
@@ -363,16 +467,17 @@ void swap_b(t_stackb **ptr)
 
 void ss(t_stacka **a, t_stackb **b)
 {
+    ft_putendl_fd("ss", 1);
     swap_a(a);
     swap_b(b);
 }
 
-int sum_all(t_stacka *a)
+int sum_all(char **a)
 {
     int sum = 0;
     int i = 0;
-    while (a->arg[i])
-        sum += ft_atoi(a->arg[i++]);
+    while (a[i])
+        sum += ft_atoi(a[i++]);
     return (sum);
 }
 
@@ -388,11 +493,39 @@ int check_prev(char **av, int index)
     return (1);
 }
 
+int check_prev_stakcb(char **av, int index)
+{
+    int i = 0;
+    while (index > i)
+    {
+        // printf("[%s,%s]", av[index], av[i]);
+        if (ft_atoi(av[index]) > ft_atoi(av[i]))
+            return (0);
+        i++;
+    }
+    return (1);
+}
+
+int check_sort_stackb(t_stackb *b)
+{
+    int size = size_arg(b->arg);
+    int i = 0;
+    if (!b->arg)
+        return (0);
+    while (b->arg[i])
+    {
+        if (!check_prev_stakcb(b->arg, i))
+            return (0);
+        i++;
+    }
+    return (1);
+}
+
 int check_sort(t_stacka *a)
 {
     int size = size_arg(a->arg);
     int i = 0;
-    if (a->size != size || !a->arg)
+    if (!a->arg)
         return (0);
     while (a->arg[i])
     {
@@ -403,69 +536,158 @@ int check_sort(t_stacka *a)
     return (1);
 }
 
+int get_index(char **av, char *number)
+{
+    int i = 0;
+    while (av[i])
+    {
+        if (ft_atoi(av[i]) > ft_atoi(number))
+            return (i);
+        i++;
+    }
+    return (i);
+}
+
+void push_all_stackb(t_stackb *b, t_stacka *a)
+{
+    int i = 0;
+    while (b->arg[i])
+    {
+        push_a(a, b->arg[i]);
+        // delete_number_stackb(b, b->arg[i]);
+        i++;
+    }
+}
+
+void print_stacks(char **a, char **b)
+{
+    ft_putstr_fd("STACK A :", 1);
+    print_2(a);
+    ft_putstr_fd("STACK B :", 1);
+    print_2(b);
+}
+
+void algo_unser50(t_stacka *a, t_stackb *b)
+{
+    int c;
+    c = 0;
+    get_min(&a);
+    while (a->arg[0])
+    {
+        if (a->arg[1] && a->minvalue == ft_atoi(a->arg[1]))
+            swapa_extra(&a);
+        else
+        {
+            while (ft_atoi(a->arg[0]) != a->minvalue)
+            {
+                // if ((a->size) - a->indice >)
+                // extra_ra(a);
+                // else
+                rra_extra(a);
+            }
+        }
+        if (a->size <= 2)
+        {
+            if (a->arg[1] && a->minvalue == ft_atoi(a->arg[1]))
+                swapa_extra(&a);
+            break;
+        }
+        push_b(a, &b, a->arg[0]);
+        delete_min(a);
+        get_min(&a);
+    }
+    while (b->arg[c])
+        push_a(a, b->arg[c++]);
+    // print_stacks(a->arg, b->arg);
+}
+
+void execute_a(t_stacka **a, t_stackb **b)
+{
+    if ((*a)->arg[1] && (*a)->arg[(*a)->size - 1] && ft_atoi((*a)->arg[0]) > ft_atoi((*a)->arg[(*a)->size - 1]) && ft_atoi((*a)->arg[1]) < ft_atoi((*a)->arg[0]) && ft_atoi((*a)->arg[(*a)->size - 1]) > ft_atoi((*a)->arg[1]))
+        extra_ra(*a);
+    if ((*a)->arg[1] && ft_atoi((*a)->arg[0]) > ft_atoi((*a)->arg[1]))
+        swapa_extra(a);
+    while ((*a)->arg[(*a)->size - 1] && (*a)->arg[0] && ft_atoi((*a)->arg[(*a)->size - 1]) < ft_atoi((*a)->arg[0]))
+    {
+        rra_extra(*a);
+    }
+    push_b(*a, b, (*a)->arg[0]);
+    delete_number(*a, (*a)->arg[0]);
+}
+
+void execute_b(t_stacka **a, t_stackb **b)
+{
+    if ((*b)->arg[1] && ft_atoi((*b)->arg[0]) < ft_atoi((*b)->arg[1]))
+        swapb_extra(b);
+
+    while ((*b)->arg[(*b)->size - 1] && ft_atoi((*b)->arg[(*b)->size - 1]) > ft_atoi((*b)->arg[0]))
+        rrb_extra((*b));
+    push_a(*a, (*b)->arg[0]);
+    delete_number_stackb((*b), (*b)->arg[0]);
+}
+
+void algo2(t_stacka *a, t_stackb *b)
+{
+    int size = a->size;
+
+    printf("[%i,%i,%i]", size, a->size, check_sort(a));
+    while (!check_sort(a) && size == a->size)
+    {
+        // puts("HERE");
+        if (b && !check_sort(a) && !check_sort_stackb(b))
+        {
+            // int i = 0;
+            if (b->arg && a->arg[1] && ft_atoi(a->arg[0]) > ft_atoi(a->arg[1]) && b->arg[1] && ft_atoi(b->arg[0]) < ft_atoi(b->arg[1]))
+            {
+                ss(&a, &b);
+            }
+            // while ((b)->arg[(b)->size - 1] && ft_atoi((b)->arg[(b)->size - 1]) > ft_atoi((b)->arg[0]) && (a)->arg[(a)->size - 1] && ft_atoi((a)->arg[(a)->size - 1]) < ft_atoi((a)->arg[0]))
+            {
+                // i++;
+                // rrr(a, b);
+            }
+            // if (i)
+            // continue;
+            // else
+            // {
+            //     execute_a(&a, &b);
+            //     execute_b(&a, &b);
+            // }
+        }
+        if (!check_sort(a))
+            execute_a(&a, &b);
+        else if (!check_sort_stackb(b))
+        {
+            execute_b(&a, &b);
+        }
+        else
+        {
+            push_all_stackb(b, a);
+            print_stacks(a->arg, b->arg);
+            break;
+        }
+    }
+    if (b)
+    {
+        // push_all_stackb(b, a);
+        // print_stacks(a->arg, b->arg);
+    }
+}
+
 int main(int ac, char **ag)
 {
     t_stacka *a = NULL;
     int i = 1;
     int c = 0;
     int sumint = 0;
+    float sum = 0;
 
     t_stackb *b = NULL;
     if (ac >= 2)
     {
         add_new(&a, &ag[i]);
-        // while (!check_sort(a))
-        {
-            float sum = sum_all(a);
-            sum /= 2;
-            sumint = sum;
-            if (sum >= 0 && a->size >= 2)
-            {
-                c = 0;
-                while (ft_atoi(a->arg[c]) <= sumint)
-                    push_b(a, &b, a->arg[c++]);
-                c = 0;
-                while (b->arg[c])
-                {
-                    puts("HERE");
-                    delete_number(a, b->arg[c]);
-                    c++;
-                }
-                if ((a->arg[1]) && ft_atoi(a->arg[1]) < ft_atoi(a->arg[0]))
-                {
-                    swap_a(&a);
-                    push_b(a, &b, a->arg[0]);
-                    delete_number(a, b->arg[0]);
-                }
-            }
-            else
-            {
-
-                // break;
-            }
-        }
-        ft_putstr_fd("STACK A : ", 1);
-        print_2(a->arg);
-        ft_putstr_fd("STACK B : ", 1);
-        print_2(b->arg);
-        // get_min(&a);
-        // while (a->arg[0])
-        // {
-        //     if (a->arg[1] && a->minvalue == ft_atoi(a->arg[1]))
-        //         swapa_extra(&a);
-        //     else
-        //     {
-        //         while (ft_atoi(a->arg[0]) != a->minvalue)
-        //             rra_extra(a);
-        //     }
-        //     push_b(a, &b);
-        //     delete_min(a);
-        //     if (!a->arg[0] || a->size <= 2)
-        //         break;
-        //     get_min(&a);
-        // }
-        // while (b->arg[c])
-        //     push_a(a, b->arg[c++]);
-        // // free_2d(b->arg);
+        algo2(a, b);
+        // if (size_arg(a->arg) <= 60)
+        // algo_unser50(a, b);
     }
 }

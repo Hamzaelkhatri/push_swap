@@ -69,4 +69,17 @@ void add_new(t_stacka **ptr, char **av);
 void push_a(t_stacka *ptr, char *number);
 void swap_a(t_stacka **ptr);
 void swap_b(t_stackb **ptr);
+void rrb_extra(t_stackb *ptr);
+void rrb(t_stackb *ptr);
+void rra(t_stacka *ptr);
+void rb(t_stackb *ptr);
 #endif
+
+/*
+2
+1
+3
+6
+5
+8
+*/

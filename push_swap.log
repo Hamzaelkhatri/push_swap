@@ -46,25 +46,38 @@ stack a : 90 180 -->
 stack b : 10 2 0 -3 -10 -20 ---> pb pb pb pb pb pb
 stack a = -20 -10 -3 0 2 10 90 180 -----> result 18 instruction
 
-stack a : -3 -10 10 2 0 90 180 -20 --> 125(90) pb pb pb pb pb pb
-stack b : 90 -3 -10 10 2 0
-stack a : 180 -20 --> sa
-stack a : -20 180 ---> pb
-stack b : 90 -20 -3 -10 10 2 0 ---> 55(90) pa
-stack a : 90 180
-stack b : -20 -3 -10 10 2 0 ---> 1 + 4 + 11 + 31 + 23 +21 ---> 45(31) + avg
-stack b : -20 -3 -10 10 2 0 ---> 1 + 4 + 11 + 31 + 23 +21 rra rra rra 
-stack b : 10 2 0 -20 -3 -10 pa
-stack a : 10 90 180
-stack b : 2 0 -20 -3 -10 ---> 33+31+11+28+21 ---> 62(33) pa + avg
-stack a : 2 10 90 180
-stack b : 0 -20 -3 -10 --->  16 -4 13 6  ----> 16(16)  pa + avg
-stack a : 0 2 10 90 180
-stack b : -20 -3 -10 --->  -4 13 6  ----> 16(13)  pa + avg sa
-stack b : -3 -20 -10 --->  sb
-stack a : -3 2 10 90 180
-stack b : -20 -10 --->  sb pb pb
-stack a : -20 -10 -3 2 10 90 180 -----> result 20 instruction
+
+
+stack A : 6 5 2 4 7 -2 3 -4 if(a[0] > a[1]) --> sa
+stack A : 5 6 2 4 7 -2 3 -4 if(a[0] > a[n-1]) --> rra
+stack A : -4 5 6 2 4 7 -2 3 if(a[0] < a[1]) && if(a[0] < a[n-1]) --> pb
+stack B : -4 OK
+stack A : 5 6 2 4 7 -2 3 if(a[0] > a[n-1]) --> rra
+stack A : 3 5 6 2 4 7 -2  if(a[0] > a[n-1]) --> rra
+stack A : -2 3 5 6 2 4 7  if(a[0] < a[1]) && if(a[0] < a[n-1]) --> pb
+stack B : -2 -4 OK
+stack A : 3 5 6 2 4 7  if(a[0] < a[1]) && if(a[0] < a[n-1]) --> pb
+stack B : 3 -2 -4 OK 
+stack A : 5 6 2 4 7  if(a[0] < a[1]) && if(a[0] < a[n-1]) --> pb
+stack B : 5 3 -2 -4 OK
+stack A : 6 2 4 7  if(a[0] > a[1]) --> sa
+stack A : 2 6 4 7  if(a[0] < a[1]) && if(a[0] < a[n-1]) --> pb
+stack B : 2 5 3 -2 -4 KO
+
+-----ss------
+stack A : 6 4 7  if(a[0] > a[1]) --> sa
+stack B : 2 5 3 -2 -4 if(b[0] > b[1]) sb
+--------
+stack A : 4 6 7 OK
+stack B : 5 2  3 -2 -4 if(b[0] > b[1]) && if(b[0] > b[n-1]) pa
+-----ss----
+stack A : 5 4 6 7  if(a[0] > a[1]) --> sa
+stack B : 2  3 -2 -4 if(b[0] > b[1]) sb
+-----------
+stack A : 4 5 6 7  OK
+stack B : 3 2 -2 -4 OK
+-----final pa pa pa pa
+stack A : -4 -2 2 3 4 5 6 7 OK
 
 #test prog
 python3 pyviz.py `ruby -e "puts (-50..50).to_a.shuffle.join(' ')"`
