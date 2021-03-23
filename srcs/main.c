@@ -186,6 +186,7 @@ char **delete_number(t_stacka *ptr, char *number)
         puts("malloc");
     while (ptr->arg[i])
     {
+        puts(ptr->arg[i]);
         if (ft_atoi(ptr->arg[i]) != ft_atoi(number))
         {
             av[j] = ft_strdup(ptr->arg[i]);
@@ -410,32 +411,23 @@ int main(int ac, char **ag)
     int sumint = 0;
 
     t_stackb *b = NULL;
-    // print_2(ag);
-    // ft_putnbr_fd(size_arg(ag))
     if (ac >= 2)
     {
         add_new(&a, &ag[i]);
-        // delete_number(a, a->arg[0]);
-        // print_2(a->arg);
-        while (!check_sort(a))
+        // while (!check_sort(a))
         {
-            if (check_sort(a))
-                break;
             float sum = sum_all(a);
             sum /= 2;
             sumint = sum;
-            printf("[%i]\n", sumint);
-            if (sum >= 0 && a->size > 2)
+            if (sum >= 0 && a->size >= 2)
             {
                 c = 0;
                 while (ft_atoi(a->arg[c]) <= sumint)
-                {
-                    push_b(a, &b, a->arg[c]);
-                    c++;
-                }
+                    push_b(a, &b, a->arg[c++]);
                 c = 0;
                 while (b->arg[c])
                 {
+                    puts("HERE");
                     delete_number(a, b->arg[c]);
                     c++;
                 }
@@ -443,21 +435,17 @@ int main(int ac, char **ag)
                 {
                     swap_a(&a);
                     push_b(a, &b, a->arg[0]);
-                    // delete_number(a, b->arg[0]);
+                    delete_number(a, b->arg[0]);
                 }
             }
             else
             {
+
+                // break;
             }
         }
         ft_putstr_fd("STACK A : ", 1);
         print_2(a->arg);
-        if (ft_atoi(a->arg[1]) < ft_atoi(a->arg[0]))
-        {
-            swap_a(&a);
-            push_b(a, &b, a->arg[0]);
-            delete_number(a, b->arg[0]);
-        }
         ft_putstr_fd("STACK B : ", 1);
         print_2(b->arg);
         // get_min(&a);
