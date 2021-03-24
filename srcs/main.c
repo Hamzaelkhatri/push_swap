@@ -150,14 +150,13 @@ void ra(t_stacka *ptr)
     {
         if (ptr->arg[i + 1])
         {
-            tmp = (ptr->arg[i]);
-            ptr->arg[i] = (ptr->arg[i + 1]);
+            tmp = ft_strdup(ptr->arg[i]);
+            ptr->arg[i] = ft_strdup(ptr->arg[i + 1]);
             ptr->arg[i + 1] = tmp;
         }
         i++;
     }
-
-    // puts((ptr->arg[i - 1]));
+    // puts(ft_itoa(ptr->firstnumber));
     if (i && ptr->arg[i - 1] && ft_atoi(ptr->arg[i - 1]) != ptr->firstnumber)
         ra(ptr);
     // if (ptr->arg[0])
@@ -197,6 +196,7 @@ void rrb(t_stackb *ptr)
         }
         i++;
     }
+    // puts("here");
     if (ft_atoi(ptr->arg[0]) != ptr->lastnumber)
         rrb(ptr);
     if (ptr->arg[0])
@@ -292,12 +292,13 @@ char **delete_number_stackb(t_stackb *ptr, char *number)
     return (av);
 }
 
-char **delete_number(t_stacka *ptr, char *number)
+char **delete_number(t_stacka **a, char *number)
 {
     int i = 0;
     int j = 0;
     char *tmp;
     char **av;
+    t_stacka *ptr = *a;
 
     if (!ptr->arg || !ptr->arg[0])
         return (NULL);
@@ -317,6 +318,7 @@ char **delete_number(t_stacka *ptr, char *number)
     ptr->size = size - 1;
     if (j)
         ptr->lastnumber = ft_atoi(av[j - 1]);
+    ptr->firstnumber = ft_atoi(av[0]);
     ptr->arg = av;
     return (av);
 }
@@ -385,6 +387,7 @@ t_stackb *push_b(t_stacka *ptr, t_stackb **new, char *number)
         (*new)->size = 1;
         (*new)->indice = 0;
         (*new)->firstnumber = ft_atoi(ptr->arg[0]);
+        (*new)->lastnumber = ft_atoi(ptr->arg[0]);
         return ((*new));
     }
     else
@@ -400,7 +403,7 @@ void add_first(t_stackb *ptr, char *number)
     // ft_putnbr_fd(size, 1);
     if (!(av = malloc(sizeof(char *) * (size + 1))))
         puts("malloc");
-    ptr->size = size + 1;
+    ptr->size = size;
     av[size] = NULL;
     av[0] = ft_strdup(number);
     ptr->firstnumber = ft_atoi(number);
@@ -429,7 +432,7 @@ void push_a(t_stacka *ptr, t_stackb *b, char *number)
         puts("malloc");
     ft_putendl_fd("pa", 1);
     // ft_bzero(av, sizeof(char *) + size + 1);
-    ptr->size = size + 1;
+    ptr->size = size;
     av[size] = NULL;
     av[0] = ft_strdup(number);
     ptr->lastnumber = ft_atoi(av[0]);
@@ -645,7 +648,7 @@ void execute_a(t_stacka **a, t_stackb **b)
         rra_extra(*a);
     }
     push_b(*a, b, (*a)->arg[0]);
-    delete_number(*a, (*a)->arg[0]);
+    delete_number(a, (*a)->arg[0]);
 }
 
 void execute_b(t_stacka **a, t_stackb **b)
@@ -659,68 +662,113 @@ void execute_b(t_stacka **a, t_stackb **b)
     delete_number_stackb((*b), (*b)->arg[0]);
 }
 
+int get_pivot(char **av)
+{
+    int i = 0;
+    if (!av)
+        return (0);
+    if (av[i])
+    {
+        i++;
+    }
+    return (ft_atoi(av[i - 1]));
+}
+
 void algo2(t_stacka *a, t_stackb *b)
 {
     int size = a->size;
-
-    printf("[%i,%i,%i]", size, a->size, check_sort(a));
-    while (!check_sort(a) && size == a->size)
+    int pivot = 0;
+    int done = 0;
+    int i = 0;
+    int check = 0;
+    while (!done)
     {
-        // puts("HERE");
-        if (b && !check_sort(a) && !check_sort_stackb(b))
-        {
-            // int i = 0;
-            if (b->arg && a->arg[1] && ft_atoi(a->arg[0]) > ft_atoi(a->arg[1]) && b->arg[1] && ft_atoi(b->arg[0]) < ft_atoi(b->arg[1]))
-            {
-                ss(&a, &b);
-            }
-            // while ((b)->arg[(b)->size - 1] && ft_atoi((b)->arg[(b)->size - 1]) > ft_atoi((b)->arg[0]) && (a)->arg[(a)->size - 1] && ft_atoi((a)->arg[(a)->size - 1]) < ft_atoi((a)->arg[0]))
-            {
-                // i++;
-                // rrr(a, b);
-            }
-            // if (i)
-            // continue;
-            // else
-            // {
-            //     execute_a(&a, &b);
-            //     execute_b(&a, &b);
-            // }
-        }
+        // puts()
         if (!check_sort(a))
-            execute_a(&a, &b);
-        else if (!check_sort_stackb(b))
         {
-            execute_b(&a, &b);
+            check = 0;
+            if (a->arg[1])
+            {
+                if (ft_atoi(a->arg[a->size - 1]) > ft_atoi(a->arg[0]))
+                    pivot = ft_atoi(a->arg[a->size - 1]);
+                else
+                {
+                    pivot = ft_atoi(a->arg[0]);
+                }
+                a->firstnumber = ft_atoi(a->arg[0]);
+                a->firstnumber = pivot;
+                i = 0;
+                // puts(a->arg[a->size - 1]);
+
+                // while (pivot > ft_atoi(a->arg[0]))
+                // {
+                //     check++;
+                //     push_b(a, &b, a->arg[0]);
+                //     delete_number(&a, a->arg[0]);
+                // }
+                // i = (pivot == 0) ? a->size - 1 : 0;
+                if (ft_atoi(a->arg[0]) == pivot)
+                {
+                    // puts("here");
+                    push_b(a, &b, a->arg[0]);
+                    delete_number(&a, a->arg[0]);
+                }
+                while (pivot < ft_atoi(a->arg[i]) && a->arg[i])
+                {
+                    check++;
+                    // print_2(a->arg);
+                    puts("ra");
+                    ra(a);
+                    if (pivot < ft_atoi(a->arg[i]))
+                    {
+                        check++;
+                        swapa_extra(&a);
+                        push_b(a, &b, a->arg[0]);
+                        delete_number(&a, a->arg[0]);
+                    }
+                    i++;
+                }
+
+                if (a->arg[1] && ft_atoi(a->arg[0]) > ft_atoi(a->arg[1]))
+                {
+                    check++;
+                    swapa_extra(&a);
+                    push_b(a, &b, a->arg[0]);
+                    delete_number(&a, a->arg[0]);
+                }
+                // if (!check)
+                // rra_extra(a);
+                print_2(a->arg);
+                if (b)
+                    print_stacks(a->arg, b->arg);
+            }
         }
-        else
-        {
-            push_all_stackb(b, a);
-            print_stacks(a->arg, b->arg);
-            break;
-        }
+        // if ((check_sort(a) && b && !b->arg[0]) && check_sort(a) && !b)
+        // done++;
     }
-    if (b)
-    {
-        // push_all_stackb(b, a);
-        // print_stacks(a->arg, b->arg);
-    }
+
+    if (a && b)
+        print_stacks(a->arg, b->arg);
+    else
+        print_2(a->arg);
 }
 
-// int main(int ac, char **ag)
-// {
-//     t_stacka *a = NULL;
-//     int i = 1;
-//     int c = 0;
-//     int sumint = 0;
-//     float sum = 0;
+int main(int ac, char **ag)
+{
+    t_stacka *a = NULL;
+    int i = 1;
+    int c = 0;
+    int sumint = 0;
+    float sum = 0;
 
-//     t_stackb *b = NULL;
-//     if (ac >= 2)
-//     {
-//         add_new(&a, &ag[i]);
-//         algo2(a, b);
-//         // if (size_arg(a->arg) <= 60)
-//         // algo_unser50(a, b);
-//     }
-// }
+    t_stackb *b = NULL;
+    // if (ac >= 2)
+    {
+        add_new(&a, &ag[i]);
+        algo2(a, b);
+        // checker(ag);
+
+        // if (size_arg(a->arg) <= 60)
+        // algo_unser50(a, b);
+    }
+}
