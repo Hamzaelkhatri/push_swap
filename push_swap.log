@@ -94,7 +94,7 @@ stack B : 10 3 -3 -20---> operation : pa
 stack B : 10 3 -3 -20---> operation : pa
 
 try 5
-3 10 -20 -3 89 59  40
+3 10 -20 -3 89 59  40 ---> pivot 40
 STACK A :|10|-20|-3|89|59|40 pb
 STACK B :|3 
 pb
@@ -108,7 +108,7 @@ STACK A :|89|59|40
 STACK B :-3 |-20 |10|3
 ra
 STACK A :|59|40|89
-STACK B :-3 |-20 |10|3 
+STACK B :-3 |-20 |10| 3 
 sa
 STACK A :40|59|89
 STACK B :-3 |-20 |10|3 
@@ -116,7 +116,9 @@ rb
 STACK A :40|59|89
 STACK B :-20|10|3|-3 
 rb
-STACK B :10|3|-3|-20
+rb
+STACK A :40|59|89
+STACK B :|10|3|-3 |-20
 pa
 pa
 pa

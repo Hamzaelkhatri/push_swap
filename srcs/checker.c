@@ -41,8 +41,11 @@ int checker(char **ag)
             if (a->arg[0] && a->arg[1])
             {
                 swap_a(&a);
-                print_stacks(a->arg, b->arg);
-                print_stacks(a->arg, b->arg);
+                if (b)
+                    print_stacks(a->arg, b->arg);
+                else
+                    print_2(a->arg);
+                // print_stacks(a->arg, b->arg);
             }
             else
             {
@@ -86,9 +89,7 @@ int checker(char **ag)
             {
                 push_b(a, &b, a->arg[0]);
                 if (a->arg[0])
-                {
                     delete_number(&a, (a)->arg[0]);
-                }
                 print_stacks(a->arg, b->arg);
             }
             else
