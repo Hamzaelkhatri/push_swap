@@ -66,7 +66,7 @@ void print_2(char **av);
 char **join_all(char **ptr, char *new);
 int size_arg(char **av);
 void add_new(t_stacka **ptr, char **av);
-void push_a(t_stacka *ptr, char *number);
+void push_a(t_stacka *ptr, t_stackb *b, char *number);
 void swap_a(t_stacka **ptr);
 void swap_b(t_stackb **ptr);
 void rrb_extra(t_stackb *ptr);

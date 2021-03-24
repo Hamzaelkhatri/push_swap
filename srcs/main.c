@@ -119,8 +119,8 @@ void rra(t_stacka *ptr)
     {
         if (ptr->arg[i + 1])
         {
-            tmp = (ptr->arg[i + 1]);
-            ptr->arg[i + 1] = (ptr->arg[i]);
+            tmp = ft_strdup(ptr->arg[i + 1]);
+            ptr->arg[i + 1] = ft_strdup(ptr->arg[i]);
             ptr->arg[i] = tmp;
         }
         i++;
@@ -143,7 +143,7 @@ void ra(t_stacka *ptr)
 {
     int i = 0;
     char *tmp;
-
+    //|-20|0|90
     if (!ptr->arg)
         return;
     while (ptr->arg[i])
@@ -156,9 +156,14 @@ void ra(t_stacka *ptr)
         }
         i++;
     }
-    if (ft_atoi(ptr->arg[i - 1]) != ptr->firstnumber)
+
+    // puts((ptr->arg[i - 1]));
+    if (i && ptr->arg[i - 1] && ft_atoi(ptr->arg[i - 1]) != ptr->firstnumber)
         ra(ptr);
+    // if (ptr->arg[0])
     ptr->firstnumber = ft_atoi(ptr->arg[0]);
+    if (i)
+        ptr->lastnumber = ft_atoi(ptr->arg[i - 1]);
 }
 
 void rrr(t_stacka *a, t_stackb *b)
@@ -184,11 +189,10 @@ void rrb(t_stackb *ptr)
     i = 0;
     while (ptr->arg[i])
     {
-        puts("Here");
         if (ptr->arg[i + 1])
         {
-            tmp = (ptr->arg[i + 1]);
-            ptr->arg[i + 1] = (ptr->arg[i]);
+            tmp = ft_strdup(ptr->arg[i + 1]);
+            ptr->arg[i + 1] = ft_strdup(ptr->arg[i]);
             ptr->arg[i] = tmp;
         }
         i++;
@@ -212,7 +216,7 @@ void rb(t_stackb *ptr)
     int i = 0;
     char *tmp;
 
-    if (!ptr->arg)
+    if (!ptr->arg || !ptr->arg[0])
         return;
     while (ptr->arg[i])
     {
@@ -226,7 +230,9 @@ void rb(t_stackb *ptr)
     }
     if (ft_atoi(ptr->arg[i - 1]) != ptr->firstnumber)
         rb(ptr);
-    ptr->firstnumber = ft_atoi(ptr->arg[i - 1]);
+    ptr->firstnumber = ft_atoi(ptr->arg[0]);
+    if (i)
+        ptr->lastnumber = ft_atoi(ptr->arg[i - 1]);
 }
 
 void delete_min(t_stacka *ptr)
@@ -309,7 +315,6 @@ char **delete_number(t_stacka *ptr, char *number)
     }
     av[j] = NULL;
     ptr->size = size - 1;
-
     if (j)
         ptr->lastnumber = ft_atoi(av[j - 1]);
     ptr->arg = av;
@@ -365,6 +370,8 @@ t_stackb *push_b(t_stacka *ptr, t_stackb **new, char *number)
     int size;
     char **av;
     ft_putendl_fd("pb", 1);
+    if (ptr->arg[1])
+        ptr->firstnumber = ft_atoi(ptr->arg[1]);
     if (!*new)
     {
         if (!(*new = malloc(sizeof(t_stackb))))
@@ -396,7 +403,7 @@ void add_first(t_stackb *ptr, char *number)
     ptr->size = size + 1;
     av[size] = NULL;
     av[0] = ft_strdup(number);
-    ptr->firstnumber = ft_atoi(av[0]);
+    ptr->firstnumber = ft_atoi(number);
     int i = 1;
     int j = 0;
     while (ptr->arg[j])
@@ -410,11 +417,13 @@ void add_first(t_stackb *ptr, char *number)
     ptr->arg = av;
 }
 
-void push_a(t_stacka *ptr, char *number)
+void push_a(t_stacka *ptr, t_stackb *b, char *number)
 {
     // t_stackb *tmp = NULL;
     char **av = NULL;
     int size = size_arg(ptr->arg) + 1;
+    if (b->arg[1])
+        b->firstnumber = ft_atoi(b->arg[1]);
     // ft_putnbr_fd(size, 1);
     if (!(av = malloc(sizeof(char *) * (size + 1))))
         puts("malloc");
@@ -455,6 +464,9 @@ void swap_a(t_stacka **ptr)
         tmp = tmps->arg[1];
         tmps->arg[1] = tmps->arg[0];
         tmps->arg[0] = tmp;
+        tmps->firstnumber = ft_atoi(tmps->arg[0]);
+        if (!tmps->arg[2])
+            tmps->lastnumber = ft_atoi(tmps->arg[1]);
     }
 }
 
@@ -474,6 +486,9 @@ void swap_b(t_stackb **ptr)
         tmp = tmps->arg[1];
         tmps->arg[1] = tmps->arg[0];
         tmps->arg[0] = tmp;
+        tmps->firstnumber = ft_atoi(tmps->arg[0]);
+        if (!tmps->arg[2])
+            tmps->lastnumber = ft_atoi(tmps->arg[1]);
     }
 }
 
@@ -565,7 +580,7 @@ void push_all_stackb(t_stackb *b, t_stacka *a)
     int i = 0;
     while (b->arg[i])
     {
-        push_a(a, b->arg[i]);
+        push_a(a, b, b->arg[i]);
         // delete_number_stackb(b, b->arg[i]);
         i++;
     }
@@ -615,7 +630,7 @@ void algo_unser50(t_stacka *a, t_stackb *b)
         get_min(&a);
     }
     while (b->arg[c])
-        push_a(a, b->arg[c++]);
+        push_a(a, b, b->arg[c++]);
     // print_stacks(a->arg, b->arg);
 }
 
@@ -640,7 +655,7 @@ void execute_b(t_stacka **a, t_stackb **b)
 
     while ((*b)->arg[(*b)->size - 1] && ft_atoi((*b)->arg[(*b)->size - 1]) > ft_atoi((*b)->arg[0]))
         rrb_extra((*b));
-    push_a(*a, (*b)->arg[0]);
+    push_a(*a, *b, (*b)->arg[0]);
     delete_number_stackb((*b), (*b)->arg[0]);
 }
 

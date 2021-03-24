@@ -90,7 +90,9 @@ int main(int ac, char **ag)
                 {
                     push_b(a, &b, a->arg[0]);
                     if (a->arg[0])
+                    {
                         delete_number(a, (a)->arg[0]);
+                    }
                     print_stacks(a->arg, b->arg);
                 }
                 else
@@ -102,7 +104,7 @@ int main(int ac, char **ag)
             {
                 if (b && b->arg[0])
                 {
-                    push_a(a, b->arg[0]);
+                    push_a(a, b, b->arg[0]);
                     if ((b)->arg[0])
                         delete_number_stackb(b, (b)->arg[0]);
                     print_stacks(a->arg, b->arg);
@@ -116,24 +118,36 @@ int main(int ac, char **ag)
             {
                 if (b && b->arg[0])
                 {
-                    rrb(b);
+                    rb(b);
                     print_stacks(a->arg, b->arg);
                 }
                 else
-                {
                     puts("B : empty :/");
-                }
             }
             else if (!ft_strcmp(line, "ra\n"))
             {
                 if (a && a->arg[0] && a->arg[1])
                 {
-                    rra(a);
+                    ra(a);
                     if (b)
                         print_stacks(a->arg, b->arg);
                     else
                         print_2(a->arg);
-                    puts("here");
+                }
+                else
+                {
+                    puts("A : empty :/");
+                }
+            }
+            else if (!ft_strcmp(line, "rra\n"))
+            {
+                if (a && a->arg[0] && a->arg[1])
+                {
+                    ra(a);
+                    if (b)
+                        print_stacks(a->arg, b->arg);
+                    else
+                        print_2(a->arg);
                 }
                 else
                 {
