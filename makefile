@@ -5,7 +5,7 @@ OBJ_PATH= obj
 LIB_PATH= libft
 
 
-SRC_NAME=main.c
+SRC_NAME=main.c checker.c
 HDR_NAME=push_swap.h 
 
 OBJ_NAME= $(SRC_NAME:.c=.o)

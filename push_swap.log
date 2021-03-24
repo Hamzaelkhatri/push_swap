@@ -47,7 +47,7 @@ stack b : 10 2 0 -3 -10 -20 ---> pb pb pb pb pb pb
 stack a = -20 -10 -3 0 2 10 90 180 -----> result 18 instruction
 
 
-
+#try 3
 stack A : 6 5 2 4 7 -2 3 -4 if(a[0] > a[1]) --> sa
 stack A : 5 6 2 4 7 -2 3 -4 if(a[0] > a[n-1]) --> rra
 stack A : -4 5 6 2 4 7 -2 3 if(a[0] < a[1]) && if(a[0] < a[n-1]) --> pb
@@ -78,6 +78,29 @@ stack A : 4 5 6 7  OK
 stack B : 3 2 -2 -4 OK
 -----final pa pa pa pa
 stack A : -4 -2 2 3 4 5 6 7 OK
+
+
+#try 4 quick sort : 3 10 -20 -3 89 59  40
+stack A : 3 10 -20 -3 89 59 40 -----> pivot is : 40
+stack A : 3 10 -20 -3 89 59 40 -----> operation  : pb pb pb pb
+stack B : -3 -20 10 3 -----> operation  : none
+stack A : 89 59 40 -----> operation  : rra
+stack A : 40 89 59 -----> operation  : none
+stack B : -3 -20 10 3 -----> pivot is : 3
+stack B : -3 -20 10 3 -----> operation : pa pa
+stack B :  10 3 ---> operation : sb
+stack B :  3 10 ---> operation : none
+stack A : -20 -3 40 89 59 -----> pivot is : 59 pb pb pb
+stack B :  40 -3 -20 10 3---> operation : none
+stack A : 89 59 -----> operation : sa
+stack A : 59 89
+stack B : 40 -3 -20 10 3 ---> pivot is : 3 pa
+stack A : 40 59 89 operation : none
+stack B : -3 -20 10 3 ----> operation : rrb
+stack B : 3 -3 -20 10 ----> operation : rrb
+stack B : 10 3 -3 -20 ----> operation : rrb ,pa,pa,pa,pa
+stack A -20 -3 3 10 40 50 89 ----> 20 instruction
+
 
 #test prog
 python3 pyviz.py `ruby -e "puts (-50..50).to_a.shuffle.join(' ')"`

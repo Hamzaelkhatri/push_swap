@@ -73,6 +73,10 @@ void rrb_extra(t_stackb *ptr);
 void rrb(t_stackb *ptr);
 void rra(t_stacka *ptr);
 void rb(t_stackb *ptr);
+t_stackb *push_b(t_stacka *ptr, t_stackb **new, char *number);
+char **delete_number(t_stacka *ptr, char *number);
+char **delete_number_stackb(t_stackb *ptr, char *number);
+void print_stacks(char **a, char **b);
 #endif
 
 /*

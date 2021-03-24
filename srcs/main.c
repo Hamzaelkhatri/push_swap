@@ -120,7 +120,7 @@ void rra(t_stacka *ptr)
         if (ptr->arg[i + 1])
         {
             tmp = (ptr->arg[i + 1]);
-            ptr->arg[i + 1] = ft_strdup(ptr->arg[i]);
+            ptr->arg[i + 1] = (ptr->arg[i]);
             ptr->arg[i] = tmp;
         }
         i++;
@@ -128,9 +128,9 @@ void rra(t_stacka *ptr)
     // puts(ft_itoa(ptr->lastnumber));
     if (ft_atoi(ptr->arg[0]) != ptr->lastnumber)
         rra(ptr);
-
     ptr->firstnumber = ptr->lastnumber;
-    ptr->lastnumber = ft_atoi(ptr->arg[i - 1]);
+    if (i)
+        ptr->lastnumber = ft_atoi(ptr->arg[i - 1]);
 }
 
 void extra_ra(t_stacka *ptr)
@@ -179,9 +179,12 @@ void rrb(t_stackb *ptr)
 {
     int i;
     char *tmp;
+    if (!ptr || !ptr->arg)
+        return;
     i = 0;
     while (ptr->arg[i])
     {
+        puts("Here");
         if (ptr->arg[i + 1])
         {
             tmp = (ptr->arg[i + 1]);
@@ -192,8 +195,10 @@ void rrb(t_stackb *ptr)
     }
     if (ft_atoi(ptr->arg[0]) != ptr->lastnumber)
         rrb(ptr);
-    ptr->firstnumber = ft_atoi(ptr->arg[0]);
-    ptr->lastnumber = ft_atoi(ptr->arg[i - 1]);
+    if (ptr->arg[0])
+        ptr->firstnumber = ft_atoi(ptr->arg[0]);
+    if (i)
+        ptr->lastnumber = ft_atoi(ptr->arg[i - 1]);
 }
 
 void rb_extra(t_stackb *ptr)
@@ -256,6 +261,8 @@ char **delete_number_stackb(t_stackb *ptr, char *number)
     int j = 0;
     char *tmp;
     char **av;
+    if (!ptr->arg || !ptr->arg[0])
+        return (NULL);
     int size = size_arg(ptr->arg);
 
     if (!ptr->arg)
@@ -273,6 +280,8 @@ char **delete_number_stackb(t_stackb *ptr, char *number)
     }
     av[j] = NULL;
     ptr->size -= 1;
+    if (j)
+        ptr->lastnumber = ft_atoi(av[j - 1]);
     ptr->arg = av;
     return (av);
 }
@@ -283,10 +292,10 @@ char **delete_number(t_stacka *ptr, char *number)
     int j = 0;
     char *tmp;
     char **av;
-    int size = size_arg(ptr->arg);
 
-    if (!ptr->arg)
+    if (!ptr->arg || !ptr->arg[0])
         return (NULL);
+    int size = size_arg(ptr->arg);
     if (!(av = malloc(sizeof(char *) * size)))
         puts("malloc");
     while (ptr->arg[i])
@@ -300,7 +309,9 @@ char **delete_number(t_stacka *ptr, char *number)
     }
     av[j] = NULL;
     ptr->size = size - 1;
-    ptr->lastnumber = ft_atoi(av[j - 1]);
+
+    if (j)
+        ptr->lastnumber = ft_atoi(av[j - 1]);
     ptr->arg = av;
     return (av);
 }
@@ -385,7 +396,7 @@ void add_first(t_stackb *ptr, char *number)
     ptr->size = size + 1;
     av[size] = NULL;
     av[0] = ft_strdup(number);
-    ptr->firstnumber = ft_atoi(ptr->arg[0]);
+    ptr->firstnumber = ft_atoi(av[0]);
     int i = 1;
     int j = 0;
     while (ptr->arg[j])
@@ -412,6 +423,7 @@ void push_a(t_stacka *ptr, char *number)
     ptr->size = size + 1;
     av[size] = NULL;
     av[0] = ft_strdup(number);
+    ptr->lastnumber = ft_atoi(av[0]);
     // size = size - 1;
     // puts(av[0]);
     int i = 1;
@@ -561,10 +573,16 @@ void push_all_stackb(t_stackb *b, t_stacka *a)
 
 void print_stacks(char **a, char **b)
 {
-    ft_putstr_fd("STACK A :", 1);
-    print_2(a);
-    ft_putstr_fd("STACK B :", 1);
-    print_2(b);
+    if (a)
+    {
+        ft_putstr_fd("STACK A :", 1);
+        print_2(a);
+    }
+    if (b)
+    {
+        ft_putstr_fd("STACK B :", 1);
+        print_2(b);
+    }
 }
 
 void algo_unser50(t_stacka *a, t_stackb *b)
@@ -674,20 +692,20 @@ void algo2(t_stacka *a, t_stackb *b)
     }
 }
 
-int main(int ac, char **ag)
-{
-    t_stacka *a = NULL;
-    int i = 1;
-    int c = 0;
-    int sumint = 0;
-    float sum = 0;
+// int main(int ac, char **ag)
+// {
+//     t_stacka *a = NULL;
+//     int i = 1;
+//     int c = 0;
+//     int sumint = 0;
+//     float sum = 0;
 
-    t_stackb *b = NULL;
-    if (ac >= 2)
-    {
-        add_new(&a, &ag[i]);
-        algo2(a, b);
-        // if (size_arg(a->arg) <= 60)
-        // algo_unser50(a, b);
-    }
-}
+//     t_stackb *b = NULL;
+//     if (ac >= 2)
+//     {
+//         add_new(&a, &ag[i]);
+//         algo2(a, b);
+//         // if (size_arg(a->arg) <= 60)
+//         // algo_unser50(a, b);
+//     }
+// }
