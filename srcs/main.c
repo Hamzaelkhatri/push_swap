@@ -122,6 +122,7 @@ void rra(t_stacka *ptr)
             tmp = ft_strdup(ptr->arg[i + 1]);
             ptr->arg[i + 1] = ft_strdup(ptr->arg[i]);
             ptr->arg[i] = tmp;
+            ptr->indice = i;
         }
         i++;
     }
@@ -365,11 +366,17 @@ void get_min(t_stacka **ptr)
     tmp->firstnumber = ft_atoi(tmp->arg[0]);
 }
 
+void pb(t_stacka *ptr, t_stackb **new, char *number)
+{
+    ft_putendl_fd("pb", 1);
+    push_b(ptr, new, number);
+}
+
 t_stackb *push_b(t_stacka *ptr, t_stackb **new, char *number)
 {
     int size;
     char **av;
-    ft_putendl_fd("pb", 1);
+
     if (ptr->arg[1])
         ptr->firstnumber = ft_atoi(ptr->arg[1]);
     if (!*new)
@@ -418,6 +425,12 @@ void add_first(t_stackb *ptr, char *number)
     ptr->arg = av;
 }
 
+void pa(t_stacka *ptr, t_stackb *b, char *number)
+{
+    ft_putendl_fd("pa", 1);
+    push_a(ptr, b, number);
+}
+
 void push_a(t_stacka *ptr, t_stackb *b, char *number)
 {
     // t_stackb *tmp = NULL;
@@ -428,7 +441,6 @@ void push_a(t_stacka *ptr, t_stackb *b, char *number)
     // ft_putnbr_fd(size, 1);
     if (!(av = malloc(sizeof(char *) * (size + 1))))
         puts("malloc");
-    ft_putendl_fd("pa", 1);
     // ft_bzero(av, sizeof(char *) + size + 1);
     ptr->size = size;
     av[size] = NULL;
@@ -512,7 +524,7 @@ int sum_all(char **a)
 int check_prev(char **av, int index)
 {
     int i = 0;
-    while (index > i)
+    while (index > i && av[index] && av[i])
     {
         if (ft_atoi(av[index]) < ft_atoi(av[i]))
             return (0);
@@ -549,15 +561,16 @@ int check_sort_stackb(t_stackb *b)
     return (1);
 }
 
-int check_sort(t_stacka *a)
+int check_sort(char **arg)
 {
-    int size = size_arg(a->arg);
     int i = 0;
-    if (!a->arg)
+    if (!arg || !arg[1])
         return (0);
-    while (a->arg[i])
+    int size = size_arg(arg);
+    while (arg[i])
     {
-        if (!check_prev(a->arg, i))
+        // puts("here");
+        if (!check_prev(arg, i))
             return (0);
         i++;
     }
@@ -569,7 +582,7 @@ int get_index(char **av, char *number)
     int i = 0;
     while (av[i])
     {
-        if (ft_atoi(av[i]) > ft_atoi(number))
+        if (ft_atoi(av[i]) < ft_atoi(number))
             return (i);
         i++;
     }
@@ -581,7 +594,7 @@ void push_all_stackb(t_stackb *b, t_stacka *a)
     int i = 0;
     while (b->arg[i])
     {
-        push_a(a, b, b->arg[i]);
+        pa(a, b, b->arg[i]);
         delete_number_stackb(b, b->arg[i]);
     }
 }
@@ -605,7 +618,8 @@ void algo_unser50(t_stacka *a, t_stackb *b)
     int c;
     c = 0;
     get_min(&a);
-    while (a->arg[0])
+    // printf("[%i]", check_sort(a->arg));
+    while (!check_sort(a->arg))
     {
         if (a->arg[1] && a->minvalue == ft_atoi(a->arg[1]))
             swapa_extra(&a);
@@ -613,10 +627,11 @@ void algo_unser50(t_stacka *a, t_stackb *b)
         {
             while (ft_atoi(a->arg[0]) != a->minvalue)
             {
-                // if ((a->size) - a->indice >)
-                // extra_ra(a);
-                // else
-                rra_extra(a);
+                int proximity = ((float)(a->size - 1) / 2);
+                if (a->indice >= proximity)
+                    rra_extra(a);
+                else
+                    extra_ra(a);
             }
         }
         if (a->size <= 2)
@@ -625,12 +640,12 @@ void algo_unser50(t_stacka *a, t_stackb *b)
                 swapa_extra(&a);
             break;
         }
-        push_b(a, &b, a->arg[0]);
+        pb(a, &b, a->arg[0]);
         delete_min(a);
         get_min(&a);
     }
-    while (b->arg[c])
-        push_a(a, b, b->arg[c++]);
+    while (b && b->arg[c])
+        pa(a, b, b->arg[c++]);
     // print_stacks(a->arg, b->arg);
 }
 
@@ -644,7 +659,7 @@ void execute_a(t_stacka **a, t_stackb **b)
     {
         rra_extra(*a);
     }
-    push_b(*a, b, (*a)->arg[0]);
+    pb(*a, b, (*a)->arg[0]);
     delete_number(a, (*a)->arg[0]);
 }
 
@@ -655,7 +670,7 @@ void execute_b(t_stacka **a, t_stackb **b)
 
     while ((*b)->arg[(*b)->size - 1] && ft_atoi((*b)->arg[(*b)->size - 1]) > ft_atoi((*b)->arg[0]))
         rrb_extra((*b));
-    push_a(*a, *b, (*b)->arg[0]);
+    pa(*a, *b, (*b)->arg[0]);
     delete_number_stackb((*b), (*b)->arg[0]);
 }
 
@@ -682,7 +697,7 @@ void algo2(t_stacka *a, t_stackb *b)
     {
 
         check = 0;
-        if (!check_sort(a))
+        if (!check_sort(a->arg))
         {
             check = 1;
             if (a->arg && a->arg[1])
@@ -692,10 +707,9 @@ void algo2(t_stacka *a, t_stackb *b)
                 a->lastnumber = pivot;
                 while (a->arg[0] && ft_atoi(a->arg[0]) < pivot)
                 {
-
                     if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[1]))
                         swapa_extra(&a);
-                    push_b(a, &b, a->arg[0]);
+                    pb(a, &b, a->arg[0]);
                     delete_number(&a, a->arg[0]);
                 }
                 while (a->arg[0] && ft_atoi(a->arg[0]) > pivot)
@@ -709,7 +723,7 @@ void algo2(t_stacka *a, t_stackb *b)
                 {
                     if (a->arg[1] && ft_atoi(a->arg[0]) > ft_atoi(a->arg[1]))
                         swapa_extra(&a);
-                    push_b(a, &b, a->arg[0]);
+                    pb(a, &b, a->arg[0]);
                     delete_number(&a, a->arg[0]);
                 }
                 if (a->arg && ft_atoi(a->arg[0]) > ft_atoi(a->arg[a->size - 1]) && ft_atoi(a->arg[1]) > ft_atoi(a->arg[a->size - 1]))
@@ -729,7 +743,7 @@ void algo2(t_stacka *a, t_stackb *b)
                     if (ft_atoi(b->arg[0]) < ft_atoi(b->arg[1]) && ft_atoi(b->arg[1]) < ft_atoi(b->arg[b->size - 1]))
                         swapb_extra(&b);
 
-                    push_a(a, b, b->arg[0]);
+                    pa(a, b, b->arg[0]);
                     delete_number_stackb(b, b->arg[0]);
                 }
                 while (ft_atoi(b->arg[0]) > pivot)
@@ -743,7 +757,7 @@ void algo2(t_stacka *a, t_stackb *b)
                 {
                     if (b->arg[1] && ft_atoi(b->arg[0]) > ft_atoi(b->arg[1]) && ft_atoi(b->arg[1]) < ft_atoi(b->arg[b->size - 1]))
                         swapb_extra(&b);
-                    push_a(a, b, b->arg[0]);
+                    pa(a, b, b->arg[0]);
                     delete_number_stackb(b, b->arg[0]);
                 }
                 if (b->arg && ft_atoi(b->arg[0]) < ft_atoi(b->arg[b->size - 1]))
@@ -754,7 +768,7 @@ void algo2(t_stacka *a, t_stackb *b)
                 // print_2(a->arg);
             }
         }
-        if (b && check_sort_stackb(b) && check_sort(a))
+        if (b && check_sort_stackb(b) && check_sort(a->arg))
         {
             push_all_stackb(b, a);
             break;
@@ -769,6 +783,126 @@ void algo2(t_stacka *a, t_stackb *b)
         print_2(a->arg);
 }
 
+int search_pivot(char **av, int pivot)
+{
+    int i = 0;
+    while (av[i])
+    {
+        if (ft_atoi(av[i]) < pivot)
+            return (1);
+        i++;
+    }
+    return (0);
+}
+
+int get_under_pivot(char **av, int pivot)
+{
+    int i = 0;
+    while (av[i])
+    {
+        if (ft_atoi(av[i]) < pivot)
+            return (i);
+        i++;
+    }
+    return (0);
+}
+
+int get_medieum(char **av)
+{
+    int c;
+    c = 0;
+    t_stacka *a = NULL;
+    t_stackb *b = NULL;
+    int med = 0;
+    add_new(&a, av);
+    get_min(&a);
+    get_min(&a);
+    // printf("[%i]", check_sort(a->arg));
+    while (!check_sort(a->arg))
+    {
+        if (a->arg[1] && a->minvalue == ft_atoi(a->arg[1]))
+            swap_a(&a);
+        else
+        {
+            while (ft_atoi(a->arg[0]) != a->minvalue)
+                ra(a);
+        }
+        if (a->size <= 2)
+        {
+            if (a->arg[1] && a->minvalue == ft_atoi(a->arg[1]))
+                swap_a(&a);
+            break;
+        }
+        push_b(a, &b, a->arg[0]);
+        delete_min(a);
+        get_min(&a);
+    }
+    while (b && b->arg[c])
+        push_a(a, b, b->arg[c++]);
+    if (a->size % 2 == 0)
+    {
+        return ((ft_atoi(a->arg[((a->size - 1) / 2) - 1]) + ft_atoi(a->arg[((a->size - 1) / 2) + 1])) / 2);
+    }
+    else
+    {
+        return ((ft_atoi(a->arg[((a->size - 1) / 2)])));
+    }
+}
+
+void quick_sort(t_stacka *a, t_stackb *b)
+{
+    int i = 0;
+    int pivot = 0;
+    int proximity = 0;
+    int size = a->size;
+    int index = 0;
+    // while (!check_sort(a->arg))
+    {
+        if (a->arg[0])
+        {
+            pivot = get_medieum(a->arg);
+            // puts(ft_itoa(pivot));
+            while (search_pivot(a->arg, pivot))
+            {
+                // index = get_index(a->arg, ft_itoa(get_under_pivot(a->arg, pivot)));
+                // puts(a->arg[index]);
+                // print_2(a->arg);
+                // exit(0);
+                if (a->arg[1] && ft_atoi(a->arg[1]) < ft_atoi(a->arg[0])) //&& ft_atoi(a->arg[1]) < pivot ||
+                    swapa_extra(&a);
+                if (get_index(a->arg, ft_itoa(get_under_pivot(a->arg, pivot)))) // || get_index(a->arg, ft_itoa(get_under_pivot(a->arg, pivot)))
+                {
+                    // puts("here");
+                    //proximity:
+                    proximity = (a->size - 1) / 2;
+                    index = get_index(a->arg, ft_itoa(get_under_pivot(a->arg, pivot)));
+                    // puts(a->arg[index]);
+                    if (ft_atoi(a->arg[0]) > pivot)
+                    {
+                        if (index >= proximity)
+                            rra_extra(a);
+                        else
+                            extra_ra(a);
+                    }
+                }
+                if (ft_atoi(a->arg[0]) <= pivot)
+                {
+                    pb(a, &b, a->arg[0]);
+                    delete_number(&a, a->arg[0]);
+                }
+                // if (a && b)
+                //     print_stacks(a->arg, b->arg);
+                // else
+                //     print_2(a->arg);
+            }
+            // if (a && b)
+            //     print_stacks(a->arg, b->arg);
+            // else
+            //     print_2(a->arg);
+        }
+    }
+}
+
 int main(int ac, char **ag)
 {
     t_stacka *a = NULL;
@@ -778,10 +912,12 @@ int main(int ac, char **ag)
     float sum = 0;
 
     t_stackb *b = NULL;
-    // if (ac >= 2)
+    if (ac >= 2)
     {
         add_new(&a, &ag[i]);
-        algo2(a, b);
+        // algo2(a, b);
+        // algo_unser50(a, b);
+        quick_sort(a, b);
         // checker(ag);
 
         // if (size_arg(a->arg) <= 60)

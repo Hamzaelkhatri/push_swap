@@ -77,5 +77,6 @@ t_stackb *push_b(t_stacka *ptr, t_stackb **new, char *number);
 char **delete_number(t_stacka **a, char *number);
 char **delete_number_stackb(t_stackb *ptr, char *number);
 int checker(char **ag);
+void pa(t_stacka *ptr, t_stackb *b, char *number);
 void print_stacks(char **a, char **b);
 #endif
