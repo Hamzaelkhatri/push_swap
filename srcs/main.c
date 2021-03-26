@@ -574,7 +574,7 @@ int check_sort(char **arg)
             return (0);
         i++;
     }
-    return (1);
+    return (-1);
 }
 
 int get_index(char **av, char *number)
@@ -586,7 +586,7 @@ int get_index(char **av, char *number)
             return (i);
         i++;
     }
-    return (i);
+    return (-1);
 }
 
 void push_all_stackb(t_stackb *b, t_stacka *a)
@@ -801,10 +801,10 @@ int get_under_pivot(char **av, int pivot)
     while (av[i])
     {
         if (ft_atoi(av[i]) < pivot)
-            return (i);
+            return (ft_atoi(av[i]));
         i++;
     }
-    return (0);
+    return (i);
 }
 
 int get_medieum(char **av)
@@ -841,11 +841,36 @@ int get_medieum(char **av)
         push_a(a, b, b->arg[c++]);
     if (a->size % 2 == 0)
     {
-        return ((ft_atoi(a->arg[((a->size - 1) / 2) - 1]) + ft_atoi(a->arg[((a->size - 1) / 2) + 1])) / 2);
+        // puts("here");
+        // puts((a->arg[((a->size) / 2) - 1]));
+        // puts((a->arg[((a->size) / 2) + 1]));puts("here");
+        return ((ft_atoi(a->arg[((a->size - 1) / 2)]) + ft_atoi(a->arg[((a->size - 1) / 2)])) / 2);
     }
     else
     {
         return ((ft_atoi(a->arg[((a->size - 1) / 2)])));
+    }
+}
+
+int sum_med(char **av, int pivot, int index)
+{
+    int i = 0;
+    int sum = 0;
+    while (i <= index && av[i])
+    {
+        if (ft_atoi(av[i]) <= pivot)
+            sum++;
+        i++;
+    }
+    return (sum);
+}
+
+void pusha_delete(t_stacka *a, t_stackb *b, int pivot)
+{
+    if (ft_atoi(a->arg[0]) <= pivot)
+    {
+        pb(a, &b, a->arg[0]);
+        delete_number(&a, a->arg[0]);
     }
 }
 
@@ -855,41 +880,57 @@ void quick_sort(t_stacka *a, t_stackb *b)
     int pivot = 0;
     int proximity = 0;
     int size = a->size;
-    int index = 0;
+    int index = -1;
     // while (!check_sort(a->arg))
     {
         if (a->arg[0])
         {
             pivot = get_medieum(a->arg);
-            // puts(ft_itoa(pivot));
             while (search_pivot(a->arg, pivot))
             {
-                // index = get_index(a->arg, ft_itoa(get_under_pivot(a->arg, pivot)));
-                // puts(a->arg[index]);
-                // print_2(a->arg);
-                // exit(0);
-                if (a->arg[1] && ft_atoi(a->arg[1]) < ft_atoi(a->arg[0])) //&& ft_atoi(a->arg[1]) < pivot ||
-                    swapa_extra(&a);
-                if (get_index(a->arg, ft_itoa(get_under_pivot(a->arg, pivot)))) // || get_index(a->arg, ft_itoa(get_under_pivot(a->arg, pivot)))
+                if (a->arg[1] && ft_atoi(a->arg[1]) < ft_atoi(a->arg[0]) && ft_atoi(a->arg[1]) <= pivot) // ||
                 {
-                    // puts("here");
-                    //proximity:
-                    proximity = (a->size - 1) / 2;
-                    index = get_index(a->arg, ft_itoa(get_under_pivot(a->arg, pivot)));
-                    // puts(a->arg[index]);
+                    swapa_extra(&a);
+                    pusha_delete(a, b, pivot);
+                }
+
+                if (get_under_pivot(a->arg, pivot) <= pivot) // || get_index(a->arg, ft_itoa(get_under_pivot(a->arg, pivot)))
+                {
+                    proximity = (a->size) / 2;
+                    index = get_index(a->arg, ft_itoa(pivot));
                     if (ft_atoi(a->arg[0]) > pivot)
                     {
-                        if (index >= proximity)
+                        if (index == proximity + 1 || index == proximity - 1 || index == proximity || index == proximity + 2 || index == proximity - 2)
+                            while (ft_atoi(a->arg[0]) > pivot)
+                            {
+                                // puts("here");
+                                if (sum_med(a->arg, pivot, proximity) > sum_med(&a->arg[index], pivot, a->size))
+                                    extra_ra(a);
+                                else
+                                    rra_extra(a);
+                                proximity = (a->size) / 2;
+                                index = get_index(a->arg, ft_itoa(pivot));
+                            }
+
+                        if (ft_atoi(a->arg[a->size - 1]) <= pivot)
                             rra_extra(a);
                         else
                             extra_ra(a);
                     }
                 }
-                if (ft_atoi(a->arg[0]) <= pivot)
-                {
-                    pb(a, &b, a->arg[0]);
-                    delete_number(&a, a->arg[0]);
-                }
+                pusha_delete(a, b, pivot);
+                // if (a && b)
+                //     print_stacks(a->arg, b->arg);
+                // else
+                //     print_2(a->arg);
+                // else if()
+                // puts(ft_itoa(pivot));
+                // if (ft_atoi(a->arg[0]) <= pivot)
+                // {
+                //     pb(a, &b, a->arg[0]);
+                //     delete_number(&a, a->arg[0]);
+                // }
+
                 // if (a && b)
                 //     print_stacks(a->arg, b->arg);
                 // else
@@ -917,6 +958,8 @@ int main(int ac, char **ag)
         add_new(&a, &ag[i]);
         // algo2(a, b);
         // algo_unser50(a, b);
+        // print_2(a->arg);
+        // puts(ft_itoa(get_medieum(a->arg)));
         quick_sort(a, b);
         // checker(ag);
 
