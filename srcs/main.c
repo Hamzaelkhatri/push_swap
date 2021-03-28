@@ -1003,12 +1003,15 @@ void quick_sort(t_stacka *a, t_stackb *b)
         {
             pivot = get_medieum(a->arg);
             // int cd =
-            while (search_pivot(a->arg, pivot))
+            while (search_pivot(a->arg, pivot) && !check_sort(a->arg))
             {
+                // if (a->arg[1] && ft_atoi(a->arg[1]) < ft_atoi(a->arg[0]) && b && b->arg[1] && ft_atoi(b->arg[1]) > ft_atoi(b->arg[0]) && b->arg[1])
+                // {
+                //     ss(&a, &b);
+                // }
                 if (a->arg[1] && ft_atoi(a->arg[1]) < ft_atoi(a->arg[0]) && ft_atoi(a->arg[1]) <= pivot) // ||
                 {
                     swapa_extra(&a);
-                    pusha_delete(a, &b, pivot);
                 }
                 if (get_under_pivot(a->arg, pivot) < pivot) // || get_index(a->arg, ft_itoa(get_under_pivot(a->arg, pivot)))
                 {
@@ -1029,11 +1032,11 @@ void quick_sort(t_stacka *a, t_stackb *b)
                                 {
                                     int proximitys = (b->size) / 2;
                                     int indes = get_index_(b->arg, ft_itoa(bmax));
-                                    if (indes > proximitys && ft_atoi(a->arg[a->size - 1]) <= pivot && ft_atoi(b->arg[b->size - 1]) >= bmax)
-                                        rrr(a, b);
+                                    if (indes > proximitys && ft_atoi(a->arg[a->size - 1]) < pivot)
+                                        rra_extra(a);
                                     else
-                                        rr(a, b);
-                                    if (a->arg[1] && ft_atoi(a->arg[1]) < ft_atoi(a->arg[0]) && b && b->arg[1] && ft_atoi(b->arg[1]) > ft_atoi(b->arg[0]))
+                                        extra_ra(a);
+                                    if (a->arg[1] && ft_atoi(a->arg[1]) < ft_atoi(a->arg[0]) && b && b->arg[1])
                                         ss(&a, &b);
                                     rrs = 1;
                                 }
@@ -1056,7 +1059,7 @@ void quick_sort(t_stacka *a, t_stackb *b)
                                 int proximitys = (b->size) / 2;
                                 int indes = get_index_(b->arg, ft_itoa(bmax));
                                 if (indes > proximitys && ft_atoi(a->arg[a->size - 1]) <= pivot && ft_atoi(b->arg[b->size - 1]) >= bmax)
-                                    rrr(a, b);
+                                    rr(a, b);
                                 else
                                     rr(a, b);
                                 if (a->arg[1] && ft_atoi(a->arg[1]) < ft_atoi(a->arg[0]) && b->arg[1] && ft_atoi(b->arg[1]) > ft_atoi(b->arg[0]))
@@ -1090,9 +1093,9 @@ void quick_sort(t_stacka *a, t_stackb *b)
                 }
                 if (ft_atoi(b->arg[1]) > ft_atoi(b->arg[0]) && b->arg[1])
                 {
-                    swapa_extra(&a);
+                    swapb_extra(&b);
                 }
-                while (ft_atoi(a->arg[0]) != amin && a->size > 2)
+                while (ft_atoi(a->arg[0]) != amin && a->size > 2 && !check_sort(a->arg))
                 {
                     proximity = (a->size) / 2;
                     index = get_index_(a->arg, ft_itoa(amin));
@@ -1105,28 +1108,25 @@ void quick_sort(t_stacka *a, t_stackb *b)
                     }
                     c++;
                 }
-                // push_all_stackb(b, a);
-                // }
-
                 if (amin == ft_atoi(a->arg[0]))
                 {
                     pb(a, &b, a->arg[0]);
                     delete_number(&a, a->arg[0]);
                 }
             }
-            while (ft_atoi(b->arg[0]) > nmax)
+            while (ft_atoi(b->arg[0]) > nmax && !check_sort(b->arg))
             {
                 pa(a, b, b->arg[0]);
                 delete_number_stackb(b, b->arg[0]);
             }
-            while (b->arg[0] && !check_sort(b->arg))
+            while (b->arg && !check_sort(b->arg))
             {
                 int bmax = get_max_(b->arg);
                 if (b->arg[1] && ft_atoi(b->arg[1]) > ft_atoi(b->arg[0]))
                     swapb_extra(&b);
                 if (ft_atoi(b->arg[0]) != bmax)
                 {
-                    proximity = (b->size) / 2;
+                    proximity = (b->size) / 5;
                     index = get_index_(b->arg, ft_itoa(bmax));
                     if (b->arg[1] && ft_atoi(b->arg[1]) > ft_atoi(b->arg[0]))
                         swapb_extra(&b);
@@ -1138,16 +1138,75 @@ void quick_sort(t_stacka *a, t_stackb *b)
                             rb_extra(b);
                     }
                 }
-                if (bmax == ft_atoi(b->arg[0]))
+                while (b->arg[0] && bmax == ft_atoi(b->arg[0]))
                 {
                     pa(a, b, b->arg[0]);
                     delete_number_stackb(b, b->arg[0]);
+                    if (b->arg[0])
+                        bmax = get_max_(b->arg);
                 }
+                // print_2(b->arg);
                 if (b->arg[1] && ft_atoi(b->arg[1]) > ft_atoi(b->arg[0]))
                     swapb_extra(&b);
             }
             push_all_stackb(b, a);
         }
+    }
+}
+
+int get_next_int(char **av, int lastmax)
+{
+    int i = 0;
+    int max;
+    if (ft_atoi(av[0]) < lastmax)
+        max = ft_atoi(av[0]);
+    else
+        max = ft_atoi(av[1]);
+    i++;
+    while (av[i])
+    {
+        // puts(av[i]);
+        if (ft_atoi(av[i]) < lastmax)
+        {
+            if (max < lastmax && max != lastmax && max < ft_atoi(av[i]))
+            {
+                max = ft_atoi(av[i]);
+            }
+        }
+        i++;
+    }
+    return (max);
+}
+
+int check_prev_number(char **av, int max)
+{
+    int i = 0;
+    int min = ft_atoi(av[0]);
+    while (av[i] && max != min)
+    {
+        if (ft_atoi(av[i]) < min)
+        {
+            return (0);
+        }
+        i++;
+    }
+    return (1);
+}
+
+void sort_stack(char ***av)
+{
+    int i = 0;
+    int max = get_max_(*av);
+    int tmp_max = max;
+    char **tmp = *av;
+    while (check_sort(tmp))
+    {
+        if (ft_atoi(tmp[0]))
+            while (ft_atoi(tmp[0]) != max)
+            {
+                        }
+
+        i++;
     }
 }
 
@@ -1163,10 +1222,11 @@ int main(int ac, char **ag)
     if (ac >= 2)
     {
         add_new(&a, &ag[i]);
+        // printf("[%i]", check_prev_number(a->arg, 5));
         // algo2(a, b);
         // algo_unser50(a, b);
         // puts(ft_itoa(get_medieum(a->arg)));
-        quick_sort(a, b);
+        // quick_sort(a, b);
         // print_2(a->arg);
 
         // max_algo(a, b);
