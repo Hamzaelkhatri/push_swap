@@ -37,6 +37,7 @@ void add_new(t_stacka **ptr, char **av)
     // new->right = NULL;
     new->arg[size] = NULL;
     new->lastnumber = ft_atoi(av[size - 1]);
+    new->firstnumber = ft_atoi(av[0]);
     while (--size >= 0)
         new->arg[size] = ft_strdup(av[size]);
     ft_lst_add_back(ptr, new);
@@ -159,12 +160,15 @@ void ra(t_stacka *ptr)
     // print_2(ptr->arg);
     // puts(ft_itoa(ptr->firstnumber));
     // sleep(1);
+    // puts("--);
     if (i && ptr->arg[i - 1] && ft_atoi(ptr->arg[i - 1]) != ptr->firstnumber)
+    {
+        // puts("-----------");
         ra(ptr);
+    }
     ptr->firstnumber = ft_atoi(ptr->arg[0]);
     if (i)
         ptr->lastnumber = ft_atoi(ptr->arg[i - 1]);
-    // puts("------");
 }
 
 void rrr(t_stacka *a, t_stackb *b)
@@ -1145,12 +1149,12 @@ void quick_sort(t_stacka *a, t_stackb *b)
                     if (b->arg[0])
                         bmax = get_max_(b->arg);
                 }
-                // print_2(b->arg);
                 if (b->arg[1] && ft_atoi(b->arg[1]) > ft_atoi(b->arg[0]))
                     swapb_extra(&b);
             }
             push_all_stackb(b, a);
         }
+        // print_2(a->arg);
     }
 }
 
@@ -1158,10 +1162,10 @@ int get_next_int(char **av, int lastmax)
 {
     int i = 0;
     int max;
-    if (ft_atoi(av[0]) < lastmax)
-        max = ft_atoi(av[0]);
-    else
-        max = ft_atoi(av[1]);
+    // if (ft_atoi(av[0]) < lastmax)
+    max = ft_atoi(av[0]);
+    // else
+    // max = ft_atoi(av[1]);
     i++;
     while (av[i])
     {
@@ -1175,6 +1179,8 @@ int get_next_int(char **av, int lastmax)
         }
         i++;
     }
+    // puts("here");
+    // printf("[%i]\n", max);
     return (max);
 }
 
@@ -1185,29 +1191,69 @@ int check_prev_number(char **av, int max)
     while (av[i] && max != min)
     {
         if (ft_atoi(av[i]) < min)
-        {
             return (0);
-        }
         i++;
     }
     return (1);
 }
 
-void sort_stack(char ***av)
+int count_line(char **av)
 {
     int i = 0;
-    int max = get_max_(*av);
-    int tmp_max = max;
-    char **tmp = *av;
-    while (check_sort(tmp))
+    while (av[i])
     {
-        if (ft_atoi(tmp[0]))
-            while (ft_atoi(tmp[0]) != max)
-            {
-                        }
-
         i++;
     }
+    return (i);
+}
+
+void sort_stack(t_stacka *a, t_stackb *b)
+{
+    int i = 0;
+    int max = get_max_(a->arg);
+    int min = get_max_(a->arg);
+    int tmp_max = max;
+    // printf("[%i]", max);
+    int maxtmp = get_next_int(a->arg, max);
+    while (!check_sort(a->arg))
+    {
+        while (ft_atoi(a->arg[0]) != max && ft_atoi(a->arg[0]) != maxtmp)
+        {
+            int proximitys = a->size / 2;
+            int indes = get_index_(a->arg, ft_itoa(max));
+
+            if (indes >= proximitys)
+                rra_extra(a);
+            else
+                extra_ra(a);
+            if (max > ft_atoi(a->arg[1]))
+                swapa_extra(&a);
+            if (check_sort(a->arg))
+                break;
+            print_2(a->arg);
+            puts(ft_itoa(max));
+            sleep(1);
+        }
+
+        max = get_next_int(a->arg, max);
+        maxtmp = get_next_int(a->arg, max);
+        // while (ft_atoi(a->arg[0]) != max && ft_atoi(a->arg[0]) != maxtmp)
+        // {
+        //     int proximitys = a->size / 2;
+        //     int indes = get_index_(a->arg, ft_itoa(max));
+        //     if (indes >= proximitys)
+        //         rra_extra(a);
+        //     else
+        //         extra_ra(a);
+        //     if (max > ft_atoi(a->arg[1]))
+        //     {
+        //         swapa_extra(&a);
+        //     }
+        //     print_2(a->arg);
+        //     sleep(1);
+        // }
+    }
+    i++;
 }
 
 int main(int ac, char **ag)
@@ -1226,7 +1272,20 @@ int main(int ac, char **ag)
         // algo2(a, b);
         // algo_unser50(a, b);
         // puts(ft_itoa(get_medieum(a->arg)));
-        // quick_sort(a, b);
+        quick_sort(a, b);
+        // sort_stack(a, b);
+        // int max = get_next_int(a->arg, 5);
+        // puts(ft_itoa(max));
+        // max = get_next_int(a->arg, max);
+        // puts(ft_itoa(max));
+        // max = get_next_int(a->arg, max);
+        // puts(ft_itoa(max));
+        // max = get_next_int(a->arg, max);
+        // puts(ft_itoa(max));
+        // max = get_next_int(a->arg, max);
+        // puts(ft_itoa(max));
+
+        // extra_ra(a);
         // print_2(a->arg);
 
         // max_algo(a, b);
