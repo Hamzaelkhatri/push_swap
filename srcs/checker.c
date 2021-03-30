@@ -52,7 +52,7 @@ int checker(char **ag)
                 puts("A : has 1 caracter or none :/");
             }
         }
-        else if (!ft_strcmp(line, "sb\n"))
+        if (!ft_strcmp(line, "sb\n"))
         {
             if (b)
             {
@@ -64,7 +64,7 @@ int checker(char **ag)
                 puts("B : empty :/");
             }
         }
-        else if (!ft_strcmp(line, "ss\n"))
+        if (!ft_strcmp(line, "ss\n"))
         {
             if (b)
             {
@@ -83,7 +83,7 @@ int checker(char **ag)
             else
                 puts("A : has 1 caracter or none :/");
         }
-        else if (!ft_strcmp(line, "pb\n"))
+        if (!ft_strcmp(line, "pb\n"))
         {
             if (a && a->arg[0])
             {
@@ -95,7 +95,7 @@ int checker(char **ag)
             else
                 puts("A : empty :/");
         }
-        else if (!ft_strcmp(line, "pa\n"))
+        if (!ft_strcmp(line, "pa\n"))
         {
             if (b && b->arg[0])
             {
@@ -107,7 +107,7 @@ int checker(char **ag)
             else
                 puts("B : empty :/");
         }
-        else if (!ft_strcmp(line, "rb\n"))
+        if (!ft_strcmp(line, "rb\n"))
         {
             if (b && b->arg[0])
             {
@@ -117,7 +117,7 @@ int checker(char **ag)
             else
                 puts("B : empty :/");
         }
-        else if (!ft_strcmp(line, "ra\n"))
+        if (!ft_strcmp(line, "ra\n"))
         {
             if (a && a->arg[0] && a->arg[1])
             {
@@ -130,7 +130,7 @@ int checker(char **ag)
             else
                 puts("A : empty :/");
         }
-        else if (!ft_strcmp(line, "rra\n"))
+        if (!ft_strcmp(line, "rra\n"))
         {
             if (a && a->arg[0] && a->arg[1])
             {
@@ -143,7 +143,7 @@ int checker(char **ag)
             else
                 puts("A : empty :/");
         }
-        else if (!ft_strcmp(line, "rrb\n"))
+        if (!ft_strcmp(line, "rrb\n"))
         {
             if (b && b->arg[0])
             {
@@ -153,7 +153,7 @@ int checker(char **ag)
             else
                 puts("B : empty :/");
         }
-        else if (!ft_strcmp(line, "rr\n"))
+        if (!ft_strcmp(line, "rr\n"))
         {
             if (b && b->arg[0])
                 rb(b);

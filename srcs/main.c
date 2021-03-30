@@ -572,7 +572,6 @@ int check_prev_stakcb(char **av, int index)
     int i = 0;
     while (index > i)
     {
-        // printf("[%s,%s]", av[index], av[i]);
         if (ft_atoi(av[index]) > ft_atoi(av[i]))
             return (0);
         i++;
@@ -681,7 +680,6 @@ void algo_unser50(t_stacka *a, t_stackb *b)
     }
     while (b && b->arg[c])
         pa(a, b, b->arg[c++]);
-    // print_stacks(a->arg, b->arg);
 }
 
 void execute_a(t_stacka **a, t_stackb **b)
@@ -797,10 +795,6 @@ void algo2(t_stacka *a, t_stackb *b)
                 }
                 if (b->arg && ft_atoi(b->arg[0]) < ft_atoi(b->arg[b->size - 1]))
                     rrb_extra(b);
-                // if (a && b)
-                // print_stacks(a->arg, b->arg);
-                // else
-                // print_2(a->arg);
             }
         }
         if (b && check_sort_stackb(b) && check_sort(a->arg))
@@ -808,9 +802,6 @@ void algo2(t_stacka *a, t_stackb *b)
             push_all_stackb(b, a);
             break;
         }
-        // if ((check_sort(a) && b && !b->arg[0]) && check_sort(a) && !b)
-        // done++;
-        // sleep(1);
     }
     if (a && b)
         print_stacks(a->arg, b->arg);
@@ -842,6 +833,19 @@ int get_under_pivot(char **av, int pivot)
     return (i);
 }
 
+int ft_abs(float num)
+{
+    int tmp = num;
+    float abs = num - tmp;
+    // puts(ft_itoa(abs));
+    if (abs >= 0.5)
+    {
+        return (num + 1);
+    }
+    return (num);
+    // printf("%i---%f---%f", tmp, abs, num);
+}
+
 int get_medieum(char **av)
 {
     int c;
@@ -850,7 +854,6 @@ int get_medieum(char **av)
     t_stackb *b = NULL;
     int med = 0;
     add_new(&a, av);
-    get_min(&a);
     get_min(&a);
     // printf("[%i]", check_sort(a->arg));
     while (!check_sort(a->arg))
@@ -876,14 +879,12 @@ int get_medieum(char **av)
         push_a(a, b, b->arg[c++]);
     if (a->size % 2 == 0)
     {
-        // puts("here");
-        // puts((a->arg[((a->size) / 2) - 1]));
-        // puts((a->arg[((a->size) / 2) + 1]));puts("here");
-        return ((ft_atoi(a->arg[((a->size - 1) / 2)]) + ft_atoi(a->arg[((a->size - 1) / 2)])) / 2);
+        float i = (ft_atoi(a->arg[((a->size - 1) / 5)]) + ft_atoi(a->arg[((a->size - 1) / 5)])) / 2;
+        return (ft_abs(i));
     }
     else
     {
-        return ((ft_atoi(a->arg[((a->size - 1) / 2)])));
+        return ((ft_atoi(a->arg[((a->size - 1) / 5)])));
     }
 }
 
@@ -907,53 +908,6 @@ void pusha_delete(t_stacka *a, t_stackb **b, int pivot)
         pb(a, b, a->arg[0]);
         delete_number(&a, a->arg[0]);
     }
-}
-
-void max_algo(t_stacka *a, t_stackb *b)
-{
-    int c;
-    c = 0;
-    get_max(&a);
-    while (!check_sort(a->arg))
-    {
-        if (a->arg[1] && a->minvalue == ft_atoi(a->arg[1]))
-            swapa_extra(&a);
-        else
-        {
-            while (ft_atoi(a->arg[0]) != a->minvalue)
-            {
-                int proximity = ((float)(a->size - 1) / 2);
-                int index = get_index(a->arg, ft_itoa(a->minvalue));
-                // if (index == proximity + 1 || index == proximity - 1 || index == proximity || index == proximity + 2 || index == proximity - 2)
-                //     if (ft_atoi(a->arg[0]) != a->minvalue)
-                //     {
-                //         if (sum_med(a->arg, a->minvalue, proximity) > sum_med(&a->arg[index], a->minvalue, a->size))
-                //             extra_ra(a);
-                //         else
-                //             rra_extra(a);
-                //         proximity = (a->size) / 2;
-                //         index = get_index(a->arg, ft_itoa(a->minvalue));
-                //     }
-
-                if (index >= proximity)
-                    extra_ra(a);
-                else
-                    rra_extra(a);
-            }
-        }
-        if (a->size <= 2)
-        {
-            if (a->arg[1] && a->minvalue == ft_atoi(a->arg[1]))
-                swapa_extra(&a);
-            break;
-        }
-        pb(a, &b, a->arg[0]);
-        delete_min(a);
-        get_max(&a);
-    }
-    while (b && b->arg[c])
-        pa(a, b, b->arg[c++]);
-    // print_stacks(a->arg, b->arg);
 }
 
 int get_max_(char **av)
@@ -994,182 +948,14 @@ int get_index_(char **av, char *number)
     return (-1);
 }
 
-void quick_sort(t_stacka *a, t_stackb *b)
-{
-    int i = 0;
-    int pivot = 0;
-    int proximity = 0;
-    int size = a->size;
-    int index = -1;
-    // while (!check_sort(a->arg))
-    {
-        if (a->arg[0])
-        {
-            pivot = get_medieum(a->arg);
-            // int cd =
-            while (search_pivot(a->arg, pivot) && !check_sort(a->arg))
-            {
-                // if (a->arg[1] && ft_atoi(a->arg[1]) < ft_atoi(a->arg[0]) && b && b->arg[1] && ft_atoi(b->arg[1]) > ft_atoi(b->arg[0]) && b->arg[1])
-                // {
-                //     ss(&a, &b);
-                // }
-                if (a->arg[1] && ft_atoi(a->arg[1]) < ft_atoi(a->arg[0]) && ft_atoi(a->arg[1]) <= pivot) // ||
-                {
-                    swapa_extra(&a);
-                }
-                if (get_under_pivot(a->arg, pivot) < pivot) // || get_index(a->arg, ft_itoa(get_under_pivot(a->arg, pivot)))
-                {
-                    proximity = (a->size) / 2;
-                    index = get_index(a->arg, ft_itoa(pivot));
-                    if (ft_atoi(a->arg[0]) > pivot)
-                    {
-                        int bmax = 0;
-                        int rrs = 0;
-                        if (b)
-                            bmax = get_max_(b->arg);
-                        if (index == proximity + 1 || index == proximity - 1 || index == proximity || index == proximity + 2 || index == proximity - 2)
-                            if (ft_atoi(a->arg[0]) > pivot)
-                            {
-                                if (b->arg[1] && ft_atoi(b->arg[1]) > ft_atoi(b->arg[0]))
-                                    swapb_extra(&b);
-                                if (ft_atoi(b->arg[0]) != bmax)
-                                {
-                                    int proximitys = (b->size) / 2;
-                                    int indes = get_index_(b->arg, ft_itoa(bmax));
-                                    if (indes > proximitys && ft_atoi(a->arg[a->size - 1]) < pivot)
-                                        rra_extra(a);
-                                    else
-                                        extra_ra(a);
-                                    if (a->arg[1] && ft_atoi(a->arg[1]) < ft_atoi(a->arg[0]) && b && b->arg[1])
-                                        ss(&a, &b);
-                                    rrs = 1;
-                                }
-
-                                if (sum_med(a->arg, pivot, proximity) > sum_med(&a->arg[index - 1], pivot, a->size))
-                                    extra_ra(a);
-                                else
-                                    rra_extra(a);
-                                proximity = (a->size) / 2;
-                                index = get_index(a->arg, ft_itoa(pivot));
-                            }
-
-                        if (b)
-                        {
-
-                            if (b->arg[1] && ft_atoi(b->arg[1]) > ft_atoi(b->arg[0]))
-                                swapb_extra(&b);
-                            if (ft_atoi(b->arg[0]) != bmax)
-                            {
-                                int proximitys = (b->size) / 2;
-                                int indes = get_index_(b->arg, ft_itoa(bmax));
-                                if (indes > proximitys && ft_atoi(a->arg[a->size - 1]) <= pivot && ft_atoi(b->arg[b->size - 1]) >= bmax)
-                                    rr(a, b);
-                                else
-                                    rr(a, b);
-                                if (a->arg[1] && ft_atoi(a->arg[1]) < ft_atoi(a->arg[0]) && b->arg[1] && ft_atoi(b->arg[1]) > ft_atoi(b->arg[0]))
-                                    ss(&a, &b);
-                                rrs = 1;
-                            }
-                            // print_stacks(a->arg, b->arg);
-                        }
-                        if (!rrs && ft_atoi(a->arg[a->size - 1]) <= pivot)
-                            rra_extra(a);
-                        else if (!rrs)
-                            extra_ra(a);
-                        //sum_med(a->arg, pivot, proximity) < sum_med(&a->arg[index], pivot, a->size)
-                    }
-                }
-                if (ft_atoi(a->arg[0]) <= pivot)
-                    pusha_delete(a, &b, pivot);
-            }
-            int nmax = get_min_(a->arg);
-            while (a->arg[0] && !check_sort(a->arg))
-            {
-                int c = 0;
-                int amin = get_min_(a->arg);
-                if (a->arg[1] && ft_atoi(a->arg[1]) < ft_atoi(a->arg[0]) && b->arg[1] && ft_atoi(b->arg[1]) > ft_atoi(b->arg[0]) && b->arg[1])
-                {
-                    ss(&a, &b);
-                }
-                if (a->arg[1] && ft_atoi(a->arg[1]) < ft_atoi(a->arg[0]))
-                {
-                    swapa_extra(&a);
-                }
-                if (ft_atoi(b->arg[1]) > ft_atoi(b->arg[0]) && b->arg[1])
-                {
-                    swapb_extra(&b);
-                }
-                while (ft_atoi(a->arg[0]) != amin && a->size > 2 && !check_sort(a->arg))
-                {
-                    proximity = (a->size) / 2;
-                    index = get_index_(a->arg, ft_itoa(amin));
-                    if (index >= 0)
-                    {
-                        if (index > proximity)
-                            rra_extra(a);
-                        else
-                            extra_ra(a);
-                    }
-                    c++;
-                }
-                if (amin == ft_atoi(a->arg[0]))
-                {
-                    pb(a, &b, a->arg[0]);
-                    delete_number(&a, a->arg[0]);
-                }
-            }
-            while (ft_atoi(b->arg[0]) > nmax && !check_sort(b->arg))
-            {
-                pa(a, b, b->arg[0]);
-                delete_number_stackb(b, b->arg[0]);
-            }
-            while (b->arg && !check_sort(b->arg))
-            {
-                int bmax = get_max_(b->arg);
-                if (b->arg[1] && ft_atoi(b->arg[1]) > ft_atoi(b->arg[0]))
-                    swapb_extra(&b);
-                if (ft_atoi(b->arg[0]) != bmax)
-                {
-                    proximity = (b->size) / 5;
-                    index = get_index_(b->arg, ft_itoa(bmax));
-                    if (b->arg[1] && ft_atoi(b->arg[1]) > ft_atoi(b->arg[0]))
-                        swapb_extra(&b);
-                    if (index >= 0)
-                    {
-                        if (index > proximity)
-                            rrb_extra(b);
-                        else
-                            rb_extra(b);
-                    }
-                }
-                while (b->arg[0] && bmax == ft_atoi(b->arg[0]))
-                {
-                    pa(a, b, b->arg[0]);
-                    delete_number_stackb(b, b->arg[0]);
-                    if (b->arg[0])
-                        bmax = get_max_(b->arg);
-                }
-                if (b->arg[1] && ft_atoi(b->arg[1]) > ft_atoi(b->arg[0]))
-                    swapb_extra(&b);
-            }
-            push_all_stackb(b, a);
-        }
-        // print_2(a->arg);
-    }
-}
-
 int get_next_int(char **av, int lastmax)
 {
     int i = 0;
     int max;
-    // if (ft_atoi(av[0]) < lastmax)
-    max = ft_atoi(av[0]);
-    // else
-    // max = ft_atoi(av[1]);
+    max = INT_MIN;
     i++;
     while (av[i])
     {
-        // puts(av[i]);
         if (ft_atoi(av[i]) < lastmax)
         {
             if (max < lastmax && max != lastmax && max < ft_atoi(av[i]))
@@ -1179,8 +965,6 @@ int get_next_int(char **av, int lastmax)
         }
         i++;
     }
-    // puts("here");
-    // printf("[%i]\n", max);
     return (max);
 }
 
@@ -1197,63 +981,98 @@ int check_prev_number(char **av, int max)
     return (1);
 }
 
-int count_line(char **av)
+void quick_sort(t_stacka *a, t_stackb *b)
 {
     int i = 0;
-    while (av[i])
+    int pivot = 0;
+    int proximity = 0;
+    int size = a->size;
+    int index = -1;
+    while (a->size != ft_abs(size / 5))
     {
-        i++;
-    }
-    return (i);
-}
-
-void sort_stack(t_stacka *a, t_stackb *b)
-{
-    int i = 0;
-    int max = get_max_(a->arg);
-    int min = get_max_(a->arg);
-    int tmp_max = max;
-    // printf("[%i]", max);
-    int maxtmp = get_next_int(a->arg, max);
-    while (!check_sort(a->arg))
-    {
-        while (ft_atoi(a->arg[0]) != max && ft_atoi(a->arg[0]) != maxtmp)
+        pivot = get_medieum(a->arg);
+        while (search_pivot(a->arg, pivot) && !check_sort(a->arg))
         {
-            int proximitys = a->size / 2;
-            int indes = get_index_(a->arg, ft_itoa(max));
-
-            if (indes >= proximitys)
-                rra_extra(a);
-            else
+            if (ft_atoi(a->arg[0]) > pivot)
                 extra_ra(a);
-            if (max > ft_atoi(a->arg[1]))
-                swapa_extra(&a);
-            if (check_sort(a->arg))
-                break;
-            print_2(a->arg);
-            puts(ft_itoa(max));
-            sleep(1);
-        }
+            if (get_under_pivot(a->arg, pivot) <= pivot)
+            {
+                proximity = (a->size) / 2;
+                index = get_index(a->arg, ft_itoa(pivot));
+                if (ft_atoi(a->arg[0]) > pivot)
+                {
+                    // if (index == proximity + 1 || index == proximity - 1 || index == proximity || index == proximity + 2 || index == proximity - 2)
+                    //     if (ft_atoi(a->arg[0]) > pivot)
+                    //     {
+                    //         if (index > proximity && ft_atoi(a->arg[a->size - 1]) <= pivot)
+                    //             rra_extra(a);
+                    //         else if (ft_atoi(a->arg[1]) <= pivot)
+                    //             extra_ra(a);
+                    //     }
 
-        max = get_next_int(a->arg, max);
-        maxtmp = get_next_int(a->arg, max);
-        // while (ft_atoi(a->arg[0]) != max && ft_atoi(a->arg[0]) != maxtmp)
-        // {
-        //     int proximitys = a->size / 2;
-        //     int indes = get_index_(a->arg, ft_itoa(max));
-        //     if (indes >= proximitys)
-        //         rra_extra(a);
-        //     else
-        //         extra_ra(a);
-        //     if (max > ft_atoi(a->arg[1]))
-        //     {
-        //         swapa_extra(&a);
-        //     }
-        //     print_2(a->arg);
-        //     sleep(1);
-        // }
+                    if (ft_atoi(a->arg[1]) <= pivot && sum_med(a->arg, pivot, proximity) > sum_med(&a->arg[index - 1], pivot, a->size))
+                        extra_ra(a);
+                    else if (ft_atoi(a->arg[a->size - 1]) <= pivot)
+                        rra_extra(a);
+                }
+            }
+            if (ft_atoi(a->arg[0]) <= pivot)
+                pusha_delete(a, &b, pivot);
+        }
     }
-    i++;
+    int nmax = get_min_(a->arg);
+    while (a->arg[0] && !check_sort(a->arg))
+    {
+        int c = 0;
+        int amin = get_min_(a->arg);
+        if (a->arg[1] && ft_atoi(a->arg[1]) < ft_atoi(a->arg[0]))
+        {
+            swapa_extra(&a);
+        }
+        if (ft_atoi(a->arg[0]) != amin && a->size > 2 && !check_sort(a->arg))
+        {
+            proximity = (a->size) / 2;
+            index = get_index_(a->arg, ft_itoa(amin));
+            if (index >= 0)
+            {
+                if (index >= proximity)
+                    rra_extra(a);
+                else
+                    extra_ra(a);
+            }
+            c++;
+        }
+        if (amin == ft_atoi(a->arg[0]))
+        {
+            pb(a, &b, a->arg[0]);
+            delete_number(&a, a->arg[0]);
+        }
+    }
+    while (b->arg && !check_sort(b->arg))
+    {
+        int bmax = get_max_(b->arg);
+        if (ft_atoi(b->arg[0]) != bmax)
+        {
+            proximity = (b->size) / 2;
+            index = get_index_(b->arg, ft_itoa(bmax));
+            if (index >= 0)
+            {
+                if (index > proximity)
+                    rrb_extra(b);
+                else
+                    rb_extra(b);
+            }
+        }
+        if (b->arg[0] && bmax == ft_atoi(b->arg[0]))
+        {
+            pa(a, b, b->arg[0]);
+            delete_number_stackb(b, b->arg[0]);
+        }
+    }
+    push_all_stackb(b, a);
+    if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[1]))
+        swapa_extra(&a);
+    // algo_unser50(a, b);
 }
 
 int main(int ac, char **ag)
@@ -1268,11 +1087,14 @@ int main(int ac, char **ag)
     if (ac >= 2)
     {
         add_new(&a, &ag[i]);
-        // printf("[%i]", check_prev_number(a->arg, 5));
+        // printf("[%i]", ft_abs(1.6));
+        // printf("[%i", abs(1.6));
         // algo2(a, b);
         // algo_unser50(a, b);
+
         // puts(ft_itoa(get_medieum(a->arg)));
         quick_sort(a, b);
+
         // sort_stack(a, b);
         // int max = get_next_int(a->arg, 5);
         // puts(ft_itoa(max));
@@ -1294,4 +1116,5 @@ int main(int ac, char **ag)
         // if (size_arg(a->arg) <= 60)
         // algo_unser50(a, b);
     }
+    return (0);
 }
