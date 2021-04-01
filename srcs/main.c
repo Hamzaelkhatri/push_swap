@@ -120,8 +120,8 @@ void rra(t_stacka *ptr)
     {
         if (ptr->arg[i + 1])
         {
-            tmp = ft_strdup(ptr->arg[i + 1]);
-            ptr->arg[i + 1] = ft_strdup(ptr->arg[i]);
+            tmp = (ptr->arg[i + 1]);
+            ptr->arg[i + 1] = (ptr->arg[i]);
             ptr->arg[i] = tmp;
             ptr->indice = i;
         }
@@ -151,8 +151,8 @@ void ra(t_stacka *ptr)
     {
         if (ptr->arg[i + 1])
         {
-            tmp = ft_strdup(ptr->arg[i]);
-            ptr->arg[i] = ft_strdup(ptr->arg[i + 1]);
+            tmp = (ptr->arg[i]);
+            ptr->arg[i] = (ptr->arg[i + 1]);
             ptr->arg[i + 1] = tmp;
         }
         i++;
@@ -196,8 +196,8 @@ void rrb(t_stackb *ptr)
     {
         if (ptr->arg[i + 1])
         {
-            tmp = ft_strdup(ptr->arg[i + 1]);
-            ptr->arg[i + 1] = ft_strdup(ptr->arg[i]);
+            tmp = (ptr->arg[i + 1]);
+            ptr->arg[i + 1] = (ptr->arg[i]);
             ptr->arg[i] = tmp;
         }
         i++;
@@ -879,7 +879,7 @@ int get_medieum(char **av)
         push_a(a, b, b->arg[c++]);
     if (a->size % 2 == 0)
     {
-        float i = (ft_atoi(a->arg[((a->size - 1) / 5)]) + ft_atoi(a->arg[((a->size - 1) / 5)])) / 2;
+        float i = (ft_atoi(a->arg[((a->size - 1) / 5) + 1]) + ft_atoi(a->arg[((a->size - 1) / 5)])) / 2;
         return (ft_abs(i));
     }
     else
@@ -888,11 +888,11 @@ int get_medieum(char **av)
     }
 }
 
-int sum_med(char **av, int pivot, int index)
+int sum_med(char **av, int pivot, int begin, int index)
 {
-    int i = 0;
+    int i = begin;
     int sum = 0;
-    while (av[i] && i <= index)
+    while (av[i] && i < index)
     {
         if (ft_atoi(av[i]) <= pivot)
             sum++;
@@ -988,7 +988,7 @@ void quick_sort(t_stacka *a, t_stackb *b)
     int proximity = 0;
     int size = a->size;
     int index = -1;
-    while (a->size > ft_abs(size / 5))
+    while (a->size >= ft_abs(size / 5))
     {
         pivot = get_medieum(a->arg);
         while (search_pivot(a->arg, pivot) && !check_sort(a->arg))
@@ -999,13 +999,18 @@ void quick_sort(t_stacka *a, t_stackb *b)
             {
                 proximity = (a->size) / 2;
                 index = get_index(a->arg, ft_itoa(pivot));
-                if (ft_atoi(a->arg[0]) > pivot)
-                {
-                    if (ft_atoi(a->arg[1]) <= pivot && sum_med(a->arg, pivot, proximity) > sum_med(&a->arg[index - 1], pivot, a->size))
-                        extra_ra(a);
-                    else if (ft_atoi(a->arg[a->size - 1]) <= pivot)
-                        rra_extra(a);
-                }
+                if (index >= 0)
+                    if (ft_atoi(a->arg[0]) > pivot)
+                    {
+                        if (ft_atoi(a->arg[1]) <= pivot && sum_med(a->arg, pivot, 0, proximity) > sum_med(a->arg, pivot, index, a->size))
+                            extra_ra(a);
+                        else if (ft_atoi(a->arg[a->size - 1]) <= pivot)
+                            rra_extra(a);
+                    }
+                // if (pivot >= 0)
+                // {
+
+                // }
             }
             if (ft_atoi(a->arg[0]) <= pivot)
                 pusha_delete(a, &b, pivot);
@@ -1020,7 +1025,7 @@ void quick_sort(t_stacka *a, t_stackb *b)
         {
             swapa_extra(&a);
         }
-        if (ft_atoi(a->arg[0]) != amin && a->size > 2 && !check_sort(a->arg))
+        if (ft_atoi(a->arg[0]) != amin && !check_sort(a->arg))
         {
             proximity = (a->size) / 2;
             index = get_index_(a->arg, ft_itoa(amin));
@@ -1031,6 +1036,8 @@ void quick_sort(t_stacka *a, t_stackb *b)
                 else
                     extra_ra(a);
             }
+            else
+                break;
             c++;
         }
         if (amin == ft_atoi(a->arg[0]))
@@ -1087,7 +1094,7 @@ void quick_sort_under500(t_stacka *a, t_stackb *b)
                 index = get_index(a->arg, ft_itoa(pivot));
                 if (ft_atoi(a->arg[0]) > pivot)
                 {
-                    if (ft_atoi(a->arg[1]) <= pivot && sum_med(a->arg, pivot, proximity) > sum_med(&a->arg[index - 1], pivot, a->size))
+                    if (ft_atoi(a->arg[1]) <= pivot && sum_med(a->arg, pivot, 0, proximity) > sum_med(a->arg, pivot, index, a->size))
                         extra_ra(a);
                     else if (ft_atoi(a->arg[a->size - 1]) <= pivot)
                         rra_extra(a);
@@ -1197,8 +1204,8 @@ int main(int ac, char **ag)
         // algo_unser50(a, b);
 
         // puts(ft_itoa(get_medieum(a->arg)));
-        // quick_sort(a, b);
-        quick_sort_under500(a, b);
+        quick_sort(a, b);
+        // quick_sort_under500(a, b);
 
         // sort_stack(a, b);
         // int max = get_next_int(a->arg, 5);
