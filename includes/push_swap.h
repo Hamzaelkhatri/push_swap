@@ -58,6 +58,7 @@ typedef struct s_stackb
     struct s_stackb *next;
 } t_stackb;
 void add_first(t_stackb *ptr, char *number);
+void ft_lst_add_back(t_stacka **ptr, t_stacka *new);
 void get_min(t_stacka **ptr);
 void ra(t_stacka *ptr);
 void rra(t_stacka *ptr);
@@ -73,7 +74,9 @@ void swap_b(t_stackb **ptr);
 void rrb_extra(t_stackb *ptr);
 void rrb(t_stackb *ptr);
 void rra(t_stacka *ptr);
+int check_sort_stackb(t_stackb *b);
 void rb(t_stackb *ptr);
+int check_sort(char **arg);
 t_stackb *push_b(t_stacka *ptr, t_stackb **new, char *number);
 char **delete_number(t_stacka **a, char *number);
 char **delete_number_stackb(t_stackb *ptr, char *number);
@@ -82,5 +85,10 @@ void pa(t_stacka *ptr, t_stackb *b, char *number);
 void print_stacks(char **a, char **b);
 int ft_abs(float num);
 void pusha_delete(t_stacka *a, t_stackb **b, int pivot);
+int get_min_(char **av);
+void get_min(t_stacka **ptr);
+int get_max_(char **av);
+void delete_min(t_stacka *ptr);
+int size_arg(char **av);
 void pb(t_stacka *ptr, t_stackb **new, char *number);
 #endif

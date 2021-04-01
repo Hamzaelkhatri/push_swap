@@ -6,7 +6,8 @@ LIB_PATH= libft
 TOOLS_PATH=$(OBJ_PATH)/tools
 SHARED_PATH=$(OBJ_PATH)/shared
 
-SRC_NAME=main.c checker.c tools/ft_abs.c shared/push_a.c
+SRC_TOOLS= tools/ft_abs.c tools/min.c tools/max.c tools/size_arg.c tools/list.c tools/check_sort.c
+SRC_NAME=push_swap.c checker.c shared/push_a.c $(SRC_TOOLS)
 HDR_NAME=push_swap.h 
 
 OBJ_NAME= $(SRC_NAME:.c=.o)
