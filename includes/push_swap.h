@@ -80,4 +80,7 @@ char **delete_number_stackb(t_stackb *ptr, char *number);
 int checker(char **ag);
 void pa(t_stacka *ptr, t_stackb *b, char *number);
 void print_stacks(char **a, char **b);
+int ft_abs(float num);
+void pusha_delete(t_stacka *a, t_stackb **b, int pivot);
+void pb(t_stacka *ptr, t_stackb **new, char *number);
 #endif

@@ -3,9 +3,10 @@ SRC_PATH= srcs
 HDR_PATH= includes
 OBJ_PATH= obj
 LIB_PATH= libft
+TOOLS_PATH=$(OBJ_PATH)/tools
+SHARED_PATH=$(OBJ_PATH)/shared
 
-
-SRC_NAME=main.c checker.c
+SRC_NAME=main.c checker.c tools/ft_abs.c shared/push_a.c
 HDR_NAME=push_swap.h 
 
 OBJ_NAME= $(SRC_NAME:.c=.o)
@@ -16,14 +17,15 @@ HDR= $(addprefix $(HDR_PATH)/,$(HDR_NAME))
 
 LIB= libft.a
 # FLAGS= -Wall -Wextra -Werror
-LLIB_FLAG= -L$(LIB_PATH) libft/libft.a
+# LDFLAGS=`sdl2-config --cflags --libs` -lSDL2 -lSDL2_image -lSDL2_ttf
+LLIB_FLAG= -L$(LIB_PATH) libft/libft.a -lncurses
 H_FLAG= -I $(HDR_PATH)
 
 COMP= gcc
 
 all: lib  $(NAME) 
 
-$(NAME) : $(LIB_PATH)/$(LIB) $(OBJ)
+$(NAME) : $(LIB_PATH)/$(LIB) $(OBJ) $(LDFLAGS)
 	@rm -rf push_swap
 	@$(COMP) -g $(H_FLAG) $(OBJ) $(LLIB_FLAG) -o $@
 	@echo "						Compilation of $(NAME):  \033[1;32mOK\033[m"
@@ -32,7 +34,7 @@ lib:
 	@make -sC $(LIB_PATH)
 
 $(OBJ_PATH)/%.o:  $(SRC_PATH)/%.c $(HDR)
-	@mkdir -p $(OBJ_PATH) 
+	@mkdir -p $(OBJ_PATH) $(TOOLS_PATH) $(SHARED_PATH)
 	@$(COMP) -g $(FLAGS) $(H_FLAG) -g -o $@ -c $<
 
 clean:
