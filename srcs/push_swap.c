@@ -213,6 +213,8 @@ char **delete_number(t_stacka **a, char *number)
     }
     av[j] = NULL;
     ptr->size = size - 1;
+    if (!ptr->size)
+        free(ptr->arg[0]);
     if (j)
         ptr->lastnumber = ft_atoi(av[j - 1]);
     ptr->firstnumber = ft_atoi(av[0]);
@@ -643,8 +645,15 @@ int main(int ac, char **ag)
     t_stackb *b = NULL;
     if (ac >= 2)
     {
-        add_new(&a, &ag[i]);
-        quick_sort(a, b);
+        if (!ft_strcmp(ag[1], "-v"))
+        {
+            debugger(ag);
+        }
+        else
+        {
+            add_new(&a, &ag[i]);
+            quick_sort(a, b);
+        }
     }
     return (0);
 }

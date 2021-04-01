@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-int checker(char **ag)
+int debugger(char **ag)
 {
     t_stacka *a = NULL;
     int i = 1;
@@ -9,12 +9,12 @@ int checker(char **ag)
     float sum = 0;
 
     t_stackb *b = NULL;
-    add_new(&a, &ag[1]);
+    add_new(&a, &ag[2]);
     while (1)
     {
         char *line = NULL;
-        line = malloc(sizeof(char) * 30);
-        int re = read(0, line, 30);
+        line = malloc(sizeof(char) * 500);
+        int re = read(0, line, 500);
         if (!line[0])
             exit(0);
         if (!ft_strcmp(line, "sa\n"))
@@ -29,7 +29,7 @@ int checker(char **ag)
             }
             else
             {
-                ft_putstr_fd("A : has 1 caracter or none :/", 2);
+                puts("A : has 1 caracter or none :/");
             }
         }
         if (!ft_strcmp(line, "sb\n"))
@@ -40,7 +40,9 @@ int checker(char **ag)
                 print_stacks(a->arg, b->arg);
             }
             else
-                ft_putstr_fd("B : empty :/", 2);
+            {
+                puts("B : empty :/");
+            }
         }
         if (!ft_strcmp(line, "ss\n"))
         {
@@ -50,26 +52,28 @@ int checker(char **ag)
                 print_stacks(a->arg, b->arg);
             }
             else
-                ft_putstr_fd("B : empty :/", 2);
+            {
+                puts("B : empty :/");
+            }
             if (a->arg[0] && a->arg[1])
             {
                 swap_a(&a);
                 print_stacks(a->arg, b->arg);
             }
             else
-                ft_putstr_fd("A : has 1 caracter or none :/", 2);
+                puts("A : has 1 caracter or none :/");
         }
         if (!ft_strcmp(line, "pb\n"))
         {
-            if (a && a->arg[0])
+            if (a->arg[0])
             {
+                puts(ft_itoa(a->size));
                 push_b(a, &b, a->arg[0]);
-                if (a->arg[0])
-                    delete_number(&a, (a)->arg[0]);
+                delete_number(&a, (a)->arg[0]);
                 print_stacks(a->arg, b->arg);
             }
             else
-                ft_putstr_fd("A : empty :/", 2);
+                puts("A : empty :/");
         }
         if (!ft_strcmp(line, "pa\n"))
         {
@@ -81,7 +85,7 @@ int checker(char **ag)
                 print_stacks(a->arg, b->arg);
             }
             else
-                ft_putstr_fd("B : empty :/", 2);
+                puts("B : empty :/");
         }
         if (!ft_strcmp(line, "rb\n"))
         {
@@ -91,7 +95,7 @@ int checker(char **ag)
                 print_stacks(a->arg, b->arg);
             }
             else
-                ft_putstr_fd("B : empty :/", 2);
+                puts("B : empty :/");
         }
         if (!ft_strcmp(line, "ra\n"))
         {
@@ -104,7 +108,7 @@ int checker(char **ag)
                     print_2(a->arg);
             }
             else
-                ft_putstr_fd("A : empty :/", 2);
+                puts("A : empty :/");
         }
         if (!ft_strcmp(line, "rra\n"))
         {
@@ -117,7 +121,7 @@ int checker(char **ag)
                     print_2(a->arg);
             }
             else
-                ft_putstr_fd("A : empty :/", 2);
+                puts("A : empty :/");
         }
         if (!ft_strcmp(line, "rrb\n"))
         {
@@ -127,22 +131,20 @@ int checker(char **ag)
                 print_stacks(a->arg, b->arg);
             }
             else
-                ft_putstr_fd("B : empty :/", 2);
+                puts("B : empty :/");
         }
         if (!ft_strcmp(line, "rr\n"))
         {
             if (b && b->arg[0])
                 rb(b);
             else
-                ft_putstr_fd("B : empty :/", 2);
+                puts("B : empty :/");
             if (a && a->arg[0] && a->arg[1])
                 ra(a);
             else
-                ft_putstr_fd("A : empty :/", 2);
+                puts("A : empty :/");
             if (b)
                 print_stacks(a->arg, b->arg);
         }
-        free(line);
-        line = NULL;
     }
 }

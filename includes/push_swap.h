@@ -91,4 +91,6 @@ int get_max_(char **av);
 void delete_min(t_stacka *ptr);
 int size_arg(char **av);
 void pb(t_stacka *ptr, t_stackb **new, char *number);
+int ft_strcmp(const char *s1, const char *s2);
+int debugger(char **ag);
 #endif
