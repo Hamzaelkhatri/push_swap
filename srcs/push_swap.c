@@ -645,15 +645,17 @@ int main(int ac, char **ag)
     t_stackb *b = NULL;
     if (ac >= 2)
     {
-        if (!ft_strcmp(ag[1], "-v"))
-        {
-            debugger(ag);
-        }
-        else
+        // if (!ft_strcmp(ag[1], "-v"))
+        // {
+        // debugger(ag);
+        // }
+        // else
         {
             add_new(&a, &ag[i]);
-            quick_sort(a, b);
+            // quick_sort(a, b);
+            algo_unser50(a, b);
         }
     }
+    // checker(ag);
     return (0);
 }

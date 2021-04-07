@@ -148,3 +148,9 @@ int debugger(char **ag)
         }
     }
 }
+
+// int main(int ac, char **ag)
+// {
+//     debugger(ag);
+//     return (0);
+// }

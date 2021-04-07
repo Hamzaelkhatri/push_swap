@@ -93,4 +93,5 @@ int size_arg(char **av);
 void pb(t_stacka *ptr, t_stackb **new, char *number);
 int ft_strcmp(const char *s1, const char *s2);
 int debugger(char **ag);
+void ss(t_stacka **a, t_stackb **b);
 #endif

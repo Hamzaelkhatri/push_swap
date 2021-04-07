@@ -3,13 +3,13 @@ SRC_PATH= srcs
 HDR_PATH= includes
 OBJ_PATH= obj
 LIB_PATH= libft
-BONUS_PATH= bonus/bonus
+# BONUS_PATH= bonus/
 TOOLS_PATH=$(OBJ_PATH)/tools
 SHARED_PATH=$(OBJ_PATH)/shared
 
 SRC_TOOLS= tools/ft_abs.c tools/min.c tools/max.c tools/size_arg.c tools/list.c tools/check_sort.c tools/ft_strcmp.c
-SRC_BONUS= bonus/debugger.c 
-SRC_NAME=push_swap.c checker.c shared/push_a.c $(SRC_TOOLS) $(SRC_BONUS)
+# SRC_BONUS= bonus/debugger.c $(SRC_BONUS)
+SRC_NAME=push_swap.c checker.c shared/push_a.c $(SRC_TOOLS) 
 HDR_NAME=push_swap.h 
 
 OBJ_NAME= $(SRC_NAME:.c=.o)
@@ -19,14 +19,15 @@ SRC= $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 HDR= $(addprefix $(HDR_PATH)/,$(HDR_NAME))
 
 LIB= libft.a
-# FLAGS= -Wall -Wextra -Werror
-# LDFLAGS=`sdl2-config --cflags --libs` -lSDL2 -lSDL2_image -lSDL2_ttf
 LLIB_FLAG= -L$(LIB_PATH) libft/libft.a
 H_FLAG= -I $(HDR_PATH)
 
 COMP= gcc
 
-all: lib  $(NAME) 
+
+# bonus: lib 
+
+all: lib $(NAME) 
 
 $(NAME) : $(LIB_PATH)/$(LIB) $(OBJ) $(LDFLAGS) 
 	@rm -rf push_swap
@@ -37,7 +38,7 @@ lib:
 	@make -sC $(LIB_PATH)
 
 $(OBJ_PATH)/%.o:  $(SRC_PATH)/%.c $(HDR)
-	@mkdir -p $(OBJ_PATH) $(TOOLS_PATH) $(SHARED_PATH) $(BONUS_PATH)
+	@mkdir -p $(OBJ_PATH) $(TOOLS_PATH) $(SHARED_PATH) 
 	@$(COMP) -g $(FLAGS) $(H_FLAG) -g -o $@ -c $<
 
 clean:
