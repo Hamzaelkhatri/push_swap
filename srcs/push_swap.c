@@ -17,7 +17,7 @@ int main(int ac, char **ag)
         if (a->size <= 20)
             algo_under50(a, b);
         else
-            quick_sort(a, b, 2);
+            quick_sort(a, b, 5);
     }
     return (0);
 }

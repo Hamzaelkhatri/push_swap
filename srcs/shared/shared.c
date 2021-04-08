@@ -205,20 +205,20 @@ char **delete_number(t_stacka **a, char *number)
     while (ptr->arg[i])
     {
         if (ft_atoi(ptr->arg[i]) != ft_atoi(number))
-        {
-            av[j] = ft_strdup(ptr->arg[i]);
-            j++;
-        }
+            av[j++] = ft_strdup(ptr->arg[i]);
         i++;
     }
     av[j] = NULL;
     ptr->size = size - 1;
-    if (!ptr->size)
-        free(ptr->arg[0]);
-    if (j)
+    if (j && av[j - 1])
         ptr->lastnumber = ft_atoi(av[j - 1]);
-    ptr->firstnumber = ft_atoi(av[0]);
-    ptr->arg = av;
+    if (av[0])
+    {
+        ptr->firstnumber = ft_atoi(av[0]);
+        ptr->arg = av;
+    }
+    else if (ptr->arg[0])
+        (ptr->arg[0]) = NULL;
     return (av);
 }
 
@@ -612,9 +612,9 @@ void quick_sort(t_stacka *a, t_stackb *b, int sqart)
     while (b->arg && !check_sort(b->arg))
     {
         int bmax = get_max_(b->arg);
-        if (ft_atoi(b->arg[0]) != bmax)
+        while (ft_atoi(b->arg[0]) != bmax)
         {
-            proximity = (b->size) / 2;
+            proximity = (b->size) / 4;
             index = get_index_(b->arg, ft_itoa(bmax));
             if (index >= 0)
             {
@@ -631,4 +631,5 @@ void quick_sort(t_stacka *a, t_stackb *b, int sqart)
         }
     }
     push_all_stackb(b, a);
+    // algo_under50(a, b);
 }
