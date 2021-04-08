@@ -293,7 +293,7 @@ void push_a(t_stacka *ptr, t_stackb *b, char *number)
         b->firstnumber = ft_atoi(b->arg[1]);
     if (!(av = malloc(sizeof(char *) * (size + 1))))
         puts("malloc");
-    ptr->size = size;
+    ptr->size = size + 1;
     av[size] = NULL;
     av[0] = ft_strdup(number);
     ptr->lastnumber = ft_atoi(av[0]);

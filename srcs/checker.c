@@ -27,16 +27,7 @@ int cout_line(char *str)
 
 void check_multiline(char *line, t_stacka *a, t_stackb *b, int size)
 {
-
-    if (!line[0] || line[0] == '\n')
-    {
-        if (check_sort(a->arg) && size == a->size && (!b || !b->arg[0]))
-            ft_putstr_fd("OK\n", 1);
-        else
-            ft_putstr_fd("KO\n", 1);
-        exit(0);
-    }
-    else if (!ft_strcmp(line, "sa\n") || !ft_strcmp(line, "sa"))
+    if (!ft_strcmp(line, "sa\n") || !ft_strcmp(line, "sa"))
     {
         if (a->arg[0] && a->arg[1])
             swap_a(&a);
@@ -122,8 +113,8 @@ int checker(char **ag)
     size = a->size;
     while (1)
     {
-        line = ft_calloc(30, sizeof(char));
-        read(0, line, 30);
+        line = ft_calloc(1024, sizeof(char));
+        read(0, line, 1024);
         if (cout_line(line) > 1)
         {
             lines = ft_split(line, '\n');
@@ -132,11 +123,18 @@ int checker(char **ag)
                 check_multiline(lines[i], a, b, size);
                 i++;
             }
-            // exit(0);
+            if (!lines[i])
+            {
+                if (check_sort(a->arg) && (!b || !b->arg[0]))
+                    ft_putstr_fd("OK\n", 1);
+                else
+                    ft_putstr_fd("KO\n", 1);
+                exit(0);
+            }
+            exit(0);
         }
         else
         {
-
             if (!line[0] || line[0] == '\n')
             {
                 if (check_sort(a->arg) && size == a->size && (!b || !b->arg[0]))
