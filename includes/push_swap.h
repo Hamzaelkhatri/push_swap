@@ -94,4 +94,7 @@ void pb(t_stacka *ptr, t_stackb **new, char *number);
 int ft_strcmp(const char *s1, const char *s2);
 int debugger(char **ag);
 void ss(t_stacka **a, t_stackb **b);
+int check_digit(char **ag);
+void quick_sort(t_stacka *a, t_stackb *b, int sqart);
+void algo_under50(t_stacka *a, t_stackb *b);
 #endif

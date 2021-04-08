@@ -1,4 +1,5 @@
-NAME= push_swap
+NAME_PUSH_SWAP= push_swap
+NAME_CHECKER= checker
 SRC_PATH= srcs
 HDR_PATH= includes
 OBJ_PATH= obj
@@ -8,15 +9,15 @@ TOOLS_PATH=$(OBJ_PATH)/tools
 SHARED_PATH=$(OBJ_PATH)/shared
 
 SRC_TOOLS= tools/ft_abs.c tools/min.c tools/max.c tools/size_arg.c tools/list.c tools/check_sort.c tools/ft_strcmp.c
-# SRC_BONUS= bonus/debugger.c $(SRC_BONUS)
-SRC_NAME=push_swap.c checker.c shared/push_a.c $(SRC_TOOLS) 
+SRC_NAME=push_swap.c shared/push_a.c shared/check_digit.c shared/shared.c debugger.c $(SRC_TOOLS) 
+SRC_CHECKER= checker.c shared/push_a.c shared/check_digit.c shared/shared.c $(SRC_TOOLS)
 HDR_NAME=push_swap.h 
 
 OBJ_NAME= $(SRC_NAME:.c=.o)
+OBJ_NAME_CHECKER= $(SRC_CHECKER:.c=.o)
 
 OBJ= $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
-SRC= $(addprefix $(SRC_PATH)/,$(SRC_NAME)) 
-HDR= $(addprefix $(HDR_PATH)/,$(HDR_NAME))
+OBJ_CHECKER= $(addprefix $(OBJ_PATH)/,$(OBJ_NAME_CHECKER))
 
 LIB= libft.a
 LLIB_FLAG= -L$(LIB_PATH) libft/libft.a
@@ -24,15 +25,19 @@ H_FLAG= -I $(HDR_PATH)
 
 COMP= gcc
 
+# FLAGS = -Wall -Wextra -Werror
 
-# bonus: lib 
+all: lib $(NAME_CHECKER) $(NAME_PUSH_SWAP) 
 
-all: lib $(NAME) 
-
-$(NAME) : $(LIB_PATH)/$(LIB) $(OBJ) $(LDFLAGS) 
+$(NAME_PUSH_SWAP) : $(LIB_PATH)/$(LIB) $(OBJ)
 	@rm -rf push_swap
 	@$(COMP) -g $(H_FLAG) $(OBJ) $(LLIB_FLAG) -o $@
-	@echo "						Compilation of $(NAME):  \033[1;32mOK\033[m"
+	@echo "						Compilation of $(NAME_PUSH_SWAP):  \033[1;32mOK\033[m"
+
+$(NAME_CHECKER) : $(LIB_PATH)/$(LIB) $(OBJ_CHECKER)
+	@rm -rf checker
+	@$(COMP) -g $(H_FLAG) $(OBJ_CHECKER) $(LLIB_FLAG) -o $@
+	@echo "						Compilation of $(NAME_CHECKER):  \033[1;32mOK\033[m"
 
 lib:
 	@make -sC $(LIB_PATH)
@@ -47,8 +52,8 @@ clean:
 	@echo "\033[1;33m>> all objects files are deleted.\033[0m" 
 
 fclean: clean
-	@rm -rf $(NAME)
+	@rm -rf $(NAME_PUSH_SWAP) $(NAME_CHECKER)
 	@make fclean -C $(LIB_PATH)
-	@echo "\033[0;31m>> $(NAME) && all obbjects are deleted.\033[0m" 
+	@echo "\033[0;31m>> $(NAME_PUSH_SWAP) $(NAME_CHECKER) && all obbjects are deleted.\033[0m" 
 
 re : fclean all
