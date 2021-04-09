@@ -7,6 +7,7 @@
 #include <limits.h>
 #include <stdio.h>
 #include "../libft/libft.h"
+#define BUFFER_SIZE 10000
 
 typedef struct s_right
 {

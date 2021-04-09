@@ -113,8 +113,8 @@ int checker(char **ag)
     size = a->size;
     while (1)
     {
-        line = ft_calloc(1024, sizeof(char));
-        read(0, line, 1024);
+        line = ft_calloc(BUFFER_SIZE, sizeof(char));
+        read(0, line, BUFFER_SIZE);
         if (cout_line(line) > 1)
         {
             lines = ft_split(line, '\n');
@@ -125,11 +125,12 @@ int checker(char **ag)
             }
             if (!lines[i])
             {
-                if (check_sort(a->arg) && (!b || !b->arg[0]))
+                if (check_sort(a->arg)) // && (!b || !b->arg[0])
                     ft_putstr_fd("OK\n", 1);
                 else
                     ft_putstr_fd("KO\n", 1);
-                exit(0);
+                printf("%i", check_sort(a->arg));
+                // exit(0);
             }
             exit(0);
         }
@@ -137,7 +138,7 @@ int checker(char **ag)
         {
             if (!line[0] || line[0] == '\n')
             {
-                if (check_sort(a->arg) && size == a->size && (!b || !b->arg[0]))
+                if (check_sort(a->arg) && (!b || !b->arg[0])) // && size == a->size &&
                     ft_putstr_fd("OK\n", 1);
                 else
                     ft_putstr_fd("KO\n", 1);
@@ -220,9 +221,12 @@ int main(int ac, char **ag)
 {
     char **split;
 
-    if (ac == 2)
-        split = ft_split(ag[1], ' ');
-    else
-        split = ag;
-    checker(split);
+    if (ac > 1)
+    {
+        if (ac == 2)
+            split = ft_split(ag[1], ' ');
+        else
+            split = ag;
+        checker(split);
+    }
 }
