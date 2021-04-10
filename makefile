@@ -8,7 +8,7 @@ LIB_PATH= libft
 TOOLS_PATH=$(OBJ_PATH)/tools
 SHARED_PATH=$(OBJ_PATH)/shared
 
-SRC_TOOLS= tools/ft_abs.c tools/min.c tools/max.c tools/size_arg.c tools/list.c tools/check_sort.c tools/ft_strcmp.c
+SRC_TOOLS= tools/ft_abs.c tools/min.c tools/max.c tools/size_arg.c tools/list.c tools/check_sort.c tools/ft_strcmp.c tools/ft_atol.c
 SRC_NAME=push_swap.c shared/push_a.c shared/check_digit.c shared/shared.c debugger.c $(SRC_TOOLS) 
 SRC_CHECKER= checker.c shared/push_a.c shared/check_digit.c shared/shared.c $(SRC_TOOLS)
 HDR_NAME=push_swap.h 

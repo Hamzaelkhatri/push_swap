@@ -98,4 +98,6 @@ void ss(t_stacka **a, t_stackb **b);
 int check_digit(char **ag);
 void quick_sort(t_stacka *a, t_stackb *b, int sqart);
 void algo_under50(t_stacka *a, t_stackb *b);
+void execute_checker(char *line, t_stacka **t_a, t_stackb **t_b);
+long long ft_atol(const char *str);
 #endif

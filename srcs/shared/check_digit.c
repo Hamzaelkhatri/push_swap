@@ -11,9 +11,17 @@ int check_digit(char **ag)
         j = 0;
         while (ag[i][j])
         {
-            if (!ft_isdigit(ag[i][j]) && !ft_strchr(ag[i], '-'))
-                return (1);
+            if (!ft_isdigit(ag[i][j]))
+            {
+                ft_putstr_fd("error\n", 2);
+                exit(1);
+            }
             j++;
+        }
+        if (ft_atol(ag[i]) > INT_MAX || ft_atol(ag[i]) < INT_MIN)
+        {
+            ft_putstr_fd("error\n", 2);
+            exit(1);
         }
         i++;
     }

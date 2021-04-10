@@ -11,9 +11,9 @@ int main(int ac, char **ag)
         if (ac == 2)
             split = ft_split(ag[1], ' ');
         else
-            split = ag;
+            split = &ag[1];
         check_digit(split);
-        add_new(&a, &split[1]);
+        add_new(&a, split);
         if (a->size <= 20)
             algo_under50(a, b);
         else
