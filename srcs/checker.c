@@ -34,7 +34,7 @@ void ok_ko(t_stacka *a, t_stackb *b)
     exit(0);
 }
 
-void execute_checker(char *line, t_stacka **t_a, t_stackb **t_b)
+t_stackb *execute_checker(char *line, t_stacka **t_a, t_stackb **t_b)
 {
 
     t_stacka *a;
@@ -42,112 +42,118 @@ void execute_checker(char *line, t_stacka **t_a, t_stackb **t_b)
 
     a = *t_a;
     b = *t_b;
-    if (!line[0] || line[0] == '\n')
-        ok_ko(a, b);
-    else if (!ft_strcmp(line, "sa\n") || !ft_strcmp(line, "sa"))
+    // puts(line);
+    // if (b)
+    //     print_stacks(a->arg, b->arg);
+    // else
+    //     print_2(a->arg);
+    // sleep(1);
+    if (!ft_strcmp(line, "sa"))
         swap_a(&a);
-    else if (!ft_strcmp(line, "sb\n") || !ft_strcmp(line, "sb"))
+    else if (!ft_strcmp(line, "sb"))
         swap_b(&b);
-    else if (!ft_strcmp(line, "ss\n") || !ft_strcmp(line, "ss"))
+    else if (!ft_strcmp(line, "ss"))
     {
-        if (b->arg[0] && b->arg[1] && a->arg[0] && a->arg[1])
+        // if (b->arg[0] && b->arg[1] && a->arg[0] && a->arg[1])
         {
             swap_b(&b);
             swap_a(&a);
         }
     }
-    else if (!ft_strcmp(line, "pb\n") || !ft_strcmp(line, "pb"))
+    else if (!ft_strcmp(line, "pb"))
     {
-        if (a && a->arg[0])
+        // if (a && a->arg[0])
         {
+            // print_2(a->arg);
             push_b(a, &b, a->arg[0]);
-            delete_number(&a, (a)->arg[0]);
+            delete_number(&a, a->arg[0]);
         }
     }
-    else if (!ft_strcmp(line, "pa\n") || !ft_strcmp(line, "pa"))
+    else if (!ft_strcmp(line, "pa"))
     {
-        if (b && b->arg[0])
+        // if (b && b->arg[0])
         {
             push_a(a, b, b->arg[0]);
             delete_number_stackb(b, (b)->arg[0]);
         }
     }
-    else if (!ft_strcmp(line, "rb\n") || !ft_strcmp(line, "rb"))
+    else if (!ft_strcmp(line, "rb"))
     {
         if (b && b->arg[0])
             rb(b);
     }
-    else if (!ft_strcmp(line, "ra\n") || !ft_strcmp(line, "ra"))
+    else if (!ft_strcmp(line, "ra"))
     {
         if (a && a->arg[0] && a->arg[1])
             ra(a);
     }
-    else if (!ft_strcmp(line, "rra\n") || !ft_strcmp(line, "rra"))
+    else if (!ft_strcmp(line, "rra"))
     {
         if (a && a->arg[0] && a->arg[1])
             rra(a);
     }
-    else if (!ft_strcmp(line, "rrb\n") || !ft_strcmp(line, "rrb"))
+    else if (!ft_strcmp(line, "rrb"))
     {
         if (b && b->arg[0])
             rrb(b);
     }
-    else if (!ft_strcmp(line, "rr\n") || !ft_strcmp(line, "rr"))
+    else if (!ft_strcmp(line, "rr"))
     {
         if (b && b->arg[0] && b->arg[1])
             rb(b);
         if (a && a->arg[0] && a->arg[1])
             ra(a);
     }
-    else if (ft_strcmp(line, "\n"))
+    else
     {
-        ft_putstr_fd("error",1);
-        // free(line);
-        // exit(0);
+        ft_putstr_fd("error\n", 2);
+        exit(1);
     }
+    // puts(line);
+    // sleep(1);
+    return (b);
+}
+
+void checking(char **av, t_stacka **a, t_stackb **b)
+{
+    int i = 0;
+
+    while (av[i])
+    {
+        *b = execute_checker(av[i], a, b);
+        // puts(av[i]);
+        i++;
+    }
+    if (check_sort((*a)->arg)) //&& (*b && !(*b)->arg[0])
+        ft_putstr_fd("OK\n", 1);
+    else
+        ft_putstr_fd("KO\n", 1);
 }
 
 int checker(char **ag)
 {
     t_stacka *a = NULL;
-    t_stackb *b = NULL;
+    t_stackb *b;
     int size;
     int i;
     char **lines;
     char *line;
-    i = 0;
 
-    check_arg(&ag[1]);
-    add_new(&a, &ag[1]);
+    // add_new(&a, &ag[1]);
+    check_arg(ag);
+    add_new(&a, ag);
     size = a->size;
-    while (1)
+    line = ft_calloc(BUFFER_SIZE, sizeof(char));
+    char *str;
+    while (read(0, line, BUFFER_SIZE))
     {
+        str = ft_strjoin(str, line);
+        free(line);
+        line = NULL;
         line = ft_calloc(BUFFER_SIZE, sizeof(char));
-        read(0, line, BUFFER_SIZE);
-        if (cout_line(line) > 1)
-        {
-            lines = ft_split(line, '\n');
-            while (lines[i])
-            {
-                execute_checker(lines[i], &a, &b);
-                i++;
-            }
-            if (!lines[i])
-            {
-                if (check_sort(a->arg))
-                    ft_putstr_fd("OK\n", 1);
-                else
-                    ft_putstr_fd("KO\n", 1);
-            }
-            exit(0);
-        }
-        else
-        {
-            execute_checker(line, &a, &b);
-            free(line);
-            line = NULL;
-        }
     }
+    lines = ft_split(str, '\n');
+    checking(lines, &a, &b);
 }
 
 int main(int ac, char **ag)
@@ -158,7 +164,7 @@ int main(int ac, char **ag)
         if (ac == 2)
             split = ft_split(ag[1], ' ');
         else
-            split = ag;
+            split = &ag[1];
         checker(split);
     }
 }
