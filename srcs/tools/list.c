@@ -5,9 +5,9 @@ void add_new(t_stacka **ptr, char **av)
     t_stacka *new;
     int size = size_arg(av);
     if (!(new = malloc(sizeof(t_stacka))))
-        puts("malloc error");
+        ft_putstr_fd("error : malloc\n", 2);
     if (!(new->arg = malloc(sizeof(char *) * (size + 1))))
-        puts("malloc error");
+        ft_putstr_fd("error : malloc\n", 2);
     new->size = size;
     new->arg[size] = NULL;
     new->lastnumber = ft_atoi(av[size - 1]);

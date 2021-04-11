@@ -101,4 +101,13 @@ int quick_sort(t_stacka *a, t_stackb *b, int sqart);
 void algo_under50(t_stacka *a, t_stackb *b);
 t_stackb *execute_checker(char *line, t_stacka **t_a, t_stackb *t_b);
 long long ft_atol(const char *str);
+int get_medieum(char **av, int square);
+int search_pivot(char **av, int pivot);
+int get_under_pivot(char **av, int pivot);
+void extra_ra(t_stacka *ptr);
+void rb_extra(t_stackb *ptr);
+void swapa_extra(t_stacka **a);
+int sum_med(char **av, int pivot, int begin, int index);
+int get_index(char **av, char *number);
+int get_index_(char **av, char *number);
 #endif
