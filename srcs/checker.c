@@ -40,12 +40,6 @@ t_stackb *execute_checker(char *line, t_stacka **t_a, t_stackb *b)
     t_stacka *a;
 
     a = *t_a;
-    // puts(line);
-    // if (b)
-    //     print_stacks(a->arg, b->arg);
-    // else
-    //     print_2(a->arg);
-    // sleep(1);
     if (!ft_strcmp(line, "sa"))
         swap_a(&a);
     else if (!ft_strcmp(line, "sb"))
@@ -60,11 +54,11 @@ t_stackb *execute_checker(char *line, t_stacka **t_a, t_stackb *b)
     }
     else if (!ft_strcmp(line, "pb"))
     {
-            if (a && a->arg[0])
-            {
+        if (a && a->arg[0])
+        {
             push_b(a, &b, a->arg[0]);
-                delete_number(t_a, a->arg[0]);
-            }
+            delete_number(t_a, a->arg[0]);
+        }
     }
     else if (!ft_strcmp(line, "pa"))
     {
@@ -115,12 +109,11 @@ void checking(char **av, t_stacka **a)
     t_stackb *b = NULL;
     while (av[i])
     {
-       b = execute_checker(av[i], a, b);
+        b = execute_checker(av[i], a, b);
         i++;
     }
     if (check_sort((*a)->arg)) //&& (*b && !(*b)->arg[0])
     {
-        print_2((*a)->arg);
         ft_putstr_fd("OK\n", 1);
     }
     else

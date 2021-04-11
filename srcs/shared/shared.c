@@ -261,7 +261,7 @@ void add_first(t_stackb *ptr, char *number)
     char **av;
     int size = size_arg(ptr->arg) + 1;
     if (!(av = malloc(sizeof(char *) * (size + 1))))
-        ft_putstr_fd("error:fatal",2);
+        ft_putstr_fd("error:fatal", 2);
     ptr->size = size;
     av[size] = NULL;
     av[0] = ft_strdup(number);
@@ -562,6 +562,7 @@ int quick_sort(t_stacka *a, t_stackb *b, int sqart)
     int index = -1;
     int amin;
 
+    // puts(ft_itoa(a->size));
     while (a->size >= ft_abs(size / sqart))
     {
         pivot = get_medieum(a->arg, sqart);
@@ -579,7 +580,7 @@ int quick_sort(t_stacka *a, t_stackb *b, int sqart)
                 if (index >= 0)
                     if (ft_atoi(a->arg[0]) > pivot)
                     {
-                        if ( proximity > index  && sum_med(a->arg, pivot, 0, proximity) >= sum_med(a->arg, pivot, index, a->size)) //ft_atoi(a->arg[1]) <= pivot &&
+                        if (proximity > index && sum_med(a->arg, pivot, 0, proximity) >= sum_med(a->arg, pivot, index, a->size)) //ft_atoi(a->arg[1]) <= pivot &&
                         {
                             extra_ra(a);
                             instr++;
@@ -592,10 +593,11 @@ int quick_sort(t_stacka *a, t_stackb *b, int sqart)
                     }
             }
             if (ft_atoi(a->arg[0]) <= pivot)
-                {
-                    instr++;
-                    pusha_delete(a, &b, pivot);
-                }
+            {
+                instr++;
+                // size--;
+                pusha_delete(a, &b, pivot);
+            }
         }
     }
     while (a->arg[0] && !check_sort(a->arg))
@@ -608,7 +610,7 @@ int quick_sort(t_stacka *a, t_stackb *b, int sqart)
             if (index >= 0)
             {
                 if (index > proximity)
-                        rra_extra(a);
+                    rra_extra(a);
                 else
                     extra_ra(a);
                 instr++;
