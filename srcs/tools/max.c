@@ -6,7 +6,7 @@ int get_max_(char **av)
     int max = ft_atoi(av[0]);
     while (av[i])
     {
-        if (ft_atoi(av[i]) > max)
+        if (ft_atoi(av[i]) >= max)
             max = ft_atoi(av[i]);
         i++;
     }

@@ -34,14 +34,12 @@ void ok_ko(t_stacka *a, t_stackb *b)
     exit(0);
 }
 
-t_stackb *execute_checker(char *line, t_stacka **t_a, t_stackb **t_b)
+t_stackb *execute_checker(char *line, t_stacka **t_a, t_stackb *b)
 {
 
     t_stacka *a;
-    t_stackb *b;
 
     a = *t_a;
-    b = *t_b;
     // puts(line);
     // if (b)
     //     print_stacks(a->arg, b->arg);
@@ -54,7 +52,7 @@ t_stackb *execute_checker(char *line, t_stacka **t_a, t_stackb **t_b)
         swap_b(&b);
     else if (!ft_strcmp(line, "ss"))
     {
-        // if (b->arg[0] && b->arg[1] && a->arg[0] && a->arg[1])
+        if (b->arg[0] && b->arg[1] && a->arg[0] && a->arg[1])
         {
             swap_b(&b);
             swap_a(&a);
@@ -62,16 +60,15 @@ t_stackb *execute_checker(char *line, t_stacka **t_a, t_stackb **t_b)
     }
     else if (!ft_strcmp(line, "pb"))
     {
-        // if (a && a->arg[0])
-        {
-            // print_2(a->arg);
+            if (a && a->arg[0])
+            {
             push_b(a, &b, a->arg[0]);
-            delete_number(&a, a->arg[0]);
-        }
+                delete_number(t_a, a->arg[0]);
+            }
     }
     else if (!ft_strcmp(line, "pa"))
     {
-        // if (b && b->arg[0])
+        if (b && b->arg[0])
         {
             push_a(a, b, b->arg[0]);
             delete_number_stackb(b, (b)->arg[0]);
@@ -109,23 +106,23 @@ t_stackb *execute_checker(char *line, t_stacka **t_a, t_stackb **t_b)
         ft_putstr_fd("error\n", 2);
         exit(1);
     }
-    // puts(line);
-    // sleep(1);
     return (b);
 }
 
-void checking(char **av, t_stacka **a, t_stackb **b)
+void checking(char **av, t_stacka **a)
 {
     int i = 0;
-
+    t_stackb *b = NULL;
     while (av[i])
     {
-        *b = execute_checker(av[i], a, b);
-        // puts(av[i]);
+       b = execute_checker(av[i], a, b);
         i++;
     }
     if (check_sort((*a)->arg)) //&& (*b && !(*b)->arg[0])
+    {
+        print_2((*a)->arg);
         ft_putstr_fd("OK\n", 1);
+    }
     else
         ft_putstr_fd("KO\n", 1);
 }
@@ -133,27 +130,30 @@ void checking(char **av, t_stacka **a, t_stackb **b)
 int checker(char **ag)
 {
     t_stacka *a = NULL;
-    t_stackb *b;
     int size;
     int i;
     char **lines;
     char *line;
+    char *str = NULL;
 
     // add_new(&a, &ag[1]);
     check_arg(ag);
     add_new(&a, ag);
     size = a->size;
     line = ft_calloc(BUFFER_SIZE, sizeof(char));
-    char *str;
     while (read(0, line, BUFFER_SIZE))
     {
-        str = ft_strjoin(str, line);
+        if (!str)
+            str = ft_strdup(line);
+        else
+            str = ft_strjoin(str, line);
         free(line);
         line = NULL;
         line = ft_calloc(BUFFER_SIZE, sizeof(char));
     }
     lines = ft_split(str, '\n');
-    checking(lines, &a, &b);
+    checking(lines, &a);
+    return (0);
 }
 
 int main(int ac, char **ag)

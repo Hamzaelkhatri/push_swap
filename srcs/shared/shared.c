@@ -233,7 +233,7 @@ t_stackb *push_b(t_stacka *ptr, t_stackb **new, char *number)
     int size;
     char **av;
 
-    if (ptr->arg[1])
+    if (ptr && ptr->arg[1])
         ptr->firstnumber = ft_atoi(ptr->arg[1]);
     if (!*new)
     {
@@ -258,10 +258,10 @@ t_stackb *push_b(t_stacka *ptr, t_stackb **new, char *number)
 
 void add_first(t_stackb *ptr, char *number)
 {
-    char **av = NULL;
+    char **av;
     int size = size_arg(ptr->arg) + 1;
     if (!(av = malloc(sizeof(char *) * (size + 1))))
-        puts("malloc");
+        ft_putstr_fd("error:fatal",2);
     ptr->size = size;
     av[size] = NULL;
     av[0] = ft_strdup(number);
@@ -552,12 +552,13 @@ int get_next_int(char **av, int lastmax)
     return (max);
 }
 
-void quick_sort(t_stacka *a, t_stackb *b, int sqart)
+int quick_sort(t_stacka *a, t_stackb *b, int sqart)
 {
     int i = 0;
     int pivot = 0;
     int proximity = 0;
     int size = a->size;
+    int instr = 0;
     int index = -1;
     int amin;
 
@@ -567,7 +568,10 @@ void quick_sort(t_stacka *a, t_stackb *b, int sqart)
         while (search_pivot(a->arg, pivot) && !check_sort(a->arg))
         {
             if (ft_atoi(a->arg[0]) > pivot)
+            {
                 extra_ra(a);
+                instr++;
+            }
             if (get_under_pivot(a->arg, pivot) <= pivot)
             {
                 proximity = (a->size) / 2;
@@ -575,32 +579,39 @@ void quick_sort(t_stacka *a, t_stackb *b, int sqart)
                 if (index >= 0)
                     if (ft_atoi(a->arg[0]) > pivot)
                     {
-                        if (ft_atoi(a->arg[1]) <= pivot && sum_med(a->arg, pivot, 0, proximity) > sum_med(a->arg, pivot, index, a->size))
+                        if ( proximity > index  && sum_med(a->arg, pivot, 0, proximity) >= sum_med(a->arg, pivot, index, a->size)) //ft_atoi(a->arg[1]) <= pivot &&
+                        {
                             extra_ra(a);
+                            instr++;
+                        }
                         else if (ft_atoi(a->arg[a->size - 1]) <= pivot)
+                        {
+                            instr++;
                             rra_extra(a);
+                        }
                     }
             }
             if (ft_atoi(a->arg[0]) <= pivot)
-                pusha_delete(a, &b, pivot);
+                {
+                    instr++;
+                    pusha_delete(a, &b, pivot);
+                }
         }
-        // puts("here");
     }
     while (a->arg[0] && !check_sort(a->arg))
     {
         amin = get_min_(a->arg);
-        if (a->arg[1] && ft_atoi(a->arg[1]) < ft_atoi(a->arg[0]))
-            swapa_extra(&a);
         if (ft_atoi(a->arg[0]) != amin && !check_sort(a->arg))
         {
-            proximity = (a->size) / 2;
+            proximity = (a->size - 1) / 2;
             index = get_index_(a->arg, ft_itoa(amin));
             if (index >= 0)
             {
-                if (index >= proximity)
-                    rra_extra(a);
+                if (index > proximity)
+                        rra_extra(a);
                 else
                     extra_ra(a);
+                instr++;
             }
             else
                 break;
@@ -609,6 +620,7 @@ void quick_sort(t_stacka *a, t_stackb *b, int sqart)
         {
             pb(a, &b, a->arg[0]);
             delete_number(&a, a->arg[0]);
+            instr++;
         }
     }
     while (b->arg[0])
@@ -624,16 +636,15 @@ void quick_sort(t_stacka *a, t_stackb *b, int sqart)
                     rrb_extra(b);
                 else
                     rb_extra(b);
+                instr++;
             }
         }
         if (b->arg[0] && bmax == ft_atoi(b->arg[0]))
         {
             pa(a, b, b->arg[0]);
             delete_number_stackb(b, b->arg[0]);
+            instr++;
         }
     }
-    // push_all_stackb(b, a);
-    // if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[1]))
-    // swapa_extra(&a);
-    // algo_under50(a, b);
+    return (instr);
 }
