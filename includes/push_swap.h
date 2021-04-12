@@ -110,4 +110,7 @@ void swapa_extra(t_stacka **a);
 int sum_med(char **av, int pivot, int begin, int index);
 int get_index(char **av, char *number);
 int get_index_(char **av, char *number);
+void free_stacka(t_stacka *a);
+void free_stackb(t_stackb *b);
+char **ft_strdup2(char **av);
 #endif

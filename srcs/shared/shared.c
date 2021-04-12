@@ -45,7 +45,7 @@ void add_first(t_stackb *ptr, char *number)
         ft_putstr_fd("error : malloc\n", 2);
     ptr->size = size;
     av[size] = NULL;
-    av[0] = ft_strdup(number);
+    av[0] = (number);
     ptr->firstnumber = ft_atoi(number);
     i = 1;
     j = 0;

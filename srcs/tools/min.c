@@ -44,9 +44,11 @@ void delete_min(t_stacka *ptr)
 
     if (!ptr->arg)
         return;
+    tmp = ptr->arg[0];
     while (ptr->arg[i])
     {
         ptr->arg[i] = (ptr->arg[i + 1]);
         i++;
     }
+    // free(tmp);
 }

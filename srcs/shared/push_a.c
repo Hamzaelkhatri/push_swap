@@ -25,7 +25,7 @@ void push_a(t_stacka *ptr, t_stackb *b, char *number)
         ft_putstr_fd("error : malloc\n", 2);
     ptr->size = size + 1;
     av[size] = NULL;
-    av[0] = ft_strdup(number);
+    av[0] = (number);
     ptr->lastnumber = ft_atoi(av[0]);
     int i = 1;
     int j = 0;

@@ -61,6 +61,8 @@ char **delete_number_stackb(t_stackb *ptr, char *number)
     ptr->size -= 1;
     if (j)
         ptr->lastnumber = ft_atoi(av[j - 1]);
+    // if(ptr->arg)
+        // free_2d(ptr->arg);
     ptr->arg = av;
     return (av);
 }
