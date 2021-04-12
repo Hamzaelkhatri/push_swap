@@ -17,14 +17,14 @@ int main(int ac, char **ag)
         check_digit(split);
         add_new(&a, split);
         // if (size_arg(split) < 100)
-        //     i = quick_sort(a, b, 2);
+            algo_under50(a,b);
         // else if (size_arg(split) >= 100 && size_arg(split) < 500)
-       i = quick_sort(a, b, 4);
+        //     i = quick_sort(a, b, 4);
         // else if (size_arg(split) >= 500)
-            // i = quick_sort(a, b, 8);
+        //     i = quick_sort(a, b, 8);
         free_stacka(a);
         // if (ac == 2)
-            // free_2d(split);
+        // free_2d(split);
     }
     return (0);
 }
