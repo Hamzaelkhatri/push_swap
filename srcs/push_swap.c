@@ -17,17 +17,11 @@ int main(int ac, char **ag)
         check_digit(split);
         add_new(&a, split);
         if (size_arg(split) < 100)
-        {
             i = quick_sort(a, b, 2);
-        }
-        else if (size_arg(split) >= 100 && size_arg(split) < 200)
-        {
+        else if (size_arg(split) >= 100 && size_arg(split) < 500)
             i = quick_sort(a, b, 4);
-        }
         else if (size_arg(split) >= 500)
-        {
             i = quick_sort(a, b, 8);
-        }
     }
     return (0);
 }

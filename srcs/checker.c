@@ -34,33 +34,51 @@ void ok_ko(t_stacka *a, t_stackb *b)
     exit(0);
 }
 
-t_stackb *execute_checker(char *line, t_stacka **t_a, t_stackb *b)
+void execute_checker_4(char *line, t_stacka **t_a, t_stackb *b)
 {
-
     t_stacka *a;
 
     a = *t_a;
-    if (!ft_strcmp(line, "sa"))
-        swap_a(&a);
-    else if (!ft_strcmp(line, "sb"))
-        swap_b(&b);
-    else if (!ft_strcmp(line, "ss"))
+    if (!ft_strcmp(line, "rr"))
     {
-        if (b->arg[0] && b->arg[1] && a->arg[0] && a->arg[1])
-        {
-            swap_b(&b);
-            swap_a(&a);
-        }
+        if (b && b->arg[0] && b->arg[1])
+            rb(b);
+        if (a && a->arg[0] && a->arg[1])
+            ra(a);
     }
-    else if (!ft_strcmp(line, "pb"))
+    else
     {
-        if (a && a->arg[0])
-        {
-            push_b(a, &b, a->arg[0]);
-            delete_number(t_a, a->arg[0]);
-        }
+        ft_putstr_fd("error\n", 2);
+        exit(1);
     }
-    else if (!ft_strcmp(line, "pa"))
+    // else
+}
+
+void execute_checker_3(char *line, t_stacka **t_a, t_stackb *b)
+{
+    t_stacka *a;
+
+    a = *t_a;
+     if (!ft_strcmp(line, "rra"))
+    {
+        if (a && a->arg[0] && a->arg[1])
+            rra(a);
+    }
+    else if (!ft_strcmp(line, "rrb"))
+    {
+        if (b && b->arg[0])
+            rrb(b);
+    }
+    else
+        execute_checker_4(line,t_a,b);
+}
+
+void execute_checker_2(char *line, t_stacka **t_a, t_stackb *b)
+{
+    t_stacka *a;
+
+    a = *t_a;
+     if (!ft_strcmp(line, "pa"))
     {
         if (b && b->arg[0])
         {
@@ -78,28 +96,47 @@ t_stackb *execute_checker(char *line, t_stacka **t_a, t_stackb *b)
         if (a && a->arg[0] && a->arg[1])
             ra(a);
     }
-    else if (!ft_strcmp(line, "rra"))
+    else
+        execute_checker_3(line, t_a, b);
+}
+
+void execute_checker_1(char *line, t_stacka **t_a, t_stackb *b)
+{
+    t_stacka *a;
+ 
+    a = *t_a;
+    if (!ft_strcmp(line, "ss"))
     {
-        if (a && a->arg[0] && a->arg[1])
-            rra(a);
+        if (b->arg[0] && b->arg[1] && a->arg[0] && a->arg[1])
+        {
+            swap_b(&b);
+            swap_a(&a);
+        }
     }
-    else if (!ft_strcmp(line, "rrb"))
+    else if (!ft_strcmp(line, "pb"))
     {
-        if (b && b->arg[0])
-            rrb(b);
-    }
-    else if (!ft_strcmp(line, "rr"))
-    {
-        if (b && b->arg[0] && b->arg[1])
-            rb(b);
-        if (a && a->arg[0] && a->arg[1])
-            ra(a);
+        if (a && a->arg[0])
+        {
+            push_b(a, &b, a->arg[0]);
+            delete_number(t_a, a->arg[0]);
+        }
     }
     else
-    {
-        ft_putstr_fd("error\n", 2);
-        exit(1);
-    }
+        execute_checker_2(line, t_a, b);
+ }
+
+t_stackb *execute_checker(char *line, t_stacka **t_a, t_stackb *b)
+{
+
+    t_stacka *a;
+
+    a = *t_a;
+    if (!ft_strcmp(line, "sa"))
+        swap_a(&a);
+    else if (!ft_strcmp(line, "sb"))
+        swap_b(&b);
+    else
+        execute_checker_1(line,t_a,b);
     return (b);
 }
 
@@ -123,16 +160,12 @@ void checking(char **av, t_stacka **a)
 int checker(char **ag)
 {
     t_stacka *a = NULL;
-    int size;
-    int i;
     char **lines;
     char *line;
     char *str = NULL;
 
-    // add_new(&a, &ag[1]);
     check_arg(ag);
     add_new(&a, ag);
-    size = a->size;
     line = ft_calloc(BUFFER_SIZE, sizeof(char));
     while (read(0, line, BUFFER_SIZE))
     {

@@ -1,5 +1,11 @@
 #include "push_swap.h"
 
+void err_exit()
+{
+    ft_putstr_fd("error\n", 2);
+    exit(1);
+}
+
 int check_digit(char **ag)
 {
     int i;
@@ -12,17 +18,11 @@ int check_digit(char **ag)
         while (ag[i][j])
         {
             if (!ft_isdigit(ag[i][j]))
-            {
-                ft_putstr_fd("error\n", 2);
-                exit(1);
-            }
+                err_exit();
             j++;
         }
         if (ft_atol(ag[i]) > INT_MAX || ft_atol(ag[i]) < INT_MIN)
-        {
-            ft_putstr_fd("error\n", 2);
-            exit(1);
-        }
+            err_exit();
         i++;
     }
     return (0);
