@@ -4,12 +4,12 @@ void pusha_delete(t_stacka *a, t_stackb **b, int pivot)
 {
     if (ft_atoi(a->arg[0]) <= pivot)
     {
-        pb(a, b, a->arg[0]);
+        pbs(a, b, a->arg[0]);
         delete_number(&a, a->arg[0]);
     }
 }
 
-void pa(t_stacka *ptr, t_stackb *b, char *number)
+void pas(t_stacka *ptr, t_stackb *b, char *number)
 {
     ft_putendl_fd("pa", 1);
     push_a(ptr, b, number);

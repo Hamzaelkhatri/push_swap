@@ -17,6 +17,7 @@ int check_digit(char **ag)
         j = 0;
         while (ag[i][j])
         {
+            // puts("here");
             if (!ft_isdigit(ag[i][j]))
                 err_exit();
             j++;

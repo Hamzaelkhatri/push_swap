@@ -3,18 +3,18 @@
 void rrr(t_stacka *a, t_stackb *b)
 {
     ft_putendl_fd("rrr", 1);
-    rrb(b);
-    rra(a);
+    rrbs(b);
+    rras(a);
 }
 
 void rr(t_stacka *a, t_stackb *b)
 {
     ft_putendl_fd("rr", 1);
-    rb(b);
-    ra(a);
+    rbs(b);
+    ras(a);
 }
 
-void rrb(t_stackb *ptr)
+void rrbs(t_stackb *ptr)
 {
     int i;
     char *tmp;
@@ -32,7 +32,7 @@ void rrb(t_stackb *ptr)
         i++;
     }
     if (ft_atoi(ptr->arg[0]) != ptr->lastnumber)
-        rrb(ptr);
+        rrbs(ptr);
     if (ptr->arg[0])
         ptr->firstnumber = ft_atoi(ptr->arg[0]);
     if (i)
@@ -42,10 +42,10 @@ void rrb(t_stackb *ptr)
 void rb_extra(t_stackb *ptr)
 {
     ft_putendl_fd("rb", 1);
-    rb(ptr);
+    rbs(ptr);
 }
 
-void rb(t_stackb *ptr)
+void rbs(t_stackb *ptr)
 {
     int i = 0;
     char *tmp;
@@ -63,7 +63,7 @@ void rb(t_stackb *ptr)
         i++;
     }
     if (ft_atoi(ptr->arg[i - 1]) != ptr->firstnumber)
-        rb(ptr);
+        rbs(ptr);
     ptr->firstnumber = ft_atoi(ptr->arg[0]);
     if (i)
         ptr->lastnumber = ft_atoi(ptr->arg[i - 1]);

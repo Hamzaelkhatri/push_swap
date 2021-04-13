@@ -18,7 +18,7 @@ int get_medieum(char **av, int square)
     int c;
     t_stacka *a = NULL;
     t_stackb *b = NULL;
- 
+
     add_new(&a, av);
     get_min(&a);
     while (!check_sort(a->arg))
@@ -28,7 +28,7 @@ int get_medieum(char **av, int square)
         else
             while (ft_atoi(a->arg[0]) != a->minvalue)
             {
-                ra(a);
+                ras(a);
             }
         if (a->size <= 2)
         {
@@ -44,7 +44,7 @@ int get_medieum(char **av, int square)
     {
         push_a(a, b, b->arg[c++]);
     }
-    return (medieum(a,b,square));
+    return (medieum(a, b, square));
 }
 
 int sum_med(char **av, int pivot, int begin, int index)

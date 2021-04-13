@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-void pb(t_stacka *ptr, t_stackb **new, char *number)
+void pbs(t_stacka *ptr, t_stackb **new, char *number)
 {
     ft_putendl_fd("pb", 1);
     push_b(ptr, new, number);
@@ -62,7 +62,7 @@ char **delete_number_stackb(t_stackb *ptr, char *number)
     if (j)
         ptr->lastnumber = ft_atoi(av[j - 1]);
     // if(ptr->arg)
-        // free_2d(ptr->arg);
+    // free_2d(ptr->arg);
     ptr->arg = av;
     return (av);
 }

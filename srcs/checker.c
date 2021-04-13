@@ -1,14 +1,5 @@
 #include "push_swap.h"
 
-void check_arg(char **ag)
-{
-    if (check_digit(ag))
-    {
-        ft_putstr_fd("error\n", 2);
-        exit(0);
-    }
-}
-
 int cout_line(char *str)
 {
     int i;
@@ -42,9 +33,9 @@ void execute_checker_4(char *line, t_stacka **t_a, t_stackb *b)
     if (!ft_strcmp(line, "rr"))
     {
         if (b && b->arg[0] && b->arg[1])
-            rb(b);
+            rbs(b);
         if (a && a->arg[0] && a->arg[1])
-            ra(a);
+            ras(a);
     }
     else
     {
@@ -59,18 +50,18 @@ void execute_checker_3(char *line, t_stacka **t_a, t_stackb *b)
     t_stacka *a;
 
     a = *t_a;
-     if (!ft_strcmp(line, "rra"))
+    if (!ft_strcmp(line, "rra"))
     {
         if (a && a->arg[0] && a->arg[1])
-            rra(a);
+            rras(a);
     }
     else if (!ft_strcmp(line, "rrb"))
     {
         if (b && b->arg[0])
-            rrb(b);
+            rrbs(b);
     }
     else
-        execute_checker_4(line,t_a,b);
+        execute_checker_4(line, t_a, b);
 }
 
 void execute_checker_2(char *line, t_stacka **t_a, t_stackb *b)
@@ -78,7 +69,8 @@ void execute_checker_2(char *line, t_stacka **t_a, t_stackb *b)
     t_stacka *a;
 
     a = *t_a;
-     if (!ft_strcmp(line, "pa"))
+
+    if (!ft_strcmp(line, "pa"))
     {
         if (b && b->arg[0])
         {
@@ -89,12 +81,12 @@ void execute_checker_2(char *line, t_stacka **t_a, t_stackb *b)
     else if (!ft_strcmp(line, "rb"))
     {
         if (b && b->arg[0])
-            rb(b);
+            rbs(b);
     }
     else if (!ft_strcmp(line, "ra"))
     {
         if (a && a->arg[0] && a->arg[1])
-            ra(a);
+            ras(a);
     }
     else
         execute_checker_3(line, t_a, b);
@@ -103,7 +95,7 @@ void execute_checker_2(char *line, t_stacka **t_a, t_stackb *b)
 void execute_checker_1(char *line, t_stacka **t_a, t_stackb *b)
 {
     t_stacka *a;
- 
+
     a = *t_a;
     if (!ft_strcmp(line, "ss"))
     {
@@ -115,6 +107,7 @@ void execute_checker_1(char *line, t_stacka **t_a, t_stackb *b)
     }
     else if (!ft_strcmp(line, "pb"))
     {
+
         if (a && a->arg[0])
         {
             push_b(a, &b, a->arg[0]);
@@ -123,7 +116,7 @@ void execute_checker_1(char *line, t_stacka **t_a, t_stackb *b)
     }
     else
         execute_checker_2(line, t_a, b);
- }
+}
 
 t_stackb *execute_checker(char *line, t_stacka **t_a, t_stackb *b)
 {
@@ -136,7 +129,7 @@ t_stackb *execute_checker(char *line, t_stacka **t_a, t_stackb *b)
     else if (!ft_strcmp(line, "sb"))
         swap_b(&b);
     else
-        execute_checker_1(line,t_a,b);
+        execute_checker_1(line, t_a, b);
     return (b);
 }
 
@@ -157,6 +150,44 @@ void checking(char **av, t_stacka **a)
         ft_putstr_fd("KO\n", 1);
 }
 
+void check_operation(char **ag)
+{
+    int i;
+    int j;
+    i = 0;
+    j = 0;
+
+    static const char *operation[] = {
+        "pa",
+        "pb",
+        "sa",
+        "ss",
+        "ra",
+        "rb",
+        "rra",
+        "rrb",
+        "rr",
+        "rrr"};
+    while (ag[i])
+    {
+        j = 0;
+        while (operation[j])
+        {
+            if (!ft_strcmp(ag[i], operation[j]))
+            {
+                j = -1;
+                break;
+            }
+            j++;
+        }
+        if (j == -1)
+            break;
+        i++;
+    }
+    if (j >= 0)
+        err_exit();
+}
+
 int checker(char **ag)
 {
     t_stacka *a = NULL;
@@ -164,7 +195,10 @@ int checker(char **ag)
     char *line;
     char *str = NULL;
 
-    check_arg(ag);
+    // puts(ag[1]);
+    check_digit(ag);
+    check_operation(ag);
+    check_double(ag);
     add_new(&a, ag);
     line = ft_calloc(BUFFER_SIZE, sizeof(char));
     while (read(0, line, BUFFER_SIZE))

@@ -22,7 +22,7 @@ int sort_b(t_stacka *a, t_stackb *b)
         }
         if (b->arg[0] && b->minvalue == ft_atoi(b->arg[0]))
         {
-            pa(a, b, b->arg[0]);
+            pas(a, b, b->arg[0]);
             delete_number_stackb(b, b->arg[0]);
         }
     }
@@ -53,7 +53,7 @@ int sort_a(t_stacka *a, t_stackb *b)
         }
         if (a->minvalue == ft_atoi(a->arg[0]))
         {
-            pb(a, &b, a->arg[0]);
+            pbs(a, &b, a->arg[0]);
             delete_number(&a, a->arg[0]);
         }
     }

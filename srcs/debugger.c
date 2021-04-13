@@ -91,7 +91,7 @@ int debugger(char **ag)
         {
             if (b && b->arg[0])
             {
-                rb(b);
+                rbs(b);
                 print_stacks(a->arg, b->arg);
             }
             else
@@ -101,7 +101,7 @@ int debugger(char **ag)
         {
             if (a && a->arg[0] && a->arg[1])
             {
-                ra(a);
+                ras(a);
                 if (b)
                     print_stacks(a->arg, b->arg);
                 else
@@ -114,7 +114,7 @@ int debugger(char **ag)
         {
             if (a && a->arg[0] && a->arg[1])
             {
-                rra(a);
+                rras(a);
                 if (b)
                     print_stacks(a->arg, b->arg);
                 else
@@ -127,7 +127,7 @@ int debugger(char **ag)
         {
             if (b && b->arg[0])
             {
-                rrb(b);
+                rrbs(b);
                 print_stacks(a->arg, b->arg);
             }
             else
@@ -136,11 +136,11 @@ int debugger(char **ag)
         if (!ft_strcmp(line, "rr\n"))
         {
             if (b && b->arg[0])
-                rb(b);
+                rbs(b);
             else
                 puts("B : empty :/");
             if (a && a->arg[0] && a->arg[1])
-                ra(a);
+                ras(a);
             else
                 puts("A : empty :/");
             if (b)
