@@ -25,6 +25,8 @@ int sort_b(t_stacka *a, t_stackb *b)
             pas(a, b, b->arg[0]);
             delete_number_stackb(b, b->arg[0]);
         }
+        if (a->show)
+            show(a, b);
     }
     return (0);
 }
@@ -56,6 +58,8 @@ int sort_a(t_stacka *a, t_stackb *b)
             pbs(a, &b, a->arg[0]);
             delete_number(&a, a->arg[0]);
         }
+        if (a->show)
+            show(a, b);
     }
     return (0);
 }
@@ -79,6 +83,35 @@ void exec_under_pivot(t_stacka *a, t_stackb *b, int pivot)
         }
 }
 
+void show(t_stacka *a, t_stackb *b)
+{
+    int i;
+
+    i = 0;
+    system("clear");
+    ft_putstr_fd("\n----------------------------\n", 1);
+    ft_putstr_fd("        A         B         ", 1);
+    ft_putstr_fd("\n----------------------------\n", 1);
+    while (a->arg[i] || (b && b->arg[i]))
+    {
+        ft_putstr_fd("        ", 1);
+        if (i < a->size && a->arg[i])
+            ft_putstr_fd(a->arg[i], 1);
+        else
+            ft_putstr_fd("  ", 1);
+        ft_putstr_fd("        ", 1);
+        if (b && i < b->size && b->arg[i])
+            ft_putstr_fd(b->arg[i], 1);
+        else
+            ft_putstr_fd("   ", 1);
+        ft_putstr_fd("\n", 1);
+        i++;
+    }
+    sleep(1);
+    system("clear");
+    // ft_putstr_fd("\n----------------------------\n", 1);
+}
+
 int quick_sort(t_stacka *a, t_stackb *b, int sqart)
 {
     int pivot = 0;
@@ -95,7 +128,10 @@ int quick_sort(t_stacka *a, t_stackb *b, int sqart)
                 exec_under_pivot(a, b, pivot);
             if (ft_atoi(a->arg[0]) <= pivot)
                 pusha_delete(a, &b, pivot);
+            if (a->show)
+                show(a, b);
         }
+        // if (a->show)
     }
     sort_a(a, b);
     sort_b(a, b);

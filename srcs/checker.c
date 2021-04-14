@@ -206,6 +206,7 @@ int checker(char **ag)
             str = ft_strdup(line);
         else
             str = ft_strjoin(str, line);
+
         free(line);
         line = NULL;
         line = ft_calloc(BUFFER_SIZE, sizeof(char));
@@ -219,12 +220,20 @@ int checker(char **ag)
 int main(int ac, char **ag)
 {
     char **split;
+    int i;
+
+    i = 1;
     if (ac > 1)
     {
+        if (!ft_strcmp(ag[1], "-d"))
+            i = 2;
         if (ac == 2)
-            split = ft_split(ag[1], ' ');
+            split = ft_split(ag[i], ' ');
         else
-            split = &ag[1];
-        checker(split);
+            split = &ag[i];
+        if (i == 2)
+            checkerd(split);
+        else
+            checker(split);
     }
 }

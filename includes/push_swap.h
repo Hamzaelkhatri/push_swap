@@ -32,6 +32,7 @@ typedef struct s_stacka
     int firstnumber;
     int lastnumber;
     int colors;
+    int show;
     struct s_stacka *next;
 } t_stacka;
 
@@ -113,5 +114,7 @@ void free_stackb(t_stackb *b);
 char **ft_strdup2(char **av);
 void err_exit();
 int check_double(char **ag);
+void show(t_stacka *a, t_stackb *b);
+void checkingd(char **av, t_stacka **a);
 
 #endif
