@@ -11,7 +11,7 @@ void pusha_delete(t_stacka *a, t_stackb **b, int pivot)
 
 void pas(t_stacka *ptr, t_stackb *b, char *number)
 {
-    ft_putendl_fd("pa", 1);
+    print_pa(ptr->colors);
     push_a(ptr, b, number);
 }
 

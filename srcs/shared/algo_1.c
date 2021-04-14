@@ -8,7 +8,6 @@ void algo_under50(t_stacka *a, t_stackb *b)
 
     c = 0;
     i = 0;
-    // print_2(a->arg);
     while (i < 3)
     {
         get_min(&a);
@@ -28,22 +27,16 @@ void algo_under50(t_stacka *a, t_stackb *b)
         if (a->size <= 4)
             break;
     }
-    // print_stacks(a->arg, b->arg);
-    // if (a->size <)
+    while (!check_sort(a->arg))
     {
-        // puts("here");
-        // get_min(&a);
-        while (!check_sort(a->arg))
-        {
-            if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[1]) && ft_atoi(a->arg[1]) < ft_atoi(a->arg[2]))
-                rra_extra(a);
-            else if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[1]))
-                swapa_extra(&a);
-            else if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[2]))
-                rra_extra(a);
-            else if (ft_atoi(a->arg[1]) > ft_atoi(a->arg[2]))
-                extra_ra(a);
-        }
+        if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[1]) && ft_atoi(a->arg[1]) < ft_atoi(a->arg[2]))
+            rra_extra(a);
+        else if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[1]))
+            swapa_extra(&a);
+        else if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[2]))
+            rra_extra(a);
+        else if (ft_atoi(a->arg[1]) > ft_atoi(a->arg[2]))
+            extra_ra(a);
     }
     while (b && b->arg[c])
         pas(a, b, b->arg[c++]);

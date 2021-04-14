@@ -10,6 +10,7 @@ void add_new(t_stacka **ptr, char **av)
         ft_putstr_fd("error : malloc\n", 2);
     new->size = size;
     new->arg[size] = NULL;
+    new->colors = 0;
     new->lastnumber = ft_atoi(av[size - 1]);
     new->firstnumber = ft_atoi(av[0]);
     while (--size >= 0)

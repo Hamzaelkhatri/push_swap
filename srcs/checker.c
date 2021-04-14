@@ -197,7 +197,6 @@ int checker(char **ag)
 
     // puts(ag[1]);
     check_digit(ag);
-    check_operation(ag);
     check_double(ag);
     add_new(&a, ag);
     line = ft_calloc(BUFFER_SIZE, sizeof(char));
@@ -212,6 +211,7 @@ int checker(char **ag)
         line = ft_calloc(BUFFER_SIZE, sizeof(char));
     }
     lines = ft_split(str, '\n');
+    check_operation(lines);
     checking(lines, &a);
     return (0);
 }

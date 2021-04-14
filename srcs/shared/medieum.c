@@ -21,6 +21,7 @@ int get_medieum(char **av, int square)
 
     add_new(&a, av);
     get_min(&a);
+    c = 0;
     while (!check_sort(a->arg))
     {
         if (a->arg[1] && a->minvalue == ft_atoi(a->arg[1]))

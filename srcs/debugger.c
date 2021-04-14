@@ -13,8 +13,8 @@ int debugger(char **ag)
     while (1)
     {
         char *line = NULL;
-        line = malloc(sizeof(char) * 500);
-        int re = read(0, line, 500);
+        line = malloc(sizeof(char) * BUFFER_SIZE);
+        int re = read(0, line, BUFFER_SIZE);
         if (!line[0])
             exit(0);
         if (!ft_strcmp(line, "sa\n"))
@@ -28,9 +28,7 @@ int debugger(char **ag)
                     print_2(a->arg);
             }
             else
-            {
                 puts("A : has 1 caracter or none :/");
-            }
         }
         if (!ft_strcmp(line, "sb\n"))
         {
@@ -40,9 +38,7 @@ int debugger(char **ag)
                 print_stacks(a->arg, b->arg);
             }
             else
-            {
                 puts("B : empty :/");
-            }
         }
         if (!ft_strcmp(line, "ss\n"))
         {

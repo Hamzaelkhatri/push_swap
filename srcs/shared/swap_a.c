@@ -2,7 +2,8 @@
 
 void swapa_extra(t_stacka **a)
 {
-    ft_putendl_fd("sa", 1);
+    // ft_putendl_fd("sa", 1);
+    print_sa((*a)->colors);
     swap_a(a);
 }
 

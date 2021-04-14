@@ -8,35 +8,20 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include "../libft/libft.h"
-#define BUFFER_SIZE 10000
-
-typedef struct s_right
-{
-    int number;
-    int size;
-    struct s_right *next;
-    struct s_right *prev;
-} t_right;
-
-typedef struct s_left
-{
-    int number;
-    int size;
-    struct s_left *next;
-    struct s_left *prev;
-
-} t_left;
+#define BUFFER_SIZE 100
+#define C_RB "\e[0;93mrb"
+#define C_PB "\e[0;95mpb"
+#define C_PA "\e[0;32mpa"
+#define C_RRA "\e[0;33mrra"
+#define C_RRB "\e[0;31mrrb"
+#define C_RRR "\e[1;36mrrr"
+#define C_RA "\e[0;35mra"
+#define C_RR "\e[1;35mrr"
+#define C_SA "\e[0;107msa"
+#define C_SB "\e[0;104msb"
+#define C_SS "\e[0;102mss"
 
 //stack a
-typedef struct s_array
-{
-    char **arg;
-    t_right *right;
-    t_left *left;
-    struct s_array *next;
-    struct s_array *prev;
-    int size;
-} t_array;
 
 typedef struct s_stacka
 {
@@ -46,6 +31,7 @@ typedef struct s_stacka
     int minvalue;
     int firstnumber;
     int lastnumber;
+    int colors;
     struct s_stacka *next;
 } t_stacka;
 
@@ -57,10 +43,22 @@ typedef struct s_stackb
     int minvalue;
     int firstnumber;
     int lastnumber;
+    int colors;
     struct s_stackb *next;
 } t_stackb;
 
 void add_first(t_stackb *ptr, char *number);
+void print_pa(int color);
+void print_pb(int color);
+void print_sa(int color);
+void print_sb(int color);
+void print_ss(int color);
+void print_ra(int color);
+void print_rb(int color);
+void print_rr(int color);
+void *print_rrr(int color);
+void *print_rra(int color);
+void *print_rrb(int color);
 void ft_lst_add_back(t_stacka **ptr, t_stacka *new);
 void get_min(t_stacka **ptr);
 void ras(t_stacka *ptr);

@@ -2,7 +2,7 @@
 
 void swapb_extra(t_stackb **b)
 {
-    ft_putendl_fd("sb", 1);
+    print_pb((*b)->colors);
     swap_b(b);
 }
 

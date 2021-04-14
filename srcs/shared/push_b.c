@@ -2,7 +2,7 @@
 
 void pbs(t_stacka *ptr, t_stackb **new, char *number)
 {
-    ft_putendl_fd("pb", 1);
+    print_pb(ptr->colors);
     push_b(ptr, new, number);
 }
 
@@ -25,6 +25,7 @@ t_stackb *push_b(t_stacka *ptr, t_stackb **new, char *number)
         (*new)->next = NULL;
         (*new)->size = 1;
         (*new)->indice = 0;
+        (*new)->colors = ptr->colors;
         (*new)->firstnumber = ft_atoi(ptr->arg[0]);
         (*new)->lastnumber = ft_atoi(ptr->arg[0]);
         return ((*new));

@@ -2,7 +2,7 @@
 
 void ss(t_stacka **a, t_stackb **b)
 {
-    ft_putendl_fd("ss", 1);
+    print_ss((*a)->colors);
     swap_a(a);
     swap_b(b);
 }
