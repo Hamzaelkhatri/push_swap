@@ -6,13 +6,9 @@ t_stackb *pusha_delete(t_stacka *a, t_stackb **b, int pivot)
     char **t = NULL;
     if (ft_atoi(a->arg[0]) <= pivot)
     {
-        // if (*b)
-        // t = (*b)->arg;
         tmp = pbs(a, b, a->arg[0]);
-        // free_stackb(*b);
-        // if (t)
-        //     free_2d(t);
         delete_number(&a, a->arg[0]);
+        // free_stackb(*b);
     }
     return (tmp);
 }

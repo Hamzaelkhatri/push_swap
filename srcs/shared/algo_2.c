@@ -130,21 +130,20 @@ int quick_sort(t_stacka *a, t_stackb *b, int sqart)
                 extra_ra(a);
             if (get_under_pivot(a->arg, pivot) <= pivot)
                 exec_under_pivot(a, b, pivot);
-            // if (tmp)
-            //     free_stackb(tmp);
             if (ft_atoi(a->arg[0]) <= pivot)
             {
-                tmp = pusha_delete(a, &b, pivot);
+                tmp = b;
+                pusha_delete(a, &b, pivot);
                 // free_stackb(b);
-                // b = tmp;
             }
 
             if (a->show)
                 show(a, b);
         }
+        // a->size--;
     }
-    sort_a(a, b);
-    sort_b(a, b);
+    // sort_a(a, b);
+    // sort_b(a, b);
     free_stackb(b);
     return (0);
 }
