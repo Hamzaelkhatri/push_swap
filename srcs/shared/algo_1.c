@@ -8,7 +8,7 @@ void algo_under50(t_stacka *a, t_stackb *b)
 
     c = 0;
     i = 0;
-    while (i < 3)
+    while (i < 3 && !check_sort(a->arg) && a->size > 3)
     {
         get_min(&a);
         while (ft_atoi(a->arg[0]) != a->minvalue)

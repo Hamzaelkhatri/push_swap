@@ -69,9 +69,12 @@ void exec_under_pivot(t_stacka *a, t_stackb *b, int pivot)
     int proximity;
     int index;
     int sum;
+    char *p;
 
     proximity = (a->size) / 2;
-    index = get_index(a->arg, ft_itoa(pivot));
+    p = ft_itoa(pivot);
+    index = get_index(a->arg, p);
+    free(p);
     if (index >= 0)
         if (ft_atoi(a->arg[0]) > pivot)
         {
@@ -116,6 +119,7 @@ int quick_sort(t_stacka *a, t_stackb *b, int sqart)
 {
     int pivot = 0;
     int size = a->size;
+    t_stackb *tmp = NULL;
 
     while (a->size >= ft_abs(size / sqart))
     {
@@ -126,14 +130,21 @@ int quick_sort(t_stacka *a, t_stackb *b, int sqart)
                 extra_ra(a);
             if (get_under_pivot(a->arg, pivot) <= pivot)
                 exec_under_pivot(a, b, pivot);
+            // if (tmp)
+            //     free_stackb(tmp);
             if (ft_atoi(a->arg[0]) <= pivot)
-                pusha_delete(a, &b, pivot);
+            {
+                tmp = pusha_delete(a, &b, pivot);
+                // free_stackb(b);
+                // b = tmp;
+            }
+
             if (a->show)
                 show(a, b);
         }
-        // if (a->show)
     }
     sort_a(a, b);
     sort_b(a, b);
+    free_stackb(b);
     return (0);
 }

@@ -1,9 +1,12 @@
 #include "push_swap.h"
 
-void pbs(t_stacka *ptr, t_stackb **new, char *number)
+t_stackb *pbs(t_stacka *ptr, t_stackb **new, char *number)
 {
+    t_stackb *tmp;
+
     print_pb(ptr->colors);
-    push_b(ptr, new, number);
+    tmp = *new;
+    return (push_b(ptr, new, number));
 }
 
 t_stackb *push_b(t_stacka *ptr, t_stackb **new, char *number)
@@ -20,7 +23,7 @@ t_stackb *push_b(t_stacka *ptr, t_stackb **new, char *number)
         if (!((*new)->arg = malloc(sizeof(char *) * 2)))
             ft_putstr_fd("error : malloc\n", 2);
         ft_bzero((*new)->arg, sizeof(char *));
-        (*new)->arg[0] = ft_strdup(ptr->arg[0]);
+        (*new)->arg[0] = (ptr->arg[0]);
         (*new)->arg[1] = NULL;
         (*new)->next = NULL;
         (*new)->size = 1;
@@ -28,11 +31,11 @@ t_stackb *push_b(t_stacka *ptr, t_stackb **new, char *number)
         (*new)->colors = ptr->colors;
         (*new)->firstnumber = ft_atoi(ptr->arg[0]);
         (*new)->lastnumber = ft_atoi(ptr->arg[0]);
-        return ((*new));
+        return (*new);
     }
     else
         add_first(*new, number);
-    return (NULL);
+    return (*new);
 }
 
 char **delete_number_stackb(t_stackb *ptr, char *number)
@@ -62,8 +65,8 @@ char **delete_number_stackb(t_stackb *ptr, char *number)
     ptr->size -= 1;
     if (j)
         ptr->lastnumber = ft_atoi(av[j - 1]);
-    // if(ptr->arg)
-    // free_2d(ptr->arg);
+    // if (ptr->arg)
+    //     free_2d(ptr->arg);
     ptr->arg = av;
     return (av);
 }

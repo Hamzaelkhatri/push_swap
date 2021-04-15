@@ -37,7 +37,7 @@ void add_first(t_stackb *ptr, char *number)
 {
     char **av;
     int size;
-    int i ;
+    int i;
     int j;
 
     size = size_arg(ptr->arg) + 1;

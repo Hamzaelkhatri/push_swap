@@ -15,8 +15,6 @@ void check_param(t_stacka *a, char **ag)
 {
     if (!ft_strcmp(ag[1], "-c"))
         a->colors = 1;
-    else if (!ft_strcmp(ag[1], "-h"))
-        p_help();
     else if (!ft_strcmp(ag[1], "-show"))
         a->show = 1;
 }
@@ -30,19 +28,23 @@ int main(int ac, char **ag)
 
     if (ac > 1)
     {
-        if (!ft_strcmp(ag[1], "-c") || !ft_strcmp(ag[1], "-h") || !ft_strcmp(ag[1], "-show"))
+        if (!ft_strcmp(ag[1], "-c") || !ft_strcmp(ag[1], "-show"))
             i = 2;
+        else if (!ft_strcmp(ag[1], "-h"))
+            p_help();
         if (ac == 1 + i)
             split = ft_split(ag[i], ' ');
-        else
+        else if (ag[i])
             split = ft_strdup2(&ag[i]);
+        else
+            exit(0);
         check_digit(split);
         check_double(split);
         add_new(&a, split);
         check_param(a, ag);
         if (size_arg(split) < 8)
             algo_under50(a, b);
-        else if (size_arg(split) < 100)
+        else if (size_arg(split) < 70)
             i = quick_sort(a, b, 2);
         else if (size_arg(split) >= 100 && size_arg(split) < 500)
             i = quick_sort(a, b, 4);
