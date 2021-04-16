@@ -5,7 +5,6 @@ t_stackb *pbs(t_stacka *ptr, t_stackb **new, char *number)
     t_stackb *tmp;
 
     print_pb(ptr->colors);
-    tmp = *new;
     return (push_b(ptr, new, number));
 }
 
@@ -42,31 +41,19 @@ char **delete_number_stackb(t_stackb *ptr, char *number)
 {
     int i = 0;
     int j = 0;
-    char *tmp;
-    char **av;
     if (!ptr->arg || !ptr->arg[0])
         return (NULL);
     int size = size_arg(ptr->arg);
 
     if (!ptr->arg)
         return (NULL);
-    if (!(av = malloc(sizeof(char *) * size)))
-        ft_putstr_fd("error : malloc\n", 2);
     while (ptr->arg[i])
     {
-        if (ft_atoi(ptr->arg[i]) != ft_atoi(number))
-        {
-            av[j] = ft_strdup(ptr->arg[i]);
-            j++;
-        }
+        ptr->arg[i] = (ptr->arg[i + 1]);
         i++;
     }
-    av[j] = NULL;
     ptr->size -= 1;
     if (j)
-        ptr->lastnumber = ft_atoi(av[j - 1]);
-    // if (ptr->arg)
-    //     free_2d(ptr->arg);
-    ptr->arg = av;
-    return (av);
+        ptr->lastnumber = ft_atoi(ptr->arg[j - 1]);
+    return (NULL);
 }

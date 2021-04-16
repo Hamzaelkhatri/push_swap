@@ -5,32 +5,31 @@ char **delete_number(t_stacka **a, char *number)
     int i = 0;
     int j = 0;
     char *tmp;
-    char **av;
+    // char **av;
     t_stacka *ptr = *a;
 
     if (!ptr->arg || !ptr->arg[0])
         return (NULL);
     int size = size_arg(ptr->arg);
-    if (!(av = malloc(sizeof(char *) * size)))
-        ft_putstr_fd("error : malloc\n", 2);
+    // if (!(av = malloc(sizeof(char *) * size)))
+    //     ft_putstr_fd("error : malloc\n", 2);
     while (ptr->arg[i])
     {
-        if (ft_atoi(ptr->arg[i]) != ft_atoi(number))
-            av[j++] = ft_strdup(ptr->arg[i]);
+        // if (ft_atoi(ptr->arg[i]) != ft_atoi(number))
+        ptr->arg[i] = (ptr->arg[i + 1]);
         i++;
     }
-    av[j] = NULL;
+    // av[j] = NULL;
     ptr->size = size - 1;
-    if (j && av[j - 1])
-        ptr->lastnumber = ft_atoi(av[j - 1]);
-    if (av[0])
+    // if (j && ptr->arg[j - 1])
+    //     ptr->lastnumber = ft_atoi(ptr->arg[j - 1]);
+    // if (av[0])
     {
-        ptr->firstnumber = ft_atoi(av[0]);
-        ptr->arg = av;
+        ptr->firstnumber = ft_atoi(ptr->arg[0]);
+        // ptr->arg = ptr->arg;
     }
-    else if (ptr->arg[0])
-        (ptr->arg[0]) = NULL;
-    return (av);
+    // else if (ptr->arg[0])(ptr->arg[0]) = NULL;
+    return (NULL);
 }
 
 void add_first(t_stackb *ptr, char *number)
@@ -45,7 +44,7 @@ void add_first(t_stackb *ptr, char *number)
         ft_putstr_fd("error : malloc\n", 2);
     ptr->size = size;
     av[size] = NULL;
-    av[0] = (number);
+    av[0] = ft_strdup(number);
     ptr->firstnumber = ft_atoi(number);
     i = 1;
     j = 0;

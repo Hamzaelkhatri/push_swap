@@ -15,7 +15,7 @@ void add_new(t_stacka **ptr, char **av)
     new->lastnumber = ft_atoi(av[size - 1]);
     new->firstnumber = ft_atoi(av[0]);
     while (--size >= 0)
-        new->arg[size] = ft_strdup(av[size]);
+        new->arg[size] = (av[size]);
     ft_lst_add_back(ptr, new);
 }
 

@@ -4,6 +4,7 @@ int sort_b(t_stacka *a, t_stackb *b)
 {
     int proximity;
     int index;
+    char *tmp;
 
     while (b->arg[0])
     {
@@ -11,7 +12,9 @@ int sort_b(t_stacka *a, t_stackb *b)
         while (ft_atoi(b->arg[0]) != b->minvalue)
         {
             proximity = (b->size) / 2;
+            tmp = ft_itoa(b->minvalue);
             index = get_index_(b->arg, ft_itoa(b->minvalue));
+            free(tmp);
             if (index >= 0)
             {
                 if (index > proximity)
@@ -35,6 +38,7 @@ int sort_a(t_stacka *a, t_stackb *b)
 {
     int proximity;
     int index;
+    char *tmp;
 
     while (a->arg[0] && !check_sort(a->arg))
     {
@@ -42,7 +46,9 @@ int sort_a(t_stacka *a, t_stackb *b)
         if (ft_atoi(a->arg[0]) != a->minvalue && !check_sort(a->arg))
         {
             proximity = (a->size - 1) / 2;
-            index = get_index_(a->arg, ft_itoa(a->minvalue));
+            tmp = ft_itoa(a->minvalue);
+            index = get_index_(a->arg, tmp);
+            free(tmp);
             if (index >= 0)
             {
                 if (index > proximity)
@@ -132,9 +138,9 @@ int quick_sort(t_stacka *a, t_stackb *b, int sqart)
                 exec_under_pivot(a, b, pivot);
             if (ft_atoi(a->arg[0]) <= pivot)
             {
-                tmp = b;
-                pusha_delete(a, &b, pivot);
-                // free_stackb(b);
+                tmp = pbs(a, &b, a->arg[0]);
+                delete_number(&a, a->arg[0]);
+                // free_stackb(*b);
             }
 
             if (a->show)
@@ -142,8 +148,10 @@ int quick_sort(t_stacka *a, t_stackb *b, int sqart)
         }
         // a->size--;
     }
-    // sort_a(a, b);
+    sort_a(a, b);
     // sort_b(a, b);
     free_stackb(b);
+    // free_stacka(a);
+    // free
     return (0);
 }

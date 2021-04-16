@@ -42,14 +42,14 @@ int main(int ac, char **ag)
         check_double(split);
         add_new(&a, split);
         check_param(a, ag);
-        // if (size_arg(split) < 8)
-        //     algo_under50(a, b);
-        // else if (size_arg(split) < 70)
-        //     i = quick_sort(a, b, 2);
-        // else if (size_arg(split) >= 100 && size_arg(split) < 500)
+        if (size_arg(split) < 8)
+            algo_under50(a, b);
+        else if (size_arg(split) < 70)
+            i = quick_sort(a, b, 2);
+        else if (size_arg(split) >= 100 && size_arg(split) < 500)
             i = quick_sort(a, b, 4);
-        // else if (size_arg(split) >= 500)
-        //     i = quick_sort(a, b, 8);
+        else if (size_arg(split) >= 500)
+            i = quick_sort(a, b, 8);
         free_stacka(a);
         free_2d(split);
     }

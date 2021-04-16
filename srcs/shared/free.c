@@ -17,18 +17,19 @@ void free_stacka(t_stacka *a)
     int i = 0;
     if (a)
     {
-        if (a->arg)
-        {
-            while (a->arg[i])
-            {
-                free(a->arg[i]);
-                i++;
-            }
-            free(a->arg);
-            a->arg = NULL;
-            free(a);
-            a = NULL;
-        }
+        // if (a->arg)
+        // {
+        //     while (a->arg[i])
+        //     {
+        //         free(a->arg[i]);
+        //         i++;
+        //     }
+        free_2d(a->arg);
+        // free(a->arg);
+        // a->arg = NULL;
+        free(a);
+        a = NULL;
+        // }
     }
 }
 void free_stackb(t_stackb *b)
