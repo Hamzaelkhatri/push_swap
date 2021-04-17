@@ -1,5 +1,34 @@
 #include "push_swap.h"
 
+void show(t_stacka *a, t_stackb *b)
+{
+    int i;
+
+    i = 0;
+    system("clear");
+    ft_putstr_fd("\n----------------------------\n", 1);
+    ft_putstr_fd("        A         B         ", 1);
+    ft_putstr_fd("\n----------------------------\n", 1);
+    while (a->arg[i] || (b && b->arg[i]))
+    {
+        ft_putstr_fd("        ", 1);
+        if (i < a->size && a->arg[i])
+            ft_putstr_fd(a->arg[i], 1);
+        else
+            ft_putstr_fd("  ", 1);
+        ft_putstr_fd("        ", 1);
+        if (b && i < b->size && b->arg[i])
+            ft_putstr_fd(b->arg[i], 1);
+        else
+            ft_putstr_fd("   ", 1);
+        ft_putstr_fd("\n", 1);
+        i++;
+    }
+    sleep(1);
+    system("clear");
+    // ft_putstr_fd("\n----------------------------\n", 1);
+}
+
 int sort_b(t_stacka *a, t_stackb *b)
 {
     int proximity;

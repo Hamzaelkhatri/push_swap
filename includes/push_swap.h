@@ -69,6 +69,7 @@ void rras(t_stacka *ptr);
 void rra_extra(t_stacka *ptr);
 void free_2d(char **av);
 void print_2(char **av);
+void show(t_stacka *a, t_stackb *b);
 char **join_all(char **ptr, char *new);
 int size_arg(char **av);
 void add_new(t_stacka **ptr, char **av);

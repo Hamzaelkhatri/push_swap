@@ -107,7 +107,6 @@ void execute_checker_1(char *line, t_stacka **t_a, t_stackb *b)
     }
     else if (!ft_strcmp(line, "pb"))
     {
-
         if (a && a->arg[0])
         {
             push_b(a, &b, a->arg[0]);
@@ -194,6 +193,7 @@ int checker(char **ag)
     char **lines;
     char *line;
     char *str = NULL;
+    char *tmp = NULL;
 
     // puts(ag[1]);
     check_digit(ag);
@@ -203,16 +203,29 @@ int checker(char **ag)
     while (read(0, line, BUFFER_SIZE))
     {
         if (!str)
+        {
+            tmp = str;
             str = ft_strdup(line);
+        }
         else
+        {
+            tmp = str;
             str = ft_strjoin(str, line);
+        }
+        if (tmp)
+            free(tmp);
         free(line);
-        line = NULL;
         line = ft_calloc(BUFFER_SIZE, sizeof(char));
     }
     lines = ft_split(str, '\n');
+    free(str);
+    free(line);
     check_operation(lines);
     checking(lines, &a);
+    free_2d(lines);
+    free(a->arg);
+    free(a);
+    // free(b);
     return (0);
 }
 
@@ -226,5 +239,7 @@ int main(int ac, char **ag)
         else
             split = &ag[1];
         checker(split);
+        if (ac == 2)
+            free_2d(split);
     }
 }
