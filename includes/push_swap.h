@@ -32,7 +32,6 @@ typedef struct s_stacka
     int firstnumber;
     int lastnumber;
     int colors;
-    int show;
     struct s_stacka *next;
 } t_stacka;
 
@@ -70,7 +69,7 @@ void print_2(char **av);
 char **join_all(char **ptr, char *new);
 int size_arg(char **av);
 void add_new(t_stacka **ptr, char **av);
-t_stacka *push_a(t_stacka *ptr, t_stackb *b, char *number);
+void push_a(t_stacka *ptr, t_stackb *b, char *number);
 void swap_a(t_stacka **ptr);
 void swap_b(t_stackb **ptr);
 void rrb_extra(t_stackb *ptr);
@@ -85,13 +84,13 @@ int checker(char **ag);
 void pas(t_stacka *ptr, t_stackb *b, char *number);
 void print_stacks(char **a, char **b);
 int ft_abs(float num);
-t_stackb *pusha_delete(t_stacka *a, t_stackb **b, int pivot);
+void pusha_delete(t_stacka *a, t_stackb **b, int pivot);
 int get_min_(char **av);
 void get_min(t_stacka **ptr);
 int get_max_(char **av);
 void delete_min(t_stacka *ptr);
 int size_arg(char **av);
-t_stackb *pbs(t_stacka *ptr, t_stackb **new, char *number);
+void pbs(t_stacka *ptr, t_stackb **new, char *number);
 int ft_strcmp(const char *s1, const char *s2);
 int debugger(char **ag);
 void ss(t_stacka **a, t_stackb **b);
@@ -114,7 +113,5 @@ void free_stackb(t_stackb *b);
 char **ft_strdup2(char **av);
 void err_exit();
 int check_double(char **ag);
-void show(t_stacka *a, t_stackb *b);
-void checkingd(char **av, t_stacka **a);
 
 #endif

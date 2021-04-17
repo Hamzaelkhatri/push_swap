@@ -1,11 +1,9 @@
 #include "push_swap.h"
 
-t_stackb *pbs(t_stacka *ptr, t_stackb **new, char *number)
+void pbs(t_stacka *ptr, t_stackb **new, char *number)
 {
-    t_stackb *tmp;
-
     print_pb(ptr->colors);
-    return (push_b(ptr, new, number));
+    push_b(ptr, new, number);
 }
 
 t_stackb *push_b(t_stacka *ptr, t_stackb **new, char *number)
@@ -30,7 +28,7 @@ t_stackb *push_b(t_stacka *ptr, t_stackb **new, char *number)
         (*new)->colors = ptr->colors;
         (*new)->firstnumber = ft_atoi(ptr->arg[0]);
         (*new)->lastnumber = ft_atoi(ptr->arg[0]);
-        return (*new);
+        return ((*new));
     }
     else
         add_first(*new, number);
@@ -41,19 +39,20 @@ char **delete_number_stackb(t_stackb *ptr, char *number)
 {
     int i = 0;
     int j = 0;
+    char *tmp;
+    char **av;
+
     if (!ptr->arg || !ptr->arg[0])
         return (NULL);
     int size = size_arg(ptr->arg);
-
-    if (!ptr->arg)
-        return (NULL);
     while (ptr->arg[i])
     {
-        ptr->arg[i] = (ptr->arg[i + 1]);
+        ptr->arg[i] = ptr->arg[i + 1];
         i++;
     }
-    ptr->size -= 1;
-    if (j)
-        ptr->lastnumber = ft_atoi(ptr->arg[j - 1]);
-    return (NULL);
+    ptr->size = size - 1;
+    if (ptr->arg[0])
+    {
+        ptr->firstnumber = ft_atoi(ptr->arg[0]);
+    }
 }

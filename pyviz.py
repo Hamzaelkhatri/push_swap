@@ -41,7 +41,7 @@ class PsGui:
         self.first_pile = self.pile_a[:]
         self.pile_b = []
         self.cmds = subprocess.check_output([PUSHS_PATH] + sys.argv[1:], stderr=subprocess.STDOUT,
-                                            timeout=100).splitlines()
+                                            timeout=12).splitlines()
         if len(self.pile_a) != 0:
             self.prespeed = 1 / len(self.pile_a)
         else:

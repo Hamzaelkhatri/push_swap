@@ -1,16 +1,12 @@
 #include <push_swap.h>
 
-t_stackb *pusha_delete(t_stacka *a, t_stackb **b, int pivot)
+void pusha_delete(t_stacka *a, t_stackb **b, int pivot)
 {
-    t_stackb *tmp;
-    char **t = NULL;
     if (ft_atoi(a->arg[0]) <= pivot)
     {
-        tmp = pbs(a, b, a->arg[0]);
+        pbs(a, b, a->arg[0]);
         delete_number(&a, a->arg[0]);
-        // free_stackb(*b);
     }
-    return (tmp);
 }
 
 void pas(t_stacka *ptr, t_stackb *b, char *number)
@@ -19,7 +15,7 @@ void pas(t_stacka *ptr, t_stackb *b, char *number)
     push_a(ptr, b, number);
 }
 
-t_stacka *push_a(t_stacka *ptr, t_stackb *b, char *number)
+void push_a(t_stacka *ptr, t_stackb *b, char *number)
 {
     char **av = NULL;
     int size = size_arg(ptr->arg) + 1;
@@ -29,18 +25,17 @@ t_stacka *push_a(t_stacka *ptr, t_stackb *b, char *number)
         ft_putstr_fd("error : malloc\n", 2);
     ptr->size = size + 1;
     av[size] = NULL;
-    av[0] = ft_strdup(number);
+    av[0] = (number);
     ptr->lastnumber = ft_atoi(av[0]);
     int i = 1;
     int j = 0;
     while (ptr->arg[j])
     {
-        av[i] = ft_strdup(ptr->arg[j]);
+        av[i] = (ptr->arg[j]);
         j++;
         i++;
     }
-    if (ptr->arg)
-        free_2d(ptr->arg);
+    free(ptr->arg);
+    ptr->arg = NULL;
     ptr->arg = av;
-    return (ptr);
 }

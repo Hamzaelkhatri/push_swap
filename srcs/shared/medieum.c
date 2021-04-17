@@ -7,13 +7,20 @@ int medieum(t_stacka *a, t_stackb *b, int square)
     if (a->size % 2 == 0)
     {
         c = (ft_atoi(a->arg[((a->size - 1) / square) + 1]) + ft_atoi(a->arg[((a->size - 1) / square)])) / 2;
-        free_stacka(a);
+        free(a->arg);
+        a->arg = NULL;
+        free(a);
+
+        // free_stacka(a);
         return (ft_abs(c));
     }
     else
     {
         c = ft_atoi(a->arg[((a->size - 1) / square)]);
-        free_stacka(a);
+        free(a->arg);
+        a->arg = NULL;
+        free(a);
+        // free_stacka(a);
         return (c);
     }
 }
@@ -22,7 +29,6 @@ int get_medieum(char **av, int square)
 {
     int c;
     t_stacka *a = NULL;
-    t_stacka *a_tmp = NULL;
     t_stackb *b = NULL;
     t_stackb *tmp = NULL;
 
@@ -44,17 +50,21 @@ int get_medieum(char **av, int square)
                 swap_a(&a);
             break;
         }
-        tmp = push_b(a, &b, a->arg[0]);
+        // tmp = b;
+        push_b(a, &b, a->arg[0]);
+        if (tmp && tmp->arg)
+            free(tmp->arg);
         delete_min(a);
         get_min(&a);
     }
     while (b && b->arg[c])
     {
-        a_tmp = push_a(a, b, b->arg[c++]);
-        // free_stacka(a);
-        // a = a_tmp;
+        tmp = b;
+        push_a(a, b, b->arg[c++]);
+        // if (tmp->arg)
+        // free_2d(tmp->arg);
     }
-    free_stackb(tmp);
+    free_stackb(b);
     return (medieum(a, b, square));
 }
 
