@@ -17,7 +17,6 @@ void rrbs(t_stackb *ptr)
         }
         i++;
     }
-    // puts("here");
     if (ft_atoi(ptr->arg[0]) != ptr->lastnumber)
         rrbs(ptr);
     if (ptr->arg[0])

@@ -26,6 +26,7 @@ int main(int ac, char **ag)
     t_stackb *b = NULL;
     char **split;
     int i = 1;
+    // setrlimit(RLIMIT_AS, &rl);
 
     if (ac > 1)
     {
@@ -39,17 +40,24 @@ int main(int ac, char **ag)
         check_double(split);
         add_new(&a, split);
         check_param(a, ag);
-        if (size_arg(split) < 100)
+        if (size_arg(split) < 20)
+        {
             algo_under50(a, b);
+        }
+        else if (size_arg(split) < 100)
+        {
+            i = quick_sort(a, b, 3);
+        }
         else if (size_arg(split) >= 100 && size_arg(split) < 500)
             i = quick_sort(a, b, 4);
         else if (size_arg(split) >= 500)
             i = quick_sort(a, b, 8);
         // free_stacka(a);
+
         free(a->arg);
         free(a);
-        // free_2d(split);
-        // system("leaks checker");
+        if (ac == 2)
+            free_2d(split);
     }
     return (0);
 }

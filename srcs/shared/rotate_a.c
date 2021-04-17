@@ -19,7 +19,8 @@ void rras(t_stacka *ptr)
     // puts(ft_itoa(ptr->lastnumber));
     if (ft_atoi(ptr->arg[0]) != ptr->lastnumber)
         rras(ptr);
-    ptr->firstnumber = ptr->lastnumber;
+    if (ptr->arg[0])
+        ptr->firstnumber = ptr->lastnumber;
     if (i)
         ptr->lastnumber = ft_atoi(ptr->arg[i - 1]);
 }

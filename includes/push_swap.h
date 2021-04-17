@@ -20,6 +20,9 @@
 #define C_SA "\e[0;107msa"
 #define C_SB "\e[0;104msb"
 #define C_SS "\e[0;102mss"
+// #include <sys/resource.h>
+
+// struct rlimit rl = {32000, 32000};
 
 //stack a
 
