@@ -35,7 +35,7 @@ t_stackb *push_b(t_stacka *ptr, t_stackb **new, char *number)
     return (*new);
 }
 
-char **delete_number_stackb(t_stackb *ptr, char *number)
+void delete_number_stackb(t_stackb *ptr, char *number)
 {
     int i = 0;
     int j = 0;
@@ -43,7 +43,7 @@ char **delete_number_stackb(t_stackb *ptr, char *number)
     char **av;
 
     if (!ptr->arg || !ptr->arg[0])
-        return (NULL);
+        return ;
     int size = size_arg(ptr->arg);
     while (ptr->arg[i])
     {

@@ -64,7 +64,7 @@ void print_rr(int color)
         ft_putendl_fd("rr", 1);
 }
 
-void *print_rrr(int color)
+void print_rrr(int color)
 {
     if (color)
         ft_putendl_fd(C_RRR, 1);
@@ -72,7 +72,7 @@ void *print_rrr(int color)
         ft_putendl_fd("rrr", 1);
 }
 
-void *print_rra(int color)
+void print_rra(int color)
 {
     if (color)
         ft_putendl_fd(C_RRA, 1);
@@ -80,7 +80,7 @@ void *print_rra(int color)
         ft_putendl_fd("rra", 1);
 }
 
-void *print_rrb(int color)
+void print_rrb(int color)
 {
     if (color)
         ft_putendl_fd(C_RRB, 1);

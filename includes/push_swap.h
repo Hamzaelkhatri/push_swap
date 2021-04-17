@@ -20,10 +20,6 @@
 #define C_SA "\e[0;107msa"
 #define C_SB "\e[0;104msb"
 #define C_SS "\e[0;102mss"
-// #include <sys/resource.h>
-
-// struct rlimit rl = {32000, 32000};
-
 //stack a
 
 typedef struct s_stacka
@@ -59,9 +55,9 @@ void print_ss(int color);
 void print_ra(int color);
 void print_rb(int color);
 void print_rr(int color);
-void *print_rrr(int color);
-void *print_rra(int color);
-void *print_rrb(int color);
+void print_rrr(int color);
+void print_rra(int color);
+void print_rrb(int color);
 void ft_lst_add_back(t_stacka **ptr, t_stacka *new);
 void get_min(t_stacka **ptr);
 void ras(t_stacka *ptr);
@@ -83,7 +79,7 @@ void rbs(t_stackb *ptr);
 int check_sort(char **arg);
 t_stackb *push_b(t_stacka *ptr, t_stackb **new, char *number);
 char **delete_number(t_stacka **a, char *number);
-char **delete_number_stackb(t_stackb *ptr, char *number);
+void delete_number_stackb(t_stackb *ptr, char *number);
 int checker(char **ag);
 void pas(t_stacka *ptr, t_stackb *b, char *number);
 void print_stacks(char **a, char **b);
