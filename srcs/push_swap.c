@@ -29,7 +29,6 @@ int main(int ac, char **ag)
     t_stackb *b = NULL;
     char **split;
     int i = 1;
-    // setrlimit(RLIMIT_AS, &rl);
 
     if (ac > 1)
     {

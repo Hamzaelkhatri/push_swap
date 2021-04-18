@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static int		words(char *str, char c)
+static int	words(char *str, char c)
 {
 	int			i;
 	int			j;
@@ -34,7 +34,7 @@ static int		words(char *str, char c)
 	return (j);
 }
 
-static void		*leak(char **spl, int j)
+static void	*leak(char **spl, int j)
 {
 	j = j - 1;
 	while (spl[j])
@@ -46,7 +46,7 @@ static void		*leak(char **spl, int j)
 	return (NULL);
 }
 
-static int		carcts(char *str, char c)
+static int	carcts(char *str, char c)
 {
 	int			i;
 
@@ -58,7 +58,7 @@ static int		carcts(char *str, char c)
 	return (i);
 }
 
-static char		*alloc(char **tab, char *src, char c)
+static char	*alloc(char **tab, char *src, char c)
 {
 	int			i;
 	int			j;
@@ -71,7 +71,8 @@ static char		*alloc(char **tab, char *src, char c)
 	while (j < words(src, c))
 	{
 		i = 0;
-		if (!(tab[j] = malloc(sizeof(char) * (carcts(&src[o], c) + 1))))
+		tab[j] = malloc(sizeof(char) * (carcts(&src[o], c) + 1));
+		if (tab[j] == NULL)
 			return (leak(tab, j));
 		while (src[o] != c && src[o])
 			tab[j][i++] = src[o++];
@@ -84,7 +85,7 @@ static char		*alloc(char **tab, char *src, char c)
 	return (*tab);
 }
 
-char			**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	int			j;
 	char		**tab;

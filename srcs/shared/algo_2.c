@@ -34,10 +34,10 @@ int sort_b(t_stacka *a, t_stackb *b)
     int proximity;
     int index;
     char *tmp = NULL;
-
-    while (b->arg[0])
+    while (b && b->arg[0])
     {
         b->minvalue = get_max_(b->arg);
+
         while (ft_atoi(b->arg[0]) != b->minvalue)
         {
             proximity = (b->size) / 2;
@@ -46,7 +46,7 @@ int sort_b(t_stacka *a, t_stackb *b)
             free(tmp);
             if (index >= 0)
             {
-                if (index > proximity)
+                if (index >= proximity)
                     rrb_extra(b);
                 else
                     rb_extra(b);

@@ -14,8 +14,8 @@
 
 static char	*beginchar(char const *s, const char *set)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -36,8 +36,8 @@ static char	*beginchar(char const *s, const char *set)
 
 static int	endofchar(const char *s, const char *set)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = ft_strlen(s);
@@ -59,7 +59,7 @@ static int	endofchar(const char *s, const char *set)
 	return (j);
 }
 
-char		*ft_strtrim(char const *s, const char *set)
+char	*ft_strtrim(char const *s, const char *set)
 {
 	char	*tmp;
 	int		i;

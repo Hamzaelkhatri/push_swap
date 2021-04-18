@@ -14,8 +14,8 @@
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	size_t i;
-	size_t t;
+	size_t	i;
+	size_t	t;
 
 	i = 0;
 	t = 0;
