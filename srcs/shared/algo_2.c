@@ -51,11 +51,13 @@ int sort_b(t_stacka *a, t_stackb *b)
                 else
                     rb_extra(b);
             }
+            check_show(a, b);
         }
         if (b->arg[0] && b->minvalue == ft_atoi(b->arg[0]))
         {
             pas(a, b, b->arg[0]);
             delete_number_stackb(b, b->arg[0]);
+            check_show(a, b);
         }
     }
     return (0);
@@ -94,6 +96,7 @@ int sort_a(t_stacka *a, t_stackb *b)
             tmps = push_b(a, &b, a->arg[0]);
             delete_number(&a, a->arg[0]);
         }
+        check_show(a, b);
     }
 
     return (0);
@@ -120,6 +123,7 @@ void exec_under_pivot(t_stacka *a, t_stackb *b, int pivot)
             else if (ft_atoi(a->arg[a->size - 1]) <= pivot)
                 rra_extra(a);
         }
+    check_show(a, b);
 }
 
 int quick_sort(t_stacka *a, t_stackb *b, int sqart)
@@ -142,6 +146,7 @@ int quick_sort(t_stacka *a, t_stackb *b, int sqart)
                 tmp = a->arg;
                 pusha_delete(a, &b, pivot);
             }
+            check_show(a,b);
         }
     }
     sort_a(a, b);

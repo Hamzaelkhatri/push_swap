@@ -1,5 +1,13 @@
 #include "push_swap.h"
 
+void check_show(t_stacka *a, t_stackb *b)
+{
+    if (a->show == 1)
+    {
+        show(a, b);
+    }
+}
+
 void algo_under50(t_stacka *a, t_stackb *b)
 {
     int c;
@@ -7,8 +15,8 @@ void algo_under50(t_stacka *a, t_stackb *b)
     int proximity;
 
     c = 0;
-    i = 0;
-    while (a->size > 3)
+    i = a->size;
+    while (i > 3)
     {
         get_min(&a);
         while (ft_atoi(a->arg[0]) != a->minvalue)
@@ -20,27 +28,34 @@ void algo_under50(t_stacka *a, t_stackb *b)
                 extra_ra(a);
             if (a->arg[1] && a->minvalue == ft_atoi(a->arg[1]))
                 swapa_extra(&a);
+            check_show(a, b);
         }
         pbs(a, &b, a->arg[0]);
+        i--;
         delete_min(a);
-        i++;
-        if (a->size <= 4)
-            break;
+        check_show(a, b);
     }
     while (!check_sort(a->arg))
     {
-        if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[1]) && ft_atoi(a->arg[1]) < ft_atoi(a->arg[2]))
-            rra_extra(a);
-        else if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[1]))
+        if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[1]))
             swapa_extra(&a);
+        else if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[1]) && ft_atoi(a->arg[1]) < ft_atoi(a->arg[2]))
+            rra_extra(a);
         else if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[2]))
             rra_extra(a);
         else if (ft_atoi(a->arg[1]) > ft_atoi(a->arg[2]))
             extra_ra(a);
+        check_show(a, b);
     }
     while (b && b->arg[c])
-        pas(a, b, b->arg[c++]);
-    // free(a->arg);
-    free(b->arg);
-    free(b);
+    {
+        pas(a, b, b->arg[c]);
+        delete_number_stackb(b, b->arg[c]);
+        check_show(a, b);
+    }
+    if (b && b->arg)
+    {
+        free(b->arg);
+        free(b);
+    }
 }

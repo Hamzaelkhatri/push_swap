@@ -30,6 +30,7 @@ typedef struct s_stacka
 	int				firstnumber;
 	int				lastnumber;
 	int				colors;
+	int				show;
 	struct s_stacka	*next;
 }				t_stacka;
 
@@ -42,6 +43,7 @@ typedef struct s_stackb
 	int				firstnumber;
 	int				lastnumber;
 	int				colors;
+	int				show;
 	struct s_stackb	*next;
 }				t_stackb;
 void		add_first(t_stackb *ptr, char *number);
@@ -111,5 +113,6 @@ int			check_double(char **ag);
 long long	ft_atol(const char *str);
 t_stackb	*push_b(t_stacka *ptr, t_stackb **new, char *number);
 t_stackb	*execute_checker(char *line, t_stacka **t_a, t_stackb *t_b);
+void		check_show(t_stacka *a, t_stackb *b);
 
 #endif
