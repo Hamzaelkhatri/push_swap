@@ -77,8 +77,8 @@ void		rrbs(t_stackb *ptr);
 int			check_sort_stackb(t_stackb *b);
 void		rbs(t_stackb *ptr);
 int			check_sort(char **arg);
-char		**delete_number(t_stacka **a, char *number);
-void		delete_number_stackb(t_stackb *ptr, char *number);
+char		**delete_number(t_stacka **a);
+void		delete_number_stackb(t_stackb *ptr);
 int			checker(char **ag);
 void		pas(t_stacka *ptr, t_stackb *b, char *number);
 void		print_stacks(char **a, char **b);
@@ -114,5 +114,6 @@ long long	ft_atol(const char *str);
 t_stackb	*push_b(t_stacka *ptr, t_stackb **new, char *number);
 t_stackb	*execute_checker(char *line, t_stacka **t_a, t_stackb *t_b);
 void		check_show(t_stacka *a, t_stackb *b);
+void		execute_checker_2(char *line, t_stacka **t_a, t_stackb *b);
 
 #endif

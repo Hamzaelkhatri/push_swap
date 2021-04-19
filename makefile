@@ -10,7 +10,7 @@ SHARED_PATH=$(OBJ_PATH)/shared
 SRC_SHARED= shared/push_a.c shared/check_digit.c shared/check_colors.c shared/shared.c shared/algo_1.c shared/free.c shared/medieum.c shared/pivot.c shared/print.c shared/push_b.c shared/rotate_a.c shared/rotate_b.c shared/rotate.c shared/swap_a.c shared/swap_b.c shared/swap_s.c shared/algo_2.c shared/index.c
 SRC_TOOLS= tools/ft_abs.c tools/min.c tools/max.c tools/check.c tools/size_arg.c tools/list.c tools/check_sort.c tools/strdup_2d.c tools/ft_strcmp.c tools/ft_atol.c
 SRC_NAME=push_swap.c  debugger.c $(SRC_SHARED) $(SRC_TOOLS) 
-SRC_CHECKER= checker.c $(SRC_SHARED) $(SRC_TOOLS)
+SRC_CHECKER= checker.c checker_norm.c $(SRC_SHARED) $(SRC_TOOLS)
 HDR_NAME=push_swap.h 
 
 OBJ_NAME= $(SRC_NAME:.c=.o)
@@ -25,7 +25,7 @@ H_FLAG= -I $(HDR_PATH)
 
 COMP= gcc
 
-# FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror
 
 all: lib $(NAME_CHECKER) $(NAME_PUSH_SWAP) 
 
@@ -54,6 +54,6 @@ clean:
 fclean: clean
 	@rm -rf $(NAME_PUSH_SWAP) $(NAME_CHECKER)
 	@make fclean -C $(LIB_PATH)
-	@echo "\033[0;31m>> $(NAME_PUSH_SWAP) $(NAME_CHECKER) && all obbjects are deleted.\033[0m" 
+	@echo "\033[0;31m>> $(NAME_PUSH_SWAP) $(NAME_CHECKER) && all objects are deleted.\033[0m" 
 
 re : fclean all
