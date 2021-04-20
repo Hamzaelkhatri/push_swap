@@ -1,66 +1,83 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   algo_2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: helkhatr <helkhatr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/20 13:18:38 by helkhatr          #+#    #+#             */
+/*   Updated: 2021/04/20 13:23:21 by helkhatr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-void	show(t_stacka *a, t_stackb *b)
+void	sort_b2(t_stacka *a, t_stackb *b, int proximity, int index)
 {
-	int	i;
+	char	*tmp;
 
-	i = 0;
-	system("clear");
-	ft_putstr_fd("\n----------------------------\n", 1);
-	ft_putstr_fd("        A         B         ", 1);
-	ft_putstr_fd("\n----------------------------\n", 1);
-	while (a->arg[i] || (b && b->arg[i]))
+	tmp = NULL;
+	while (ft_atoi(b->arg[0]) != b->minvalue)
 	{
-		ft_putstr_fd("        ", 1);
-		if (i < a->size && a->arg[i])
-			ft_putstr_fd(a->arg[i], 1);
-		else
-			ft_putstr_fd("  ", 1);
-		ft_putstr_fd("        ", 1);
-		if (b && i < b->size && b->arg[i])
-			ft_putstr_fd(b->arg[i], 1);
-		else
-			ft_putstr_fd("   ", 1);
-		ft_putstr_fd("\n", 1);
-		i++;
+		proximity = (b->size) / 2;
+		tmp = ft_itoa(b->minvalue);
+		index = get_index_(b->arg, tmp);
+		free(tmp);
+		if (index >= 0)
+		{
+			if (index >= proximity)
+				rrb_extra(b);
+			else
+				rb_extra(b);
+		}
+		check_show(a, b);
 	}
-	sleep(1);
-	system("clear");
+	if (b->arg[0] && b->minvalue == ft_atoi(b->arg[0]))
+	{
+		pas(a, b, b->arg[0]);
+		delete_number_stackb(b);
+		check_show(a, b);
+	}
 }
 
 int	sort_b(t_stacka *a, t_stackb *b)
 {
-	 int	proximity;
-	 int	index;
-	char	*tmp;
+	int	proximity;
+	int	index;
 
-	tmp = NULL;
 	while (b && b->arg[0])
 	{
 		b->minvalue = get_max_(b->arg);
-		while (ft_atoi(b->arg[0]) != b->minvalue)
-		{
-			proximity = (b->size) / 2;
-			tmp = ft_itoa(b->minvalue);
-			index = get_index_(b->arg, tmp);
-			free(tmp);
-			if (index >= 0)
-			{
-				if (index >= proximity)
-					rrb_extra(b);
-				else
-					rb_extra(b);
-			}
-			check_show(a, b);
-		}
-		if (b->arg[0] && b->minvalue == ft_atoi(b->arg[0]))
-		{
-			pas(a, b, b->arg[0]);
-			delete_number_stackb(b);
-			check_show(a, b);
-		}
+		sort_b2(a, b, proximity, index);
 	}
 	return (0);
+}
+
+void	sort_a2(t_stacka *a, t_stackb *b, int proximity, int index)
+{
+	char	*tmp;
+
+	tmp = NULL;
+	if (ft_atoi(a->arg[0]) != a->minvalue && !check_sort(a->arg))
+	{
+		proximity = (a->size - 1) / 2;
+		tmp = ft_itoa(a->minvalue);
+		index = get_index_(a->arg, tmp);
+		free(tmp);
+		if (index >= 0)
+		{
+			if (index > proximity)
+				rra_extra(a);
+			else
+				extra_ra(a);
+		}
+	}
+	if (a->minvalue == ft_atoi(a->arg[0]))
+	{
+		print_pb(a->colors, a->fd);
+		push_b(a, &b, a->arg[0]);
+		delete_number(&a);
+	}
 }
 
 int	sort_a(t_stacka *a, t_stackb *b)
@@ -73,28 +90,7 @@ int	sort_a(t_stacka *a, t_stackb *b)
 	while (a->arg[0] && !check_sort(a->arg))
 	{
 		a->minvalue = get_min_(a->arg);
-		if (ft_atoi(a->arg[0]) != a->minvalue && !check_sort(a->arg))
-		{
-			proximity = (a->size - 1) / 2;
-			tmp = ft_itoa(a->minvalue);
-			index = get_index_(a->arg, tmp);
-			free(tmp);
-			if (index >= 0)
-			{
-				if (index > proximity)
-					rra_extra(a);
-				else
-					extra_ra(a);
-			}
-			else
-				break ;
-		}
-		if (a->minvalue == ft_atoi(a->arg[0]))
-		{
-			print_pb(a->colors, a->fd);
-			push_b(a, &b, a->arg[0]);
-			delete_number(&a);
-		}
+		sort_a2(a, b, proximity, index);
 		check_show(a, b);
 	}
 	return (0);
@@ -125,45 +121,4 @@ void	exec_under_pivot(t_stacka *a, t_stackb *b, int pivot)
 		}
 	}
 	check_show(a, b);
-}
-
-int	quick_sort(t_stacka *a, t_stackb *b, int sqart)
-{
-	 int	pivot;
-	 int	size;
-	char	**tmp;
-
-	pivot = 0;
-	size = a->size;
-	tmp = NULL;
-	while (a->size >= ft_abs(size / sqart))
-	{
-		pivot = get_medieum(a->arg, sqart);
-		while (search_pivot(a->arg, pivot) && !check_sort(a->arg))
-		{
-			if (ft_atoi(a->arg[0]) > pivot)
-				extra_ra(a);
-			if (get_under_pivot(a->arg, pivot) <= pivot)
-				exec_under_pivot(a, b, pivot);
-			if (ft_atoi(a->arg[0]) <= pivot)
-			{
-				tmp = a->arg;
-				pusha_delete(a, &b, pivot);
-			}
-			check_show(a, b);
-		}
-	}
-	sort_a(a, b);
-	sort_b(a, b);
-	if (a->arg)
-	{
-		free(a->arg);
-		a->arg = NULL;
-	}
-	if (b->arg)
-	{
-		free(b->arg);
-		free(b);
-	}
-	return (0);
 }

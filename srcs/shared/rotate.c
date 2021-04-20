@@ -2,14 +2,12 @@
 
 void	rrr(t_stacka *a, t_stackb *b)
 {
-	print_rrr(a->colors, a->fd);
 	rrbs(b);
 	rras(a);
 }
 
 void	rr(t_stacka *a, t_stackb *b)
 {
-	print_rr(a->colors, a->fd);
 	rbs(b);
 	ras(a);
 }

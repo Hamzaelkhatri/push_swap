@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   algo_1.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: helkhatr <helkhatr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/20 12:56:25 by helkhatr          #+#    #+#             */
+/*   Updated: 2021/04/20 12:58:28 by helkhatr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	check_show(t_stacka *a, t_stackb *b)
@@ -8,13 +20,39 @@ void	check_show(t_stacka *a, t_stackb *b)
 	}
 }
 
+void	algo_part_2(t_stacka *a, t_stackb *b)
+{
+	while (!check_sort(a->arg))
+	{
+		if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[1]))
+			swapa_extra(&a);
+		else if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[1])
+			&& ft_atoi(a->arg[1]) < ft_atoi(a->arg[2]))
+			rra_extra(a);
+		else if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[2]))
+			rra_extra(a);
+		else if (ft_atoi(a->arg[1]) > ft_atoi(a->arg[2]))
+			extra_ra(a);
+		check_show(a, b);
+	}
+	while (b && b->arg[0])
+	{
+		pas(a, b, b->arg[0]);
+		delete_number_stackb(b);
+		check_show(a, b);
+	}
+	if (b && b->arg)
+	{
+		free(b->arg);
+		free(b);
+	}
+}
+
 void	algo_under50(t_stacka *a, t_stackb *b)
 {
-	int	c;
 	int	i;
 	int	proximity;
 
-	c = 0;
 	i = a->size;
 	while (i > 3)
 	{
@@ -35,28 +73,5 @@ void	algo_under50(t_stacka *a, t_stackb *b)
 		delete_min(a);
 		check_show(a, b);
 	}
-	while (!check_sort(a->arg))
-	{
-		if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[1]))
-			swapa_extra(&a);
-		else if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[1])
-			&& ft_atoi(a->arg[1]) < ft_atoi(a->arg[2]))
-			rra_extra(a);
-		else if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[2]))
-			rra_extra(a);
-		else if (ft_atoi(a->arg[1]) > ft_atoi(a->arg[2]))
-			extra_ra(a);
-		check_show(a, b);
-	}
-	while (b && b->arg[c])
-	{
-		pas(a, b, b->arg[c]);
-		delete_number_stackb(b);
-		check_show(a, b);
-	}
-	if (b && b->arg)
-	{
-		free(b->arg);
-		free(b);
-	}
+	algo_part_2(a, b);
 }

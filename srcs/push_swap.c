@@ -1,36 +1,51 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: helkhatr <helkhatr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/20 11:48:41 by helkhatr          #+#    #+#             */
+/*   Updated: 2021/04/20 12:07:08 by helkhatr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-void save(t_stacka *a)
+void	frees(t_stacka *a, char **split, int ac)
 {
-    int fd;
-
-    fd = open("result.ps",O_CREAT|O_RDWR| O_TRUNC,0666);
-    a->fd = fd;
-    ft_putendl_fd("######## PUSH SWAP LOG ##########",a->fd);
-    print_2(a->arg,a->fd);
+	free(a->arg);
+	free(a);
+	if (ac == 2)
+		free_2d(split);
+	if (a->fd)
+		close(a->fd);
 }
 
-void	p_help(void)
+void	main_check(char **split)
 {
-	ft_putendl_fd("welcome to push swap help", 1);
-	ft_putendl_fd("-c coloraze inscruction with different color", 1);
-	ft_putendl_fd("-v debug in checker programme", 1);
-	ft_putendl_fd("-s save inscruction in push_swap.log", 1);
-	ft_putendl_fd("-show print lists after every inscruction NB: delay 1s", 1);
-	ft_putendl_fd("-h help", 1);
-	exit(0);
+	check_digit(split);
+	check_double(split);
 }
 
-void	check_param(t_stacka *a, char **ag)
+void	execute_algos(t_stacka *a, t_stackb *b, char **split)
 {
-	if (!ft_strcmp(ag[1], "-c"))
-		a->colors = 1;
-	else if (!ft_strcmp(ag[1], "-h"))
-		p_help();
-	else if (!ft_strcmp(ag[1], "-show"))
-		a->show = 1;
-    else if (!ft_strcmp(ag[1], "-s"))
-		save(a);
+	if (size_arg(split) < 20)
+		algo_under50(a, b);
+	else if (size_arg(split) < 100)
+		quick_sort(a, b, 3);
+	else if (size_arg(split) >= 100 && size_arg(split) < 500)
+		quick_sort(a, b, 4);
+	else if (size_arg(split) >= 500)
+		quick_sort(a, b, 8);
+}
+
+int	params(char **ag)
+{
+	if (!ft_strcmp(ag[1], "-c") || !ft_strcmp(ag[1], "-h")
+		|| !ft_strcmp(ag[1], "-show") || !ft_strcmp(ag[1], "-s"))
+		return (2);
+	return (1);
 }
 
 int	main(int ac, char **ag)
@@ -41,38 +56,22 @@ int	main(int ac, char **ag)
 	     int	i;
 
 	i = 1;
-	a = NULL;
 	b = NULL;
-	split = NULL;
+	a = NULL;
 	if (ac > 1)
 	{
-		if (!ft_strcmp(ag[1], "-c") || !ft_strcmp(ag[1], "-h")
-			|| !ft_strcmp(ag[1], "-show") || !ft_strcmp(ag[1], "-s"))
-			i = 2;
+		i = params(ag);
 		if (ac == 1 + i)
 			split = ft_split(ag[i], ' ');
 		else
 			split = (&ag[i]);
 		if (i > 1 && ac == 2)
 			p_help();
-		check_digit(split);
-		check_double(split);
+		main_check(split);
 		add_new(&a, split);
 		check_param(a, ag);
-		if (size_arg(split) < 20)
-			algo_under50(a, b);
-		else if (size_arg(split) < 100)
-			i = quick_sort(a, b, 3);
-		else if (size_arg(split) >= 100 && size_arg(split) < 500)
-			i = quick_sort(a, b, 4);
-		else if (size_arg(split) >= 500)
-			i = quick_sort(a, b, 8);
-		free(a->arg);
-		free(a);
-		if (ac == 2)
-			free_2d(split);
-        if(a->fd)
-            close(a->fd);
+		execute_algos(a, b, split);
+		frees(a, split, ac);
 	}
 	return (0);
 }

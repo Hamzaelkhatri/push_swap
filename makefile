@@ -7,10 +7,10 @@ LIB_PATH= libft
 TOOLS_PATH=$(OBJ_PATH)/tools
 SHARED_PATH=$(OBJ_PATH)/shared
 
-SRC_SHARED= shared/push_a.c shared/check_digit.c shared/check_colors.c shared/shared.c shared/algo_1.c shared/free.c shared/medieum.c shared/pivot.c shared/print.c shared/push_b.c shared/rotate_a.c shared/rotate_b.c shared/rotate.c shared/swap_a.c shared/swap_b.c shared/swap_s.c shared/algo_2.c shared/index.c
+SRC_SHARED= shared/push_a.c shared/check_digit.c shared/check_colors.c shared/shared.c shared/algo_1.c shared/free.c shared/medieum.c shared/pivot.c shared/algo_2norm.c shared/print.c shared/push_b.c shared/rotate_a.c shared/rotate_b.c shared/rotate.c shared/swap_a.c shared/swap_b.c shared/swap_s.c shared/algo_2.c shared/check_color2.c shared/index.c shared/paramettre.c
 SRC_TOOLS= tools/ft_abs.c tools/min.c tools/max.c tools/check.c tools/size_arg.c tools/list.c tools/check_sort.c tools/strdup_2d.c tools/ft_strcmp.c tools/ft_atol.c
-SRC_NAME=push_swap.c  debugger.c $(SRC_SHARED) $(SRC_TOOLS) 
-SRC_CHECKER= checker.c checker_norm.c $(SRC_SHARED) $(SRC_TOOLS) shared/debug.c
+SRC_NAME=push_swap.c   $(SRC_SHARED) $(SRC_TOOLS)
+SRC_CHECKER= checker.c checker_norm.c $(SRC_SHARED) $(SRC_TOOLS) shared/debug.c read_line.c shared/debug2.c shared/debug3.c
 HDR_NAME=push_swap.h 
 
 OBJ_NAME= $(SRC_NAME:.c=.o)

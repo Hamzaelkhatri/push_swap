@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zainabdnayagmail.com <zainabdnayagmail.    +#+  +:+       +#+        */
+/*   By: helkhatr <helkhatr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:24:26 by helkhatr          #+#    #+#             */
-/*   Updated: 2021/04/17 22:00:40 by zainabdnaya      ###   ########.fr       */
+/*   Updated: 2021/04/20 11:42:01 by helkhatr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   medieum.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: helkhatr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/20 14:20:43 by helkhatr          #+#    #+#             */
+/*   Updated: 2021/04/20 14:21:28 by helkhatr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int	medieum(t_stacka *a, int square)
@@ -23,21 +35,28 @@ int	medieum(t_stacka *a, int square)
 	}
 }
 
+void	push_all(t_stacka *a, t_stackb *b)
+{
+	int	c;
+
+	c = 0;
+	while (b && b->arg[c])
+	{
+		push_a(a, b, b->arg[c++]);
+	}
+	free_stackb(b);
+}
+
 int	get_medieum(char **av, int square)
 {
-	     int	c;
 	t_stacka	*a;
 	t_stackb	*b;
-	t_stackb	*tmp;
 
-	a = NULL;
 	b = NULL;
-	tmp = NULL;
 	add_new(&a, av);
-	get_min(&a);
-	c = 0;
 	while (!check_sort(a->arg))
 	{
+		get_min(&a);
 		if (a->arg[1] && a->minvalue == ft_atoi(a->arg[1]))
 			swap_a(&a);
 		else
@@ -50,17 +69,9 @@ int	get_medieum(char **av, int square)
 			break ;
 		}
 		push_b(a, &b, a->arg[0]);
-		if (tmp && tmp->arg)
-			free(tmp->arg);
 		delete_min(a);
-		get_min(&a);
 	}
-	while (b && b->arg[c])
-	{
-		tmp = b;
-		push_a(a, b, b->arg[c++]);
-	}
-	free_stackb(b);
+	push_all(a, b);
 	return (medieum(a, square));
 }
 
