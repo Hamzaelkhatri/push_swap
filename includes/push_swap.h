@@ -117,5 +117,6 @@ t_stackb	*push_b(t_stacka *ptr, t_stackb **new, char *number);
 t_stackb	*execute_checker(char *line, t_stacka **t_a, t_stackb *t_b);
 void		check_show(t_stacka *a, t_stackb *b);
 void		execute_checker_2(char *line, t_stacka **t_a, t_stackb *b);
+int         checkerd(char **ag);
 
 #endif

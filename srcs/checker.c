@@ -141,16 +141,25 @@ int	checker(char **ag)
 int	main(int ac, char **ag)
 {
 	char	**split;
+    int     i;
 
 	split = NULL;
+    i = 1;
 	if (ac > 1)
 	{
-		if (ac == 2)
-			split = ft_split(ag[1], ' ');
-		else
-			split = &ag[1];
-		checker(split);
-		if (ac == 2)
-			free_2d(split);
+        if (!ft_strcmp(ag[1], "-v"))
+        {
+            i = 2;
+        }
+        if (ac == 2)
+            split = ft_split(ag[i], ' ');
+        else
+            split = &ag[i];
+        if(i == 2)
+            checkerd(split);
+        checker(split);
+        if (ac == 2)
+            free_2d(split);
+
 	}
 }
