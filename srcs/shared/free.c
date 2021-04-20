@@ -29,9 +29,6 @@ void	free_stacka(t_stacka *a)
 
 void	free_stackb(t_stackb *b)
 {
-	int	i;
-
-	i = 0;
 	free(b->arg);
 	b->arg = NULL;
 	free(b);

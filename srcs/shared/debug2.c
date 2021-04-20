@@ -73,10 +73,8 @@ void	execute__sa(t_stacka **t_a, t_stackb *b)
 t_stackb	*execute_checkerd(char *line, t_stacka **t_a, t_stackb *b)
 {
 	t_stacka	*a;
-	    char	*str;
 
 	a = *t_a;
-	str = line;
 	line = ft_strtrim(line, "\n");
 	if (!ft_strcmp(line, "sa"))
 	{

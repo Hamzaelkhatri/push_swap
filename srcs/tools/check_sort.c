@@ -32,11 +32,9 @@ int	check_prev_number(char **av, int max)
 
 int	check_sort_stackb(t_stackb *b)
 {
-	int	size;
 	int	i;
 
 	i = 0;
-	size = size_arg(b->arg);
 	if (!b->arg)
 		return (0);
 	while (b->arg[i])
@@ -51,12 +49,11 @@ int	check_sort_stackb(t_stackb *b)
 int	check_sort(char **arg)
 {
 	int	i;
-	int	size;
 
 	i = 0;
 	if (!arg || !arg[1])
 		return (1);
-	size = size_arg(arg);
+	size_arg(arg);
 	while (arg[i])
 	{
 		if (arg[i + 1] && ft_atoi(arg[i]) > ft_atoi(arg[i + 1]))

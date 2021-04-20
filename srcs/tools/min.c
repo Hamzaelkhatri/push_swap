@@ -44,12 +44,10 @@ void	get_min(t_stacka **ptr)
 void	delete_min(t_stacka *ptr)
 {
 	 int	i;
-	char	*tmp;
 
 	i = 0;
 	if (!ptr->arg)
 		return ;
-	tmp = ptr->arg[0];
 	while (ptr->arg[i])
 	{
 		ptr->arg[i] = (ptr->arg[i + 1]);

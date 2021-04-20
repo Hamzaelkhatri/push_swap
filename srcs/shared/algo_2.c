@@ -86,9 +86,7 @@ int	sort_a(t_stacka *a, t_stackb *b)
 {
 	     int	proximity;
 	     int	index;
-	    char	*tmp;
 
-	tmp = NULL;
 	proximity = 0;
 	index = 0;
 	while (a->arg[0] && !check_sort(a->arg))

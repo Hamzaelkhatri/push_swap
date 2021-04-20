@@ -55,7 +55,6 @@ int	main(int ac, char **ag)
 
 	i = 1;
 	b = NULL;
-	a = NULL;
 	if (ac > 1)
 	{
 		i = params(ag);

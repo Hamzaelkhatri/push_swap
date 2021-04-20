@@ -16,13 +16,11 @@ void	check_operation(char **ag)
 {
 	              int	i;
 	              int	j;
-	static const char	*operation[] = {"pa", "pb", "sb" , "sa", "ss", "ra", "rb",
-		"rra", "rrb", "rr", "rrr"};
+	static const char	*operation[] = {"pa", "pb", "sb", "sa", "ss", "ra",
+	"rb", "rra", "rrb", "rr", "rrr"};
 
 	i = 0;
 	j = 0;
-	if(!*ag)
-		return ;
 	while (ag[i])
 	{
 		j = 0;
@@ -43,14 +41,21 @@ void	check_operation(char **ag)
 		err_exit();
 }
 
+void	check_1(char **line, int ac)
+{
+	if (ac > 2)
+		check_operation_(*line);
+	free(*line);
+}
+
 char	*read_line(int ac)
 {
 	char	*line;
 	char	*str;
 	char	*tmp;
 
-	str = NULL;
 	line = ft_calloc(BUFFER_SIZE, sizeof(char));
+	str = NULL;
 	while (read(0, line, BUFFER_SIZE))
 	{
 		if (!str)
@@ -65,9 +70,7 @@ char	*read_line(int ac)
 		}
 		if (tmp)
 			free(tmp);
-		if(ac > 2)
-		check_operation_(line);
-		free(line);
+		check_1(&line, ac);
 		line = ft_calloc(BUFFER_SIZE, sizeof(char));
 	}
 	free(line);
@@ -79,17 +82,15 @@ int	checker(char **ag, int ac)
 	t_stacka	*a;
 	    char	**lines;
 	    char	*str;
-	    char	*tmp;
 
 	str = NULL;
-	tmp = NULL;
 	check_digit(ag);
 	check_double(ag);
 	add_new(&a, ag);
 	str = read_line(ac);
 	lines = ft_split(str, '\n');
 	free(str);
-	if(lines)
+	if (lines)
 	{
 		check_operation(lines);
 		checking(lines, &a, ac);

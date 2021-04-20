@@ -37,7 +37,7 @@ void	ok_ko(t_stacka *a, t_stackb *b)
 	exit(0);
 }
 
-t_stackb *execute_checker_4(char *line, t_stacka **t_a, t_stackb *b)
+t_stackb	*execute_checker_4(char *line, t_stacka **t_a, t_stackb *b)
 {
 	t_stacka	*a;
 
@@ -59,7 +59,7 @@ t_stackb *execute_checker_4(char *line, t_stacka **t_a, t_stackb *b)
 	return (b);
 }
 
-t_stackb *execute_checker_3(char *line, t_stacka **t_a, t_stackb *b)
+t_stackb	*execute_checker_3(char *line, t_stacka **t_a, t_stackb *b)
 {
 	t_stacka	*a;
 
@@ -79,7 +79,7 @@ t_stackb *execute_checker_3(char *line, t_stacka **t_a, t_stackb *b)
 	return (b);
 }
 
-t_stackb *execute_checker_2(char *line, t_stacka **t_a, t_stackb *b)
+t_stackb	*execute_checker_2(char *line, t_stacka **t_a, t_stackb *b)
 {
 	t_stacka	*a;
 

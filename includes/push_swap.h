@@ -21,8 +21,6 @@
 # define C_SB "\e[0;104msb"
 # define C_SS "\e[0;102mss"
 
-
-
 typedef struct s_stacka
 {
 	char			**arg;
@@ -133,4 +131,7 @@ t_stackb	*execute_checkerd_4(char *line, t_stacka **t_a, t_stackb *b);
 void		execute__pa(t_stacka **t_a, t_stackb *b);
 void		execute__ra(t_stacka **t_a, t_stackb *b);
 void		check_operation_(char *ag);
+void		free_err(char ***line, int j);
+void		ok_kos(t_stacka **a, int ac, int size);
+t_stackb	*execute_checker(char *line, t_stacka **t_a, t_stackb *b);
 #endif

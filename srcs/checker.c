@@ -16,13 +16,12 @@ void	check_operation_(char *ag)
 {
 	              int	i;
 	              int	j;
+	             char	**line;
 	static const char	*operation[] = {"pa", "sb", "pb", "sa", "sa", "sa",
 		"ss", "ra", "rb", "rra", "rrb", "rr", "rrr"};
-	             char	**line;
 
 	line = ft_split(ag, '\n');
 	i = 0;
-	j = 0;
 	while (line[i])
 	{
 		j = 0;
@@ -39,18 +38,14 @@ void	check_operation_(char *ag)
 			break ;
 		i++;
 	}
-	free_2d(line);
-	if (j >= 0)
-		err_exit();
+	free_err(&line, j);
 }
 
 t_stackb	*execute_checker_1(char *line, t_stacka **t_a, t_stackb *b)
 {
 	t_stacka	*a;
-	t_stackb	*tmp;
 
 	a = *t_a;
-	tmp = NULL;
 	if (!ft_strcmp(line, "ss"))
 	{
 		if (a && a->arg[0] && a->arg[1] && b && b->arg[0] && b->arg[1])
@@ -107,29 +102,6 @@ void	ok_kos(t_stacka **a, int ac, int size)
 	}
 }
 
-void	checking(char **av, t_stacka **a, int ac)
-{
-	int	i;
-	int	size;
-			t_stackb	*b;
-		 t_stackb	*tmp;
-
-	b = NULL;
-	tmp = NULL;
-	i = 0;
-	size = (*a)->size;
-	while (av[i])
-	{
-		b = execute_checker(av[i], a, b);
-		tmp = b;
-		i++;
-	}
-	if(tmp)
-		free_stackb(tmp);
-	ok_kos(a,ac,size);
-		
-}
-
 int	main(int ac, char **ag)
 {
 	char	**split;
@@ -151,7 +123,7 @@ int	main(int ac, char **ag)
 			split = &ag[i];
 		if (i == 2)
 			checkerd(split);
-		checker(split,ac);
+		checker(split, ac);
 		if (ac == 1 + i)
 			free_2d(split);
 	}

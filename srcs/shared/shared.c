@@ -3,7 +3,6 @@
 char	**delete_number(t_stacka **a)
 {
 	     int	i;
-	    char	*tmp;
 	    char	**av;
 	t_stacka	*ptr;
 	    int		size;
@@ -14,8 +13,6 @@ char	**delete_number(t_stacka **a)
 	if (!ptr->arg || !ptr->arg[0])
 		return (NULL);
 	size = size_arg(ptr->arg);
-	if (ptr->arg)
-		tmp = ptr->arg[0];
 	while (ptr->arg[i])
 	{
 		ptr->arg[i] = (ptr->arg[i + 1]);
