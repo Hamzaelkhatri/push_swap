@@ -6,7 +6,7 @@
 /*   By: helkhatr <helkhatr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 13:47:11 by helkhatr          #+#    #+#             */
-/*   Updated: 2021/04/20 14:03:50 by helkhatr         ###   ########.fr       */
+/*   Updated: 2021/04/20 15:33:28 by helkhatr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	debug_ss(t_stacka **t_a, t_stackb *b)
 	t_stacka	*a;
 
 	a = *t_a;
-	if (b->arg[0] && b->arg[1] && a->arg[0] && a->arg[1])
+	if (b && b->arg[0] && b->arg[1] && a->arg[0] && a->arg[1])
 	{
 		swap_b(&b);
 		swap_a(&a);

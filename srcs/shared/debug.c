@@ -6,7 +6,7 @@
 /*   By: helkhatr <helkhatr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 13:33:47 by helkhatr          #+#    #+#             */
-/*   Updated: 2021/04/20 14:00:23 by helkhatr         ###   ########.fr       */
+/*   Updated: 2021/04/20 16:58:56 by helkhatr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,6 @@ t_stackb	*execute_checkerd_4(char *line, t_stacka **t_a, t_stackb *b)
 		else
 			ft_putendl_fd("\e[1;31mB OR A : Empty :/\e[0;37m", 1);
 	}
-	else
-	{
-		ft_putstr_fd("error\n", 2);
-		exit(0);
-	}
 	return (b);
 }
 
@@ -58,7 +53,7 @@ void	exucute__rra(t_stacka **t_a, t_stackb *b)
 	t_stacka	*a;
 
 	a = *t_a;
-	if (a && a->arg[0] && a->arg[1])
+	if (a && a->arg[0])
 	{
 		rras(a);
 		if (b)

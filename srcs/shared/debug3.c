@@ -7,6 +7,7 @@ t_stackb	*execute_checkerd_3(char *line, t_stacka **t_a, t_stackb *b)
 	a = *t_a;
 	if (!ft_strcmp(line, "rra"))
 	{
+		rras(a);
 	}
 	else if (!ft_strcmp(line, "rrb"))
 	{
@@ -22,6 +23,7 @@ t_stackb	*execute_checkerd_3(char *line, t_stacka **t_a, t_stackb *b)
 		b = execute_checkerd_4(line, t_a, b);
 	return (b);
 }
+
 
 t_stackb	*execute_checkerd_2(char *line, t_stacka **t_a, t_stackb *b)
 {

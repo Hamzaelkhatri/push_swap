@@ -6,7 +6,7 @@
 /*   By: helkhatr <helkhatr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 12:39:11 by helkhatr          #+#    #+#             */
-/*   Updated: 2021/04/20 14:56:26 by helkhatr         ###   ########.fr       */
+/*   Updated: 2021/04/20 17:01:30 by helkhatr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	check_operation(char **ag)
 {
 	              int	i;
 	              int	j;
-	static const char	*operation[] = {"pa", "pb", "sa", "ss", "ra", "rb",
+	static const char	*operation[] = {"pa", "pb", "sb" , "sa", "ss", "ra", "rb",
 		"rra", "rrb", "rr", "rrr"};
 
 	i = 0;
@@ -43,7 +43,7 @@ void	check_operation(char **ag)
 		err_exit();
 }
 
-char	*read_line(void)
+char	*read_line(int ac)
 {
 	char	*line;
 	char	*str;
@@ -65,6 +65,7 @@ char	*read_line(void)
 		}
 		if (tmp)
 			free(tmp);
+		if(ac > 2)
 		check_operation_(line);
 		free(line);
 		line = ft_calloc(BUFFER_SIZE, sizeof(char));
@@ -73,7 +74,7 @@ char	*read_line(void)
 	return (str);
 }
 
-int	checker(char **ag)
+int	checker(char **ag, int ac)
 {
 	t_stacka	*a;
 	    char	**lines;
@@ -85,13 +86,13 @@ int	checker(char **ag)
 	check_digit(ag);
 	check_double(ag);
 	add_new(&a, ag);
-	str = read_line();
+	str = read_line(ac);
 	lines = ft_split(str, '\n');
 	free(str);
 	if(lines)
 	{
 		check_operation(lines);
-		checking(lines, &a);
+		checking(lines, &a, ac);
 		free_2d(lines);
 	}
 	free(a->arg);

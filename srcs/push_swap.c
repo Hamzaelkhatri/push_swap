@@ -6,18 +6,16 @@
 /*   By: helkhatr <helkhatr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 11:48:41 by helkhatr          #+#    #+#             */
-/*   Updated: 2021/04/20 12:07:08 by helkhatr         ###   ########.fr       */
+/*   Updated: 2021/04/20 15:06:43 by helkhatr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	frees(t_stacka *a, char **split, int ac)
+void	frees(t_stacka *a)
 {
 	free(a->arg);
 	free(a);
-	if (ac == 2)
-		free_2d(split);
 	if (a->fd)
 		close(a->fd);
 }
@@ -71,7 +69,9 @@ int	main(int ac, char **ag)
 		add_new(&a, split);
 		check_param(a, ag);
 		execute_algos(a, b, split);
-		frees(a, split, ac);
+		if (ac == 1 + i)
+			free_2d(split);
+		frees(a);
 	}
 	return (0);
 }

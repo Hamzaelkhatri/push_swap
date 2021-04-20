@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker_norm.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helkhatr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: helkhatr <helkhatr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 12:07:44 by helkhatr          #+#    #+#             */
-/*   Updated: 2021/04/20 12:07:46 by helkhatr         ###   ########.fr       */
+/*   Updated: 2021/04/20 16:19:22 by helkhatr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ok_ko(t_stacka *a, t_stackb *b)
 	exit(0);
 }
 
-void	execute_checker_4(char *line, t_stacka **t_a, t_stackb *b)
+t_stackb *execute_checker_4(char *line, t_stacka **t_a, t_stackb *b)
 {
 	t_stacka	*a;
 
@@ -49,14 +49,17 @@ void	execute_checker_4(char *line, t_stacka **t_a, t_stackb *b)
 		if (a && a->arg[0] && a->arg[1])
 			ras(a);
 	}
-	else
+	else if (!ft_strcmp(line, "rrr"))
 	{
-		ft_putstr_fd("error\n", 2);
-		exit(1);
+		if (a && a->arg[0] && a->arg[1])
+			rras(a);
+		if (b && b->arg[0] && b->arg[1])
+			rrbs(b);
 	}
+	return (b);
 }
 
-void	execute_checker_3(char *line, t_stacka **t_a, t_stackb *b)
+t_stackb *execute_checker_3(char *line, t_stacka **t_a, t_stackb *b)
 {
 	t_stacka	*a;
 
@@ -72,10 +75,11 @@ void	execute_checker_3(char *line, t_stacka **t_a, t_stackb *b)
 			rrbs(b);
 	}
 	else
-		execute_checker_4(line, t_a, b);
+		b = execute_checker_4(line, t_a, b);
+	return (b);
 }
 
-void	execute_checker_2(char *line, t_stacka **t_a, t_stackb *b)
+t_stackb *execute_checker_2(char *line, t_stacka **t_a, t_stackb *b)
 {
 	t_stacka	*a;
 
@@ -99,5 +103,6 @@ void	execute_checker_2(char *line, t_stacka **t_a, t_stackb *b)
 			ras(a);
 	}
 	else
-		execute_checker_3(line, t_a, b);
+		b = execute_checker_3(line, t_a, b);
+	return (b);
 }
