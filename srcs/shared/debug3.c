@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   debug3.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: helkhatr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/20 17:47:08 by helkhatr          #+#    #+#             */
+/*   Updated: 2021/04/20 17:47:19 by helkhatr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 t_stackb	*execute_checkerd_3(char *line, t_stacka **t_a, t_stackb *b)
@@ -23,7 +35,6 @@ t_stackb	*execute_checkerd_3(char *line, t_stacka **t_a, t_stackb *b)
 		b = execute_checkerd_4(line, t_a, b);
 	return (b);
 }
-
 
 t_stackb	*execute_checkerd_2(char *line, t_stacka **t_a, t_stackb *b)
 {

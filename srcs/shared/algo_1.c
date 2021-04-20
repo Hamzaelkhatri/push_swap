@@ -6,7 +6,7 @@
 /*   By: helkhatr <helkhatr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 12:56:25 by helkhatr          #+#    #+#             */
-/*   Updated: 2021/04/20 17:22:16 by helkhatr         ###   ########.fr       */
+/*   Updated: 2021/04/20 17:45:35 by helkhatr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	algo_part_2(t_stacka *a, t_stackb *b)
 {
 	while (!check_sort(a->arg))
 	{
-		if(ft_atoi(a->arg[0]) > ft_atoi(a->arg[1]) && ft_atoi(a->arg[1]) > ft_atoi(a->arg[2]))
+		if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[1])
+			&& ft_atoi(a->arg[1]) > ft_atoi(a->arg[2]))
 		{
 			extra_ra(a);
 			swap_a(&a);

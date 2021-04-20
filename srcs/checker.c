@@ -6,7 +6,7 @@
 /*   By: helkhatr <helkhatr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 12:12:53 by helkhatr          #+#    #+#             */
-/*   Updated: 2021/04/20 17:06:57 by helkhatr         ###   ########.fr       */
+/*   Updated: 2021/04/20 17:55:38 by helkhatr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ void	check_operation_(char *ag)
 {
 	              int	i;
 	              int	j;
-	static const char	*operation[] = {"pa", "sb" , "pb", "sa", "sa", "sa", "ss", "ra",
-		"rb","rra", "rrb", "rr", "rrr"};
-				char	**line;
+	static const char	*operation[] = {"pa", "sb", "pb", "sa", "sa", "sa",
+		"ss", "ra", "rb", "rra", "rrb", "rr", "rrr"};
+	             char	**line;
 
-	line = ft_split(ag,'\n');
+	line = ft_split(ag, '\n');
 	i = 0;
 	j = 0;
 	while (line[i])
@@ -44,7 +44,7 @@ void	check_operation_(char *ag)
 		err_exit();
 }
 
-t_stackb *execute_checker_1(char *line, t_stacka **t_a, t_stackb *b)
+t_stackb	*execute_checker_1(char *line, t_stacka **t_a, t_stackb *b)
 {
 	t_stacka	*a;
 	t_stackb	*tmp;
@@ -53,7 +53,7 @@ t_stackb *execute_checker_1(char *line, t_stacka **t_a, t_stackb *b)
 	tmp = NULL;
 	if (!ft_strcmp(line, "ss"))
 	{
-		if (a && a->arg[0] && a->arg[1]  && b && b->arg[0] && b->arg[1])
+		if (a && a->arg[0] && a->arg[1] && b && b->arg[0] && b->arg[1])
 		{
 			swap_b(&b);
 			swap_a(&a);
@@ -81,7 +81,7 @@ t_stackb	*execute_checker(char *line, t_stacka **t_a, t_stackb *b)
 		swap_a(&a);
 	else if (!ft_strcmp(line, "sb"))
 	{
-		if(b && b->arg)
+		if (b && b->arg)
 			swap_b(&b);
 	}
 	else
@@ -89,16 +89,16 @@ t_stackb	*execute_checker(char *line, t_stacka **t_a, t_stackb *b)
 	return (b);
 }
 
-void ok_kos(t_stacka **a, int ac, int size)
+void	ok_kos(t_stacka **a, int ac, int size)
 {
-	if(ac == 2)
+	if (ac == 2)
 	{
 		if (check_sort((*a)->arg))
 			ft_putstr_fd("OK\n", 1);
 		else
 			ft_putstr_fd("KO\n", 1);
 	}
-	else 
+	else
 	{
 		if (check_sort((*a)->arg) && (*a)->size == size)
 			ft_putstr_fd("OK\n", 1);
@@ -109,10 +109,10 @@ void ok_kos(t_stacka **a, int ac, int size)
 
 void	checking(char **av, t_stacka **a, int ac)
 {
-	     int	i;
-		 int	size;
-	t_stackb	*b;
-	t_stackb	*tmp;
+	int	i;
+	int	size;
+			t_stackb	*b;
+		 t_stackb	*tmp;
 
 	b = NULL;
 	tmp = NULL;
