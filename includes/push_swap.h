@@ -131,4 +131,5 @@ t_stackb	*execute_checkerd_3(char *line, t_stacka **t_a, t_stackb *b);
 t_stackb	*execute_checkerd_4(char *line, t_stacka **t_a, t_stackb *b);
 void		execute__pa(t_stacka **t_a, t_stackb *b);
 void		execute__ra(t_stacka **t_a, t_stackb *b);
+void		check_operation_(char *ag);
 #endif

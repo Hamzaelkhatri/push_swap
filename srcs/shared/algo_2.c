@@ -6,7 +6,7 @@
 /*   By: helkhatr <helkhatr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 13:18:38 by helkhatr          #+#    #+#             */
-/*   Updated: 2021/04/20 13:23:21 by helkhatr         ###   ########.fr       */
+/*   Updated: 2021/04/20 14:31:25 by helkhatr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	sort_b(t_stacka *a, t_stackb *b)
 	int	proximity;
 	int	index;
 
+	proximity = 0;
+	index = 0;
 	while (b && b->arg[0])
 	{
 		b->minvalue = get_max_(b->arg);
@@ -87,6 +89,8 @@ int	sort_a(t_stacka *a, t_stackb *b)
 	    char	*tmp;
 
 	tmp = NULL;
+	proximity = 0;
+	index = 0;
 	while (a->arg[0] && !check_sort(a->arg))
 	{
 		a->minvalue = get_min_(a->arg);

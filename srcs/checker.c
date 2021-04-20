@@ -6,11 +6,44 @@
 /*   By: helkhatr <helkhatr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 12:12:53 by helkhatr          #+#    #+#             */
-/*   Updated: 2021/04/20 12:34:51 by helkhatr         ###   ########.fr       */
+/*   Updated: 2021/04/20 14:47:38 by helkhatr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	check_operation_(char *ag)
+{
+	              int	i;
+	              int	j;
+	static const char	*operation[] = {"pa", "pb", "sa", "ss", "ra", "rb",
+		"rra", "rrb", "rr", "rrr"};
+				char	**line;
+
+	line = ft_split(ag,'\n');
+	i = 0;
+	j = 0;
+	while (line[i])
+	{
+		j = 0;
+		while (operation[j])
+		{
+			if (!ft_strcmp(line[i], operation[j]))
+			{
+				j = -1;
+				break ;
+			}
+			j++;
+		}
+		if (j == -1)
+			break ;
+		i++;
+	}
+	free_2d(line);
+	if (j >= 0)
+		err_exit();
+}
+
 
 void	execute_checker_1(char *line, t_stacka **t_a, t_stackb *b)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helkhatr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: helkhatr <helkhatr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 12:39:11 by helkhatr          #+#    #+#             */
-/*   Updated: 2021/04/20 12:39:41 by helkhatr         ###   ########.fr       */
+/*   Updated: 2021/04/20 14:56:26 by helkhatr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	check_operation(char **ag)
 
 	i = 0;
 	j = 0;
+	if(!*ag)
+		return ;
 	while (ag[i])
 	{
 		j = 0;
@@ -63,6 +65,7 @@ char	*read_line(void)
 		}
 		if (tmp)
 			free(tmp);
+		check_operation_(line);
 		free(line);
 		line = ft_calloc(BUFFER_SIZE, sizeof(char));
 	}
@@ -85,9 +88,12 @@ int	checker(char **ag)
 	str = read_line();
 	lines = ft_split(str, '\n');
 	free(str);
-	check_operation(lines);
-	checking(lines, &a);
-	free_2d(lines);
+	if(lines)
+	{
+		check_operation(lines);
+		checking(lines, &a);
+		free_2d(lines);
+	}
 	free(a->arg);
 	free(a);
 	return (0);

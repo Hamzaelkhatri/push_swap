@@ -25,7 +25,7 @@ H_FLAG= -I $(HDR_PATH)
 
 COMP= gcc
 
-# FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror
 
 all: lib $(NAME_CHECKER) $(NAME_PUSH_SWAP) 
 
