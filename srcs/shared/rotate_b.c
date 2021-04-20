@@ -29,7 +29,7 @@ void	rrbs(t_stackb *ptr)
 
 void	rb_extra(t_stackb *ptr)
 {
-	print_rb(ptr->colors);
+	print_rb(ptr->colors, ptr->fd);
 	rbs(ptr);
 }
 

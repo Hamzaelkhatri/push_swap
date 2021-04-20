@@ -1,89 +1,89 @@
 #include "push_swap.h"
 
-void	print_pa(int color)
+void print_pa(int color, int fd)
 {
-	if (color)
-		ft_putendl_fd(C_PA, 1);
-	else
-		ft_putendl_fd("pa", 1);
+    if (color)
+        ft_putendl_fd(C_PA, fd);
+    else
+        ft_putendl_fd("pa", fd);
 }
 
-void	print_pb(int color)
+void print_pb(int color, int fd)
 {
-	if (color)
-		ft_putendl_fd(C_PB, 1);
-	else
-		ft_putendl_fd("pb", 1);
+    if (color)
+        ft_putendl_fd(C_PB, fd);
+    else
+        ft_putendl_fd("pb", fd);
 }
 
-void	print_sa(int color)
+void print_sa(int color, int fd)
 {
-	if (color)
-		ft_putendl_fd(C_SA, 1);
-	else
-		ft_putendl_fd("sa", 1);
+    if (color)
+        ft_putendl_fd(C_SA, fd);
+    else
+        ft_putendl_fd("sa", fd);
 }
 
-void	print_sb(int color)
+void print_sb(int color, int fd)
 {
-	if (color)
-		ft_putendl_fd(C_SB, 1);
-	else
-		ft_putendl_fd("sb", 1);
+    if (color)
+        ft_putendl_fd(C_SB, fd);
+    else
+        ft_putendl_fd("sb", fd);
 }
 
-void	print_ss(int color)
+void print_ss(int color, int fd)
 {
-	if (color)
-		ft_putendl_fd(C_SS, 1);
-	else
-		ft_putendl_fd("ss", 1);
+    if (color)
+        ft_putendl_fd(C_SS, fd);
+    else
+        ft_putendl_fd("ss", fd);
 }
 
-void	print_ra(int color)
+void print_ra(int color, int fd)
 {
-	if (color)
-		ft_putendl_fd(C_RA, 1);
-	else
-		ft_putendl_fd("ra", 1);
+    if (color)
+        ft_putendl_fd(C_RA, fd);
+    else
+        ft_putendl_fd("ra", fd);
 }
 
-void	print_rb(int color)
+void print_rb(int color, int fd)
 {
-	if (color)
-		ft_putendl_fd(C_RB, 1);
-	else
-		ft_putendl_fd("rb", 1);
+    if (color)
+        ft_putendl_fd(C_RB, fd);
+    else
+        ft_putendl_fd("rb", fd);
 }
 
-void	print_rr(int color)
+void print_rr(int color, int fd)
 {
-	if (color)
-		ft_putendl_fd(C_RR, 1);
-	else
-		ft_putendl_fd("rr", 1);
+    if (color)
+        ft_putendl_fd(C_RR, fd);
+    else
+        ft_putendl_fd("rr", fd);
 }
 
-void	print_rrr(int color)
+void print_rrr(int color, int fd)
 {
-	if (color)
-		ft_putendl_fd(C_RRR, 1);
-	else
-		ft_putendl_fd("rrr", 1);
+    if (color)
+        ft_putendl_fd(C_RRR, fd);
+    else
+        ft_putendl_fd("rrr", fd);
 }
 
-void	print_rra(int color)
+void print_rra(int color, int fd)
 {
-	if (color)
-		ft_putendl_fd(C_RRA, 1);
-	else
-		ft_putendl_fd("rra", 1);
+    if (color)
+        ft_putendl_fd(C_RRA, fd);
+    else
+        ft_putendl_fd("rra", fd);
 }
 
-void	print_rrb(int color)
+void print_rrb(int color, int fd)
 {
-	if (color)
-		ft_putendl_fd(C_RRB, 1);
-	else
-		ft_putendl_fd("rrb", 1);
+    if (color)
+        ft_putendl_fd(C_RRB, fd);
+    else
+        ft_putendl_fd("rrb", fd);
 }

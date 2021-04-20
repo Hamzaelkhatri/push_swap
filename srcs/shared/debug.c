@@ -47,7 +47,7 @@ void	execute_checkerd_3(char *line, t_stacka **t_a, t_stackb *b)
 			if (b)
 				print_stacks(a->arg, b->arg);
 			else
-				print_2(a->arg);
+				print_2(a->arg,1);
 		}
 		else
 			puts("A : empty :/");
@@ -100,7 +100,7 @@ void	execute_checkerd_2(char *line, t_stacka **t_a, t_stackb *b)
 			if (b)
 				print_stacks(a->arg, b->arg);
 			else
-				print_2(a->arg);
+				print_2(a->arg,1);
 		}
 		else
 			ft_putendl_fd("\e[1;31mA : Empty :/\e[0;37m", 1);
@@ -163,7 +163,7 @@ t_stackb	*execute_checkerd(char *line, t_stacka **t_a, t_stackb *b)
 			if (b)
 				print_stacks(a->arg, b->arg);
 			else
-				print_2(a->arg);
+				print_2(a->arg,1);
 		}
 		else
 			ft_putendl_fd("\e[1;31mA : has 1 character or none :/\e[0;37m", 1);

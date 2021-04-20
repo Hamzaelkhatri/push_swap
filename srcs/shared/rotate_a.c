@@ -28,7 +28,7 @@ void	rras(t_stacka *ptr)
 
 void	extra_ra(t_stacka *ptr)
 {
-	print_ra(ptr->colors);
+	print_ra(ptr->colors, ptr->fd);
 	ras(ptr);
 }
 

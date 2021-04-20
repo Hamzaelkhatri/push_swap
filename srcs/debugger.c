@@ -23,7 +23,7 @@ int	debugger(char **ag)
 				if (b)
 					print_stacks(a->arg, b->arg);
 				else
-					print_2(a->arg);
+					print_2(a->arg,1);
 			}
 			else
 				puts("A : has 1 caracter or none :/");
@@ -99,7 +99,7 @@ int	debugger(char **ag)
 				if (b)
 					print_stacks(a->arg, b->arg);
 				else
-					print_2(a->arg);
+					print_2(a->arg,1);
 			}
 			else
 				puts("A : empty :/");
@@ -112,7 +112,7 @@ int	debugger(char **ag)
 				if (b)
 					print_stacks(a->arg, b->arg);
 				else
-					print_2(a->arg);
+					print_2(a->arg,1);
 			}
 			else
 				puts("A : empty :/");

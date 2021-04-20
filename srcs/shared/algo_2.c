@@ -68,9 +68,7 @@ int	sort_a(t_stacka *a, t_stackb *b)
 	     int	proximity;
 	     int	index;
 	    char	*tmp;
-	t_stackb	*tmps;
 
-	tmps = NULL;
 	tmp = NULL;
 	while (a->arg[0] && !check_sort(a->arg))
 	{
@@ -93,8 +91,8 @@ int	sort_a(t_stacka *a, t_stackb *b)
 		}
 		if (a->minvalue == ft_atoi(a->arg[0]))
 		{
-			print_pb(a->colors);
-			tmps = push_b(a, &b, a->arg[0]);
+			print_pb(a->colors, a->fd);
+			push_b(a, &b, a->arg[0]);
 			delete_number(&a);
 		}
 		check_show(a, b);

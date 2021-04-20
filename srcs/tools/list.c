@@ -16,6 +16,7 @@ void	add_new(t_stacka **ptr, char **av)
 	new->arg[size] = NULL;
 	new->colors = 0;
 	new->show = 0;
+	new->fd = 1;
 	new->lastnumber = ft_atoi(av[size - 1]);
 	new->firstnumber = ft_atoi(av[0]);
 	while (--size >= 0)

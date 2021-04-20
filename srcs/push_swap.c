@@ -1,5 +1,15 @@
 #include "push_swap.h"
 
+void save(t_stacka *a)
+{
+    int fd;
+
+    fd = open("result.ps",O_CREAT|O_RDWR| O_TRUNC,0666);
+    a->fd = fd;
+    ft_putendl_fd("######## PUSH SWAP LOG ##########",a->fd);
+    print_2(a->arg,a->fd);
+}
+
 void	p_help(void)
 {
 	ft_putendl_fd("welcome to push swap help", 1);
@@ -19,6 +29,8 @@ void	check_param(t_stacka *a, char **ag)
 		p_help();
 	else if (!ft_strcmp(ag[1], "-show"))
 		a->show = 1;
+    else if (!ft_strcmp(ag[1], "-s"))
+		save(a);
 }
 
 int	main(int ac, char **ag)
@@ -35,7 +47,7 @@ int	main(int ac, char **ag)
 	if (ac > 1)
 	{
 		if (!ft_strcmp(ag[1], "-c") || !ft_strcmp(ag[1], "-h")
-			|| !ft_strcmp(ag[1], "-show"))
+			|| !ft_strcmp(ag[1], "-show") || !ft_strcmp(ag[1], "-s"))
 			i = 2;
 		if (ac == 1 + i)
 			split = ft_split(ag[i], ' ');
@@ -59,6 +71,8 @@ int	main(int ac, char **ag)
 		free(a);
 		if (ac == 2)
 			free_2d(split);
+        if(a->fd)
+            close(a->fd);
 	}
 	return (0);
 }
