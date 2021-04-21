@@ -17,7 +17,7 @@ void	check_operation_(char *ag)
 	              int	i;
 	              int	j;
 	             char	**line;
-	static const char	*operation[] = {"pa", "sb", "pb", "sa", "sa", "sa",
+	static const char	*operation[] = {"pa", "sb", "pb", "sa",
 		"ss", "ra", "rb", "rra", "rrb", "rr", "rrr"};
 
 	line = ft_split(ag, '\n');
@@ -95,11 +95,12 @@ void	ok_kos(t_stacka **a, int ac, int size)
 	}
 	else
 	{
-		if (check_sort((*a)->arg) && (*a)->size == size)
+		if (check_sort((*a)->arg) && ((*a)->size == size || (*a)->size == size + 1))
 			ft_putstr_fd("OK\n", 1);
 		else
 			ft_putstr_fd("KO\n", 1);
 	}
+    exit(0);
 }
 
 int	main(int ac, char **ag)
@@ -111,12 +112,6 @@ int	main(int ac, char **ag)
 	i = 1;
 	if (ac > 1)
 	{
-		if (!ft_strcmp(ag[1], "-v"))
-			i = 2;
-		if (i == 2 && !ag[2])
-			p_help();
-		if (i == 2 && !ag[3])
-			exit(0);
 		if (ac == 1 + i)
 			split = ft_split(ag[i], ' ');
 		else

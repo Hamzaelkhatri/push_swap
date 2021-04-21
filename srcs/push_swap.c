@@ -28,6 +28,8 @@ void	main_check(char **split)
 
 void	execute_algos(t_stacka *a, t_stackb *b, char **split)
 {
+    if(check_sort(a->arg))
+        exit(0);
 	if (size_arg(split) < 20)
 		algo_under50(a, b);
 	else if (size_arg(split) < 100)

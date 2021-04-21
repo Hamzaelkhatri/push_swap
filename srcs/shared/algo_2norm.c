@@ -36,7 +36,7 @@ void	show(t_stacka *a, t_stackb *b)
 		ft_putstr_fd("\n", 1);
 		i++;
 	}
-	usleep(100000);
+	usleep(1000000);
 }
 
 void	quick_sort2(t_stacka *a, t_stackb *b)

@@ -37,25 +37,27 @@ void	free_b(t_stacka *a, t_stackb *b)
 
 void	algo_part_2(t_stacka *a, t_stackb *b)
 {
-	while (!check_sort(a->arg))
-	{
-		if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[1])
-			&& ft_atoi(a->arg[1]) > ft_atoi(a->arg[2]))
-		{
-			extra_ra(a);
-			swap_a(&a);
-		}
-		else if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[1])
-			&& ft_atoi(a->arg[1]) < ft_atoi(a->arg[2]))
-			rra_extra(a);
-		else if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[2]))
-			rra_extra(a);
-		else if (ft_atoi(a->arg[1]) > ft_atoi(a->arg[2]))
-			extra_ra(a);
-		if (ft_atoi(a->arg[0]) > ft_atoi(a->arg[1]))
-			swapa_extra(&a);
-		check_show(a, b);
+    get_min(&a);
+    if (ft_atoi(a->arg[0]) < ft_atoi(a->arg[1]) && ft_atoi(a->arg[2]) == a->minvalue)
+        rra_extra(a);
+	if (ft_atoi(a->arg[2]) == a->minvalue && ft_atoi(a->arg[0]) > ft_atoi(a->arg[1]))
+    {
+        swapa_extra(&a);
+        rra_extra(a);
 	}
+	if (ft_atoi(a->arg[1]) == a->minvalue)
+    {
+        if(ft_atoi(a->arg[0]) > ft_atoi(a->arg[2]))
+            extra_ra(a);
+        else
+            swapa_extra(&a);
+    }
+     if (ft_atoi(a->arg[0]) == a->minvalue && ft_atoi(a->arg[1]) > ft_atoi(a->arg[2]))
+    {
+        swapa_extra(&a);
+        extra_ra(a);
+    }
+	check_show(a, b);
 	free_b(a, b);
 }
 
