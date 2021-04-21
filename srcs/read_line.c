@@ -96,7 +96,7 @@ int	checker(char **ag, int ac)
 		checking(lines, &a, ac);
 		free_2d(lines);
 	}
-    ok_kos(&a,ac,a->size);
+	ok_kos(&a, ac, a->size);
 	free(a->arg);
 	free(a);
 	return (0);

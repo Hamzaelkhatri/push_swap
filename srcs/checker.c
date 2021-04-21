@@ -95,12 +95,13 @@ void	ok_kos(t_stacka **a, int ac, int size)
 	}
 	else
 	{
-		if (check_sort((*a)->arg) && ((*a)->size == size || (*a)->size == size + 1))
+		if (check_sort((*a)->arg) && ((*a)->size == size
+				|| (*a)->size == size + 1))
 			ft_putstr_fd("OK\n", 1);
 		else
 			ft_putstr_fd("KO\n", 1);
 	}
-    exit(0);
+	exit(0);
 }
 
 int	main(int ac, char **ag)

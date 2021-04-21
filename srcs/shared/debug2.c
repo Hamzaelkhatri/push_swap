@@ -42,8 +42,8 @@ t_stackb	*execute_checkerd_1(char *line, t_stacka **t_a, t_stackb *b)
 		{
 			push_b(a, &b, a->arg[0]);
 			delete_number(&a);
-            if (b)
-			    print_stacks(a->arg, b->arg);
+			if (b)
+				print_stacks(a->arg, b->arg);
 		}
 		else
 			ft_putendl_fd("\e[1;31m A : empty none :/\e[0;37m", 1);
