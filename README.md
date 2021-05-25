@@ -3,6 +3,10 @@ sort data on a stack, with a limited set of instructions, using the lowest possi
 
 ## Concept of this Project ##
 
+
+## Push_Swap Algorithm ::
+<a href="https://diyanazizo13.medium.com/fastest-push-swap-algorithm-2f510028602b">Push_Swap Algorithm</a>
+
  The idea is simple, You have two stacks called Stack A and Stack B. <br>
  Stack A is given a random list of unorganized numbers.  <br>
  You must take the random list of numbers in Stack A and sort them so that Stack A is organized from smallest to largest. <br> 
